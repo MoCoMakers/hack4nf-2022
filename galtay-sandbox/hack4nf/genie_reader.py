@@ -8,7 +8,7 @@ def read_clinical_sample(fpath):
     return pd.read_csv(fpath, sep="\t", comment="#")
 
 def read_cna(fpath):
-    return pd.read_csv(fpath, sep="\t")
+    return pd.read_csv(fpath, sep="\t").set_index("Hugo_Symbol")
 
 def read_mutations_extended(fpath):
     return pd.read_csv(
