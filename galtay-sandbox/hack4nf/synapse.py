@@ -16,6 +16,8 @@ _PATH_HERE = pathlib.Path(__file__).parent.absolute()
 DATASET_IDS = {
     "genie-12.0-public": "syn32309524",
     "genie-13.3-consortium": "syn36709873",
+    #"drug-screen-pnf-cell-lines": "syn4939906",
+    "drug-screen-pnf-cell-lines-single-agent-screens": "syn5522627",
 }
 
 
@@ -44,3 +46,8 @@ def sync_datasets(dataset_ids=None):
 def get_dataset(dataset_id):
     syn = get_client()
     return syn.get(dataset_id)
+
+
+if __name__ == "__main__":
+
+    sync_datasets()
