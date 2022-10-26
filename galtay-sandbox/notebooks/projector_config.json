@@ -1,0 +1,13 @@
+{
+    "embeddings": [
+        {
+            "tensorName": "CNA Gene Embeddings",
+            "tensorShape": [
+                965,
+                200
+            ],
+            "tensorPath": "https://raw.githubusercontent.com/.../tensors.tsv",
+            "metadataPath": "https://raw.githubusercontent.com/.../optional.metadata.tsv"
+        }
+    ]
+}
