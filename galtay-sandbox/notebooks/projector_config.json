@@ -6,8 +6,8 @@
                 965,
                 200
             ],
-            "tensorPath": "https://raw.githubusercontent.com/.../tensors.tsv",
-            "metadataPath": "https://raw.githubusercontent.com/.../optional.metadata.tsv"
+            "tensorPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/notebooks/pmi_svd_gene_cna_vecs.tsv",
+            "metadataPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/notebooks/pmi_svd_gene_cna_meta.tsv"
         }
     ]
 }
