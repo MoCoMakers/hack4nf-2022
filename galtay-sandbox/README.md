@@ -5,6 +5,7 @@ copy hack4nf into notebooks folder before running your Jupyter<br>
 cd to notebooks<br>
 <br>
 Start by requesting access to GENIE dataset - https://www.synapse.org/#!Synapse:syn34548529/wiki/618904<br>
+After you get a confirmation email - you will need to go back the the site, click "Request Access" and click Accept on the electronic terms that pop up. You should then have the ability to download from the website (and thus the code).
 <br>
 Run `jupyter notebook` and launch a notebook file<br>
 Run the imports and do any pip installs you might need<br>
