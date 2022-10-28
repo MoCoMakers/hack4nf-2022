@@ -102,6 +102,6 @@ def dme_to_cravat(df):
         & (df['Tumor_Seq_Allele1'] != df['Tumor_Seq_Allele2'])
     )
     df_cravat["ALT"] = df['Tumor_Seq_Allele2']
-    df.loc[bmask, "ALT"] = df['Tumor_Seq_Allele1']
+    df_cravat.loc[bmask, "ALT"] = df['Tumor_Seq_Allele1']
 
     return df_cravat
