@@ -1,22 +1,24 @@
 import pandas as pd
 
 
-SYNIDS = {
-    "genie_12.0": {
-        "data_clinical_patient": "syn32689054",
-        "data_clinical_sample": "syn32689057",
-        "data_mutations_extended": "syn32689317",
-        "data_CNA": "syn32689019",
-        "data_cna_hg19_seg": "syn32689379",
-    },
-    "genie_13.3": {
-        "data_clinical_patient": "syn36710136",
-        "data_clinical_sample": "syn36710137",
-        "data_mutations_extended": "syn36710142",
-        "data_CNA": "syn36710134",
-        "data_cna_hg19_seg": "syn36710143",
-    },
-}
+NF_HUGO_SYMBOLS = [
+    "NF1",
+    "NF2",
+]
+
+NF_EXTRA_HUGO_SYMBOLS = [
+    "SMARCB1",
+    "LZTR1",
+]
+
+NF_ONCOTREE_CODES = [
+    "NST",
+    "MPNST",
+    "NFIB",
+    "SCHW",
+    "CSCHW",
+    "MSCHW",
+]
 
 
 def read_clinical_patient(fpath):
