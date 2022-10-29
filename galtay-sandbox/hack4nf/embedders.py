@@ -31,7 +31,9 @@ def filter_counter(counter_orig, min_val=None, max_val=None):
 
 class TokenEmbeddings:
 
+
     def __init__(self, ser_tokens, min_unigram_count=10, embedding_size=200, ppmi_alpha=0.75, svd_p=1.0):
+
         self.ser_tokens = ser_tokens
         self.min_unigram_count = min_unigram_count
         self.embedding_size = embedding_size
@@ -145,36 +147,57 @@ class TokenEmbeddings:
         self.sample_to_index = {
             sample_id: ii for ii, sample_id in self.index_to_sample.items()}
 
+        num_samples = len(self.index_to_sample)
+
         # create num_samples X num_tokens zeros matrix then fill it
-        sample_vecs = np.zeros((
-            len(self.index_to_sample),
-            self.svd_mat.shape[1],
-        ))
+        sample_vecs = np.zeros((num_samples, self.embedding_size))
+
         for sample_id, full_row in tqdm(self.ser_tokens.items(), desc='making sample vectors'):
             row = [token for token in full_row if token in self.unigram_counts]
             vec = np.zeros(self.svd_mat.shape[1])
+            norm = len(row) if len(row) > 0 else 1
             for token in row:
                 token_index = self.token_to_index[token]
                 token_vec = self.svd_mat[token_index]
                 vec += token_vec
-            vec = vec / len(row)
+            vec = vec / norm
             sample_index = self.sample_to_index[sample_id]
             sample_vecs[sample_index,:] = vec
 
         self.sample_vecs = sample_vecs
 
 
-    def write_projector_files(self, path, tag, token_name):
+    def write_projector_files(self, df_dcs, path, tag, token_name):
 
         # write out token level embeddings
+        # tag will typically be one of
+        #  * dme = data_mutations_extended
+        #  * cna = copy number alteration
+        # token name will typically be one of
+        #  * gene
+        #  * variant
         #====================================================================
-        df_vecs = pd.DataFrame(self.svd_mat)
+        df_vecs = pd.DataFrame(self.ppmi_mat.todense())
         df_vecs.to_csv(
-            os.path.join(path, f'{tag}_{token_name}_svd_vecs.tsv'),
+            os.path.join(path, f'{tag}_{token_name}_ppmi_vecs.tsv'),
             sep='\t',
             index=False,
             header=False,
         )
+
+
+        df_vecs = pd.DataFrame(self.svd_mat)
+        df_vecs.to_csv(
+            os.path.join(path, f'{tag}_{token_name}_svd_{self.embedding_size}_vecs.tsv'),
+            sep='\t',
+            index=False,
+            header=False,
+        )
+
+
+
+        # write out token level metadata
+        #====================================================================
 
         # record token names -> index
         df_meta = pd.DataFrame(
@@ -189,12 +212,11 @@ class TokenEmbeddings:
             df_ucnt,
             on=token_name)
 
-        df_meta.to_csv(f'{tag}_{token_name}_svd_meta.tsv', sep='\t', index=False)
+        df_meta.to_csv(os.path.join(path, f'{tag}_{token_name}_meta.tsv'), sep='\t', index=False)
 
 
         # write out sample level embeddings
         #====================================================================
-
         df_vecs = pd.DataFrame(self.sample_vecs)
         df_vecs.to_csv(
             os.path.join(path, f'{tag}_sample_vecs.tsv'),
@@ -202,3 +224,41 @@ class TokenEmbeddings:
             index=False,
             header=False,
         )
+
+        # write out sample level metadata
+        #====================================================================
+
+        df_meta = pd.DataFrame(
+            [self.index_to_sample[ii] for ii in range(len(self.index_to_sample))],
+            columns=["SAMPLE_ID"],
+        )
+
+        # reocrd sample metadata from data clinical sample
+        df_meta = pd.merge(
+            df_meta,
+            df_dcs,
+            on='SAMPLE_ID',
+            how='left',
+        )
+
+        # record sample metadata from data mutations extended
+        df_tmp = self.ser_tokens.to_frame().reset_index().rename(columns={"Hugo_Symbol": "Mutated_Hugo"})
+        df_tmp['Mutated_Hugo'] = df_tmp['Mutated_Hugo'].apply(set)
+
+        df_meta = pd.merge(
+            df_meta,
+            df_tmp,
+            on='SAMPLE_ID',
+        )
+
+        HUGO_CODES = ['NF1', 'NF2', 'SMARCB1', 'LZTR1']
+        for hugo in HUGO_CODES:
+            df_meta[f'{hugo}_mut'] = df_meta['Mutated_Hugo'].apply(lambda x: hugo in x).astype(int)
+
+        ONCOTREE_CODES = ['NST', 'MPNST', 'NFIB', 'SCHW', 'CSCHW', 'MSCHW']
+        for oncotree in ONCOTREE_CODES:
+            df_meta[f'{oncotree}_flag'] = (df_meta['ONCOTREE_CODE']==oncotree).astype(int)
+
+
+        df_meta = df_meta.drop(['Mutated_Hugo'], axis=1)
+        df_meta.to_csv(os.path.join(path, f'{tag}_sample_meta.tsv'), sep='\t', index=False)
