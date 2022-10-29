@@ -9,9 +9,6 @@ import synapseclient
 import synapseutils
 
 
-_PATH_HERE = Path(__file__).parent.absolute()
-
-
 GENIE_12 = "genie-12.0-public"
 GENIE_13 = "genie-13.3-consortium"
 
