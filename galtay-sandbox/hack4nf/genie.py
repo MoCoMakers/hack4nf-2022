@@ -107,3 +107,28 @@ def dme_to_cravat(df):
     df_cravat.loc[bmask, "ALT"] = df['Tumor_Seq_Allele1']
 
     return df_cravat
+
+
+def read_pat_sam_mut(pat_fpath, sam_fpath, mut_fpath):
+    """Read and join the,
+      * clinical_patient
+      * clinical_sample
+      * mutations_extended data
+    """
+    df_pat = read_clinical_patient(pat_fpath)
+    df_sam = read_clinical_sample(sam_fpath)
+    df_mut = read_mutations_extended(mut_fpath)
+
+    df_mut = pd.merge(
+        df_mut,
+        df_sam,
+        left_on="Tumor_Sample_Barcode",
+        right_on="SAMPLE_ID",
+    )
+    df_mut = pd.merge(
+        df_mut,
+        df_pat,
+        on="PATIENT_ID",
+    )
+
+    return df_mut
