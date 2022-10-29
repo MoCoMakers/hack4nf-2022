@@ -55,26 +55,28 @@ FILE_NAME_TO_SYNID = {
 }
 
 
-GENIE_12_PATH = Path(SYNC_PATH) / DATASET_NAME_TO_SYNID[GENIE_12]
-GENIE_13_PATH = Path(SYNC_PATH) / DATASET_NAME_TO_SYNID[GENIE_13]
+def get_file_name_to_path(sync_path=SYNC_PATH):
 
+    genie_12_path = Path(sync_path) / DATASET_NAME_TO_SYNID[GENIE_12]
+    genie_13_path = Path(sync_path) / DATASET_NAME_TO_SYNID[GENIE_13]
 
-FILE_NAME_TO_PATH = {
-    GENIE_12: {
-        DATA_CLINICAL_PATIENT: GENIE_12_PATH / f"{DATA_CLINICAL_PATIENT}.txt",
-        DATA_CLINICAL_SAMPLE: GENIE_12_PATH / f"{DATA_CLINICAL_SAMPLE}.txt",
-        DATA_MUTATIONS_EXTENDED: GENIE_12_PATH / f"{DATA_MUTATIONS_EXTENDED}.txt",
-        DATA_CNA: GENIE_12_PATH / f"{DATA_CNA}.txt",
-        DATA_CNA_HG19_SEG: GENIE_12_PATH / f"genie_{DATA_CNA_HG19_SEG}.seg",
-    },
-    GENIE_13: {
-        DATA_CLINICAL_PATIENT: GENIE_13_PATH / f"{DATA_CLINICAL_PATIENT}_13.3-consortium.txt",
-        DATA_CLINICAL_SAMPLE: GENIE_13_PATH / f"{DATA_CLINICAL_SAMPLE}_13.3-consortium.txt",
-        DATA_MUTATIONS_EXTENDED: GENIE_13_PATH / f"{DATA_MUTATIONS_EXTENDED}_13.3-consortium.txt",
-        DATA_CNA: GENIE_13_PATH / f"{DATA_CNA}_13.3-consortium.txt",
-        DATA_CNA_HG19_SEG: GENIE_13_PATH / f"genie_private_{DATA_CNA_HG19_SEG}_13.3-consortium.seg",
-    },
-}
+    file_name_to_path = {
+        GENIE_12: {
+            DATA_CLINICAL_PATIENT: genie_12_path / f"{DATA_CLINICAL_PATIENT}.txt",
+            DATA_CLINICAL_SAMPLE: genie_12_path / f"{DATA_CLINICAL_SAMPLE}.txt",
+            DATA_MUTATIONS_EXTENDED: genie_12_path / f"{DATA_MUTATIONS_EXTENDED}.txt",
+            DATA_CNA: genie_12_path / f"{DATA_CNA}.txt",
+            DATA_CNA_HG19_SEG: genie_12_path / f"genie_{DATA_CNA_HG19_SEG}.seg",
+        },
+        GENIE_13: {
+            DATA_CLINICAL_PATIENT: genie_13_path / f"{DATA_CLINICAL_PATIENT}_13.3-consortium.txt",
+            DATA_CLINICAL_SAMPLE: genie_13_path / f"{DATA_CLINICAL_SAMPLE}_13.3-consortium.txt",
+            DATA_MUTATIONS_EXTENDED: genie_13_path / f"{DATA_MUTATIONS_EXTENDED}_13.3-consortium.txt",
+            DATA_CNA: genie_13_path / f"{DATA_CNA}_13.3-consortium.txt",
+            DATA_CNA_HG19_SEG: genie_13_path / f"genie_private_{DATA_CNA_HG19_SEG}_13.3-consortium.seg",
+        },
+    }
+    return file_name_to_path
 
 
 def _read_secrets():
@@ -88,16 +90,6 @@ def get_client(silent=True):
     return synapseclient.login(
         authToken=secrets["SYNAPSE_TOKEN"],
         silent=silent)
-
-
-def sync_datasets(dataset_ids=None):
-    if dataset_ids is None:
-        dataset_ids = DATASET_IDS.values()
-    syn = get_client()
-    files = []
-    for dataset_id in dataset_ids:
-        files.extend(synapseutils.syncFromSynapse(syn, dataset_id))
-    return files
 
 
 def sync_datasets(dataset_synids=None):
