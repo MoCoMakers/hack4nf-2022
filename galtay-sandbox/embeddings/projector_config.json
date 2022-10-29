@@ -8,6 +8,15 @@
             ],
             "tensorPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_ppmi_vecs.tsv",
             "metadataPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_meta.tsv"
-        }
+        },
+        {
+        "tensorName": "Mutations Gene SVD",
+        "tensorShape": [
+            1330,
+            200
+        ],
+        "tensorPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_svd_200_vecs.tsv",
+        "metadataPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_meta.tsv"
+    }
     ]
 }
