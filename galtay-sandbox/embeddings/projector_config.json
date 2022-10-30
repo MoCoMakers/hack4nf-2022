@@ -6,7 +6,7 @@
                 1330,
                 1330
             ],
-            "tensorPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_ppmi_vecs.tsv",
+            "tensorPath": "https://www.dropbox.com/s/4tqzh3fkijlvbn2/dme_ALL_gene_ppmi_vecs.tsv?dl=0",
             "metadataPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_meta.tsv"
         },
         {
