@@ -7,7 +7,7 @@
                 1330
             ],
             "tensorPath": "https://dl.dropbox.com/s/4tqzh3fkijlvbn2/dme_ALL_gene_ppmi_vecs.tsv?dl=0",
-            "metadataPath": "https://dl.dropbox.com/s/rwej8tatlz8ikwx/dme_ALL_gene_meta.tsv?dl=0",
+            "metadataPath": "https://dl.dropbox.com/s/rwej8tatlz8ikwx/dme_ALL_gene_meta.tsv?dl=0"
         },
         {
             "tensorName": "ALL Muts Gene SVD",
@@ -16,7 +16,7 @@
                 200
             ],
             "tensorPath": "https://dl.dropbox.com/s/c2qwihk0a767i3r/dme_ALL_gene_svd_200_vecs.tsv?dl=0",
-            "metadataPath": "https://dl.dropbox.com/s/rwej8tatlz8ikwx/dme_ALL_gene_meta.tsv?dl=0",
+            "metadataPath": "https://dl.dropbox.com/s/rwej8tatlz8ikwx/dme_ALL_gene_meta.tsv?dl=0"
         },
         {
             "tensorName": "ALL Samples",
@@ -25,7 +25,7 @@
                 200
             ],
             "tensorPath": "https://dl.dropbox.com/s/m9a9mhkkrin90nx/dme_ALL_sample_vecs.tsv?dl=0",
-            "metadataPath": "https://dl.dropbox.com/s/yi7dsn14s9fqez2/dme_ALL_sample_meta.tsv?dl=0",
+            "metadataPath": "https://dl.dropbox.com/s/yi7dsn14s9fqez2/dme_ALL_sample_meta.tsv?dl=0"
         }
     ]
 }
