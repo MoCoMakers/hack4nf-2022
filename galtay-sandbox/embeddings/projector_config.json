@@ -19,7 +19,7 @@
             "metadataPath": "https://dl.dropbox.com/s/rwej8tatlz8ikwx/dme_ALL_gene_meta.tsv?dl=0"
         },
         {
-            "tensorName": "ALL Samples",
+            "tensorName": "ALL Muts Samples",
             "tensorShape": [
                 145058,
                 200
