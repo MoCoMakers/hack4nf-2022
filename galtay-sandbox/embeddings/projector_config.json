@@ -30,8 +30,8 @@
         {
             "tensorName": "MSK-IMPACT468 Muts Gene PPMI",
             "tensorShape": [
-                1330,
-                1330
+                470,
+                470
             ],
             "tensorPath": "https://dl.dropbox.com/s/430zbu2jq2rs5xf/dme_MSK-IMPACT468_gene_ppmi_vecs.tsv?dl=0",
             "metadataPath": "https://dl.dropbox.com/s/96qa0geoyrf29hs/dme_MSK-IMPACT468_gene_meta.tsv?dl=0"
@@ -39,7 +39,7 @@
         {
             "tensorName": "MSK-IMPACT468 Muts Gene SVD",
             "tensorShape": [
-                1330,
+                470,
                 200
             ],
             "tensorPath": "https://dl.dropbox.com/s/2tws4c2ekeq0plh/dme_MSK-IMPACT468_gene_svd_200_vecs.tsv?dl=0",
@@ -48,7 +48,7 @@
         {
             "tensorName": "MSK-IMPACT468 Muts Samples",
             "tensorShape": [
-                145058,
+                33721,
                 200
             ],
             "tensorPath": "https://dl.dropbox.com/s/z5iulc9ias234il/dme_MSK-IMPACT468_sample_vecs.tsv?dl=0",
