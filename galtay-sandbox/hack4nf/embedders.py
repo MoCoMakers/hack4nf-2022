@@ -272,7 +272,7 @@ class GeneMutationEmbeddings:
         #====================================================================
         df_vecs = pd.DataFrame(self.sample_vecs)
         df_vecs.to_csv(
-            os.path.join(path, f'{tag}_sample_vecs.tsv'),
+            os.path.join(path, f'{tag}_sample_{self.embedding_size}_vecs.tsv'),
             sep='\t',
             index=False,
             header=False,
@@ -492,7 +492,7 @@ class GeneCnaEmbeddings:
         #====================================================================
         df_vecs = pd.DataFrame(self.sample_vecs)
         df_vecs.to_csv(
-            os.path.join(path, f'{tag}_sample_vecs.tsv'),
+            os.path.join(path, f'{tag}_sample_{self.embedding_size}_vecs.tsv'),
             sep='\t',
             index=False,
             header=False,
