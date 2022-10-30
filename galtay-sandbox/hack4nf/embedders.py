@@ -32,9 +32,18 @@ def filter_counter(counter_orig, min_val=None, max_val=None):
 class TokenEmbeddings:
 
 
-    def __init__(self, ser_tokens, min_unigram_count=10, embedding_size=200, ppmi_alpha=0.75, svd_p=1.0):
+    def __init__(
+        self,
+        ser_tokens,
+        subset_name,
+        min_unigram_count=10,
+        embedding_size=200,
+        ppmi_alpha=0.75,
+        svd_p=1.0,
+    ):
 
         self.ser_tokens = ser_tokens
+        self.subset_name = subset_name
         self.min_unigram_count = min_unigram_count
         self.embedding_size = embedding_size
         self.ppmi_alpha = ppmi_alpha
@@ -250,6 +259,12 @@ class TokenEmbeddings:
             df_tmp,
             on='SAMPLE_ID',
         )
+
+        df_meta['CENTER'] = df_meta['SAMPLE_ID'].apply(lambda x: x.split('-')[1])
+        CENTER_CODES = ['MSK', 'DFCI']
+        for center in CENTER_CODES:
+            df_meta[f'{center}_flag'] = (df_meta['CENTER']==center).astype(int)
+
 
         HUGO_CODES = ['NF1', 'NF2', 'SMARCB1', 'LZTR1']
         for hugo in HUGO_CODES:
