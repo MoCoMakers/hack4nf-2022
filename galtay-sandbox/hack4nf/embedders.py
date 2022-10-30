@@ -228,7 +228,7 @@ class GeneMutationEmbeddings:
         return sample_vecs
 
 
-    def write_projector_files(self, df_dcs, path, tag):
+    def write_projector_files(self, df_dcs, df_ras, path, tag):
 
         # write out gene level embeddings
         #====================================================================
@@ -264,6 +264,18 @@ class GeneMutationEmbeddings:
             df_meta,
             df_ucnt,
             on="gene")
+
+        # record RAS pathway membership
+        df_meta = pd.merge(
+            df_meta,
+            df_ras[['Gene name']],
+            left_on='gene',
+            right_on='Gene name',
+            how='left',
+        ).rename(columns={'Gene name': 'path_RAS_flag'})
+        bmask = df_meta['path_RAS_flag'].isnull()
+        df_meta.loc[bmask, 'path_RAS_flag'] = 0
+        df_meta.loc[~bmask, 'path_RAS_flag'] = 1
 
         df_meta.to_csv(os.path.join(path, f'{tag}_gene_meta.tsv'), sep='\t', index=False)
 
@@ -318,6 +330,7 @@ class GeneMutationEmbeddings:
         for oncotree in ONCOTREE_CODES:
             df_meta[f'{oncotree}_flag'] = (df_meta['ONCOTREE_CODE']==oncotree).astype(int)
 
+        df_meta['NF_ONCO_FLAG'] = (df_meta['ONCOTREE_CODE'].isin(ONCOTREE_CODES)).astype(int)
 
         df_meta = df_meta.drop(['Mutated_Hugo'], axis=1)
         df_meta.to_csv(os.path.join(path, f'{tag}_sample_meta.tsv'), sep='\t', index=False)
@@ -448,7 +461,7 @@ class GeneCnaEmbeddings:
         return sample_vecs
 
 
-    def write_projector_files(self, df_dcs, path, tag):
+    def write_projector_files(self, df_dcs, df_ras, path, tag):
 
         # write out gene level embeddings
         #====================================================================
@@ -485,8 +498,20 @@ class GeneCnaEmbeddings:
             df_ucnt,
             on="gene")
 
-        df_meta.to_csv(os.path.join(path, f'{tag}_gene_meta.tsv'), sep='\t', index=False)
+        # record RAS pathway membership
+        df_meta = pd.merge(
+            df_meta,
+            df_ras[['Gene name']],
+            left_on='gene',
+            right_on='Gene name',
+            how='left',
+        ).rename(columns={'Gene name': 'path_RAS_flag'})
+        bmask = df_meta['path_RAS_flag'].isnull()
+        df_meta.loc[bmask, 'path_RAS_flag'] = 0
+        df_meta.loc[~bmask, 'path_RAS_flag'] = 1
 
+
+        df_meta.to_csv(os.path.join(path, f'{tag}_gene_meta.tsv'), sep='\t', index=False)
 
         # write out sample level embeddings
         #====================================================================
@@ -537,6 +562,8 @@ class GeneCnaEmbeddings:
         ONCOTREE_CODES = ['NST', 'MPNST', 'NFIB', 'SCHW', 'CSCHW', 'MSCHW']
         for oncotree in ONCOTREE_CODES:
             df_meta[f'{oncotree}_flag'] = (df_meta['ONCOTREE_CODE']==oncotree).astype(int)
+
+        df_meta['NF_ONCO_FLAG'] = (df_meta['ONCOTREE_CODE'].isin(ONCOTREE_CODES)).astype(int)
 
         df_meta = df_meta.drop(['CNA_Hugo'], axis=1)
         df_meta.to_csv(os.path.join(path, f'{tag}_sample_meta.tsv'), sep='\t', index=False)
