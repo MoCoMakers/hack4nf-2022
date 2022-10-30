@@ -26,7 +26,7 @@
             ],
             "tensorPath": "https://dl.dropbox.com/s/m9a9mhkkrin90nx/dme_ALL_sample_vecs.tsv?dl=0",
             "metadataPath": "https://dl.dropbox.com/s/yi7dsn14s9fqez2/dme_ALL_sample_meta.tsv?dl=0"
-        }
+        },
         {
             "tensorName": "MSK-IMPACT468 Muts Gene PPMI",
             "tensorShape": [
