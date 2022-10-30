@@ -7,7 +7,7 @@
                 1330
             ],
             "tensorPath": "https://dl.dropbox.com/s/4tqzh3fkijlvbn2/dme_ALL_gene_ppmi_vecs.tsv?dl=0",
-            "metadataPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_meta.tsv"
+            "metadataPath": "https://dl.dropbox.com/s/rwej8tatlz8ikwx/dme_ALL_gene_meta.tsv?dl=0",
         },
         {
             "tensorName": "Mutations Gene SVD",
@@ -15,8 +15,8 @@
                 1330,
                 200
             ],
-            "tensorPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_svd_200_vecs.tsv",
-            "metadataPath": "https://raw.githubusercontent.com/MocoMakers/hack4nf-2022/main/galtay-sandbox/embeddings/dme_gene_meta.tsv"
+            "tensorPath": "https://dl.dropbox.com/s/c2qwihk0a767i3r/dme_ALL_gene_svd_200_vecs.tsv?dl=0",
+            "metadataPath": "https://dl.dropbox.com/s/rwej8tatlz8ikwx/dme_ALL_gene_meta.tsv?dl=0",
         }
     ]
 }
