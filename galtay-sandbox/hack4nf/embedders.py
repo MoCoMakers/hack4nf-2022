@@ -1,5 +1,6 @@
 from collections import Counter
 import itertools
+import math
 import os
 
 import numpy as np
@@ -26,15 +27,90 @@ def filter_counter(counter_orig, min_val=None, max_val=None):
 
     for token in tokens_to_drop:
         del counter[token]
+
     return counter
 
 
-class TokenEmbeddings:
+def create_skipgram_matrix(skipgram_weights, unigram_to_index):
+    row_indexs = []
+    col_indexs = []
+    dat_values = []
+    for (unigram_a, unigram_b), weight in tqdm(
+        skipgram_weights.items(),
+        desc="calculating skipgrams matrix"
+    ):
+        row_indexs.append(unigram_to_index[unigram_a])
+        col_indexs.append(unigram_to_index[unigram_b])
+        dat_values.append(weight)
+    return sparse.csr_matrix((dat_values, (row_indexs, col_indexs)))
 
+
+def calculate_ppmi_matrix(skipgram_matrix, skipgram_weights, token_to_index, ppmi_alpha):
+
+    """This function uses the notation from LGD15
+    https://aclanthology.org/Q15-1016/
+    """
+
+    # for standard PPMI
+    DD = skipgram_matrix.sum()
+
+    # #(w) is a sum over contexts and #(c) is a sum over words
+    pound_w_arr = np.array(skipgram_matrix.sum(axis=1)).flatten()
+    pound_c_arr = np.array(skipgram_matrix.sum(axis=0)).flatten()
+
+    # for context distribution smoothing (cds)
+    pound_c_alpha_arr = pound_c_arr**ppmi_alpha
+    pound_c_alpha_norm = np.sum(pound_c_alpha_arr)
+
+    row_indxs = []
+    col_indxs = []
+    ppmi_dat_values = []   # positive pointwise mutual information
+
+    for skipgram in tqdm(
+        skipgram_weights.items(),
+        total=len(skipgram_weights),
+        desc='calculating ppmi matrix',
+    ):
+
+        (word, context), pound_wc = skipgram
+        word_indx = token_to_index[word]
+        context_indx = token_to_index[context]
+
+        pound_w = pound_w_arr[word_indx]
+        pound_c = pound_c_arr[context_indx]
+        pound_c_alpha = pound_c_alpha_arr[context_indx]
+
+        # this is how you would write the probabilities
+        # Pwc = pound_wc / DD
+        # Pw = pound_w / DD
+        # Pc = pound_c / DD
+        # Pc_alpha = pound_c_alpha / pound_c_alpha_norm
+
+        # its more computationally effecient to use the counts directly
+        pmi = np.log2((pound_wc * DD) / (pound_w * pound_c))
+        pmia = np.log2((pound_wc * pound_c_alpha_norm) / (pound_w * pound_c_alpha))
+
+        ppmi = max(pmi, 0)
+        ppmia = max(pmia, 0)
+
+        row_indxs.append(word_indx)
+        col_indxs.append(context_indx)
+        ppmi_dat_values.append(ppmia)
+
+    return sparse.csr_matrix((ppmi_dat_values, (row_indxs, col_indxs)))
+
+
+def calculate_svd_matrix(high_dim_matrix, embedding_size, svd_p):
+    uu, ss, vv = linalg.svds(high_dim_matrix, embedding_size)
+    svd_matrix = uu.dot(np.diag(ss**svd_p))
+    return svd_matrix
+
+
+class GeneMutationEmbeddings:
 
     def __init__(
         self,
-        ser_tokens,
+        ser_genes_in_samples,
         subset_name,
         min_unigram_count=10,
         embedding_size=200,
@@ -42,186 +118,154 @@ class TokenEmbeddings:
         svd_p=1.0,
     ):
 
-        self.ser_tokens = ser_tokens
+        self.ser_genes_in_samples = ser_genes_in_samples
         self.subset_name = subset_name
         self.min_unigram_count = min_unigram_count
         self.embedding_size = embedding_size
         self.ppmi_alpha = ppmi_alpha
         self.svd_p = svd_p
 
-        self.calculate_grams()
-        self.create_skipgram_matrix()
-        self.calculate_ppmi_matrix()
-        self.calculate_svd_matrix()
-        self.calculate_sample_vectors()
 
+    def create_embeddings(self):
 
-    def calculate_grams(self):
+        unigram_counts, skipgram_weights = self.calculate_grams(
+            self.ser_genes_in_samples,
+            self.min_unigram_count,
+        )
+        index_to_gene = {ii: gene for ii, gene in enumerate(unigram_counts.keys())}
+        gene_to_index = {gene: ii for ii, gene in index_to_gene.items()}
+        skipgram_matrix = create_skipgram_matrix(skipgram_weights, gene_to_index)
 
-        all_unigram_counts = Counter()
-        for row in tqdm(self.ser_tokens, desc='calculating unigrams'):
-            for token in row:
-                all_unigram_counts[token] += 1
+        ppmi_matrix = calculate_ppmi_matrix(
+            skipgram_matrix,
+            skipgram_weights,
+            gene_to_index,
+            self.ppmi_alpha,
+        )
 
-        unigram_counts = filter_counter(all_unigram_counts, min_val=self.min_unigram_count)
-        index_to_token = {ii: token for ii, token in enumerate(unigram_counts.keys())}
-        token_to_index = {token: ii for ii, token in index_to_token.items()}
+        svd_matrix = calculate_svd_matrix(
+            ppmi_matrix,
+            self.embedding_size,
+            self.svd_p,
+        )
 
-        skipgram_weights = Counter()
-        for full_row in tqdm(self.ser_tokens, desc='calculating skipgrams'):
-            # filter out tokens that were filtered from unigrams
-            row = [token for token in full_row if token in unigram_counts]
-            perms = list(itertools.permutations(row, 2))
-            for token_left, token_right in perms:
-                # normalize for the fact that we take all permuations instead of a sliding window
-                length_norm = (len(row) - 1) * 2
-                weight = 1 / length_norm
-                skipgram = (token_left, token_right)
-                skipgram_weights[skipgram] += weight
+        index_to_sample = {
+            ii: sample_id for ii, sample_id in enumerate(self.ser_genes_in_samples.index)}
+        sample_to_index = {
+            sample_id: ii for ii, sample_id in index_to_sample.items()}
+
+        sample_vecs = self.calculate_sample_vectors(
+            self.ser_genes_in_samples,
+            svd_matrix,
+            unigram_counts,
+            gene_to_index,
+            sample_to_index,
+        )
+
 
         self.unigram_counts = unigram_counts
         self.skipgram_weights = skipgram_weights
-        self.index_to_token = index_to_token
-        self.token_to_index = token_to_index
-
-
-    def create_skipgram_matrix(self):
-        row_indexs = []
-        col_indexs = []
-        dat_values = []
-        for (tok1, tok2), weight in tqdm(self.skipgram_weights.items(), desc="calculating skipgrams matrix"):
-            row_indexs.append(self.token_to_index[tok1])
-            col_indexs.append(self.token_to_index[tok2])
-            dat_values.append(weight)
-        mat = sparse.csr_matrix((dat_values, (row_indexs, col_indexs)))
-        self.skipgram_mat = mat
-
-
-    def calculate_ppmi_matrix(self):
-
-        # for standard PPMI
-        DD = self.skipgram_mat.sum()
-        sum_over_words = np.array(self.skipgram_mat.sum(axis=0)).flatten()
-        sum_over_contexts = np.array(self.skipgram_mat.sum(axis=1)).flatten()
-
-        # for context distribution smoothing (cds)
-        sum_over_words_alpha = sum_over_words**self.ppmi_alpha
-        Pc_alpha_denom = np.sum(sum_over_words_alpha)
-
-        row_indxs = []
-        col_indxs = []
-        ppmi_dat_values = []   # positive pointwise mutual information
-
-        for skipgram in tqdm(
-            self.skipgram_weights.items(),
-            total=len(self.skipgram_weights),
-            desc='calculating ppmi matrix',
-        ):
-
-            (word, context), pound_wc = skipgram
-            word_indx = self.token_to_index[word]
-            context_indx = self.token_to_index[context]
-
-            pound_w = sum_over_contexts[word_indx]
-            pound_c = sum_over_words[context_indx]
-            pound_c_alpha = sum_over_words_alpha[context_indx]
-
-            Pwc = pound_wc / DD
-            Pw = pound_w / DD
-            Pc = pound_c / DD
-            Pc_alpha = pound_c_alpha / Pc_alpha_denom
-
-            pmi = np.log2(Pwc / (Pw * Pc_alpha))
-            ppmi = max(pmi, 0)
-
-            row_indxs.append(word_indx)
-            col_indxs.append(context_indx)
-            ppmi_dat_values.append(ppmi)
-
-        mat = sparse.csr_matrix((ppmi_dat_values, (row_indxs, col_indxs)))
-        self.ppmi_mat = mat
-
-
-    def calculate_svd_matrix(self):
-
-        uu, ss, vv = linalg.svds(self.ppmi_mat, self.embedding_size)
-        svd_mat = uu.dot(np.diag(ss**self.svd_p))
-        self.svd_mat = svd_mat
-
-
-    def calculate_sample_vectors(self):
-
-        self.index_to_sample = {
-            ii: sample_id for ii, sample_id in enumerate(self.ser_tokens.index)}
-        self.sample_to_index = {
-            sample_id: ii for ii, sample_id in self.index_to_sample.items()}
-
-        num_samples = len(self.index_to_sample)
-
-        # create num_samples X num_tokens zeros matrix then fill it
-        sample_vecs = np.zeros((num_samples, self.embedding_size))
-
-        for sample_id, full_row in tqdm(self.ser_tokens.items(), desc='making sample vectors'):
-            row = [token for token in full_row if token in self.unigram_counts]
-            vec = np.zeros(self.svd_mat.shape[1])
-            norm = len(row) if len(row) > 0 else 1
-            for token in row:
-                token_index = self.token_to_index[token]
-                token_vec = self.svd_mat[token_index]
-                vec += token_vec
-            vec = vec / norm
-            sample_index = self.sample_to_index[sample_id]
-            sample_vecs[sample_index,:] = vec
-
+        self.skipgram_matrix = skipgram_matrix
+        self.ppmi_matrix = ppmi_matrix
+        self.svd_matrix = svd_matrix
+        self.index_to_sample = index_to_sample
+        self.sample_to_index = sample_to_index
+        self.index_to_gene = index_to_gene
+        self.gene_to_index = gene_to_index
         self.sample_vecs = sample_vecs
 
 
-    def write_projector_files(self, df_dcs, path, tag, token_name):
+    def calculate_grams(self, ser_genes_in_samples, min_unigram_count):
 
-        # write out token level embeddings
-        # tag will typically be one of
-        #  * dme = data_mutations_extended
-        #  * cna = copy number alteration
-        # token name will typically be one of
-        #  * gene
-        #  * variant
+        all_unigram_counts = Counter()
+        for row in tqdm(ser_genes_in_samples, desc='calculating unigrams'):
+            for gene in row:
+                all_unigram_counts[gene] += 1
+        unigram_counts = filter_counter(all_unigram_counts, min_val=min_unigram_count)
+
+        skipgram_weights = Counter()
+        for full_row in tqdm(ser_genes_in_samples, desc='calculating skipgrams'):
+            # filter out genes that were filtered from unigrams
+            row = [gene for gene in full_row if gene in unigram_counts]
+            # normalize for the fact that we take all permuations instead of a sliding window
+            # in other words we have to correct for the fact that a gene will appear in more
+            # skipgrams if its in a longer sentence (which wouldn't happen for a sliding window)
+            # this norm is the number of permuations each element will appear in
+            length_norm = max(1, (len(row) - 1) * 2)
+
+            perms = list(itertools.permutations(row, 2))
+            for gene_a, gene_b in perms:
+                weight = 1 / length_norm
+                skipgram = (gene_a, gene_b)
+                skipgram_weights[skipgram] += weight
+
+        return unigram_counts, skipgram_weights
+
+
+    def calculate_sample_vectors(
+        self,
+        ser_genes_in_samples,
+        gene_vecs,
+        unigram_counts,
+        gene_to_index,
+        sample_to_index,
+    ):
+
+        num_samples = ser_genes_in_samples.size
+        embedding_size = gene_vecs.shape[1]
+        sample_vecs = np.zeros((num_samples, embedding_size))
+        for sample_id, full_row in tqdm(ser_genes_in_samples.items(), desc='making sample vectors'):
+            row = [gene for gene in full_row if gene in unigram_counts]
+            vec = np.zeros(embedding_size)
+            norm = len(row) if len(row) > 0 else 1
+            for gene in row:
+                gene_index = gene_to_index[gene]
+                gene_vec = gene_vecs[gene_index]
+                vec += gene_vec
+            vec = vec / norm
+            sample_index = sample_to_index[sample_id]
+            sample_vecs[sample_index,:] = vec
+        return sample_vecs
+
+
+    def write_projector_files(self, df_dcs, path, tag):
+
+        # write out gene level embeddings
         #====================================================================
-        df_vecs = pd.DataFrame(self.ppmi_mat.todense())
+        df_vecs = pd.DataFrame(self.ppmi_matrix.todense())
         df_vecs.to_csv(
-            os.path.join(path, f'{tag}_{token_name}_ppmi_vecs.tsv'),
+            os.path.join(path, f'{tag}_gene_ppmi_vecs.tsv'),
+            sep='\t',
+            index=False,
+            header=False,
+        )
+
+        df_vecs = pd.DataFrame(self.svd_matrix)
+        df_vecs.to_csv(
+            os.path.join(path, f'{tag}_gene_svd_{self.embedding_size}_vecs.tsv'),
             sep='\t',
             index=False,
             header=False,
         )
 
 
-        df_vecs = pd.DataFrame(self.svd_mat)
-        df_vecs.to_csv(
-            os.path.join(path, f'{tag}_{token_name}_svd_{self.embedding_size}_vecs.tsv'),
-            sep='\t',
-            index=False,
-            header=False,
-        )
-
-
-
-        # write out token level metadata
+        # write out gene level metadata
         #====================================================================
 
-        # record token names -> index
+        # record gene names -> index
         df_meta = pd.DataFrame(
-            [self.index_to_token[ii] for ii in range(len(self.index_to_token))],
-            columns=[token_name],
+            [self.index_to_gene[ii] for ii in range(len(self.index_to_gene))],
+            columns=["gene"],
         )
 
-        # record token unigram counts
-        df_ucnt = pd.DataFrame(self.unigram_counts.items(), columns=[token_name, 'unigram_count'])
+        # record gene unigram counts
+        df_ucnt = pd.DataFrame(self.unigram_counts.items(), columns=["gene", 'unigram_count'])
         df_meta = pd.merge(
             df_meta,
             df_ucnt,
-            on=token_name)
+            on="gene")
 
-        df_meta.to_csv(os.path.join(path, f'{tag}_{token_name}_meta.tsv'), sep='\t', index=False)
+        df_meta.to_csv(os.path.join(path, f'{tag}_gene_meta.tsv'), sep='\t', index=False)
 
 
         # write out sample level embeddings
@@ -251,7 +295,7 @@ class TokenEmbeddings:
         )
 
         # record sample metadata from data mutations extended
-        df_tmp = self.ser_tokens.to_frame().reset_index().rename(columns={"Hugo_Symbol": "Mutated_Hugo"})
+        df_tmp = self.ser_genes_in_samples.to_frame().reset_index().rename(columns={"Hugo_Symbol": "Mutated_Hugo"})
         df_tmp['Mutated_Hugo'] = df_tmp['Mutated_Hugo'].apply(set)
 
         df_meta = pd.merge(
@@ -276,4 +320,223 @@ class TokenEmbeddings:
 
 
         df_meta = df_meta.drop(['Mutated_Hugo'], axis=1)
+        df_meta.to_csv(os.path.join(path, f'{tag}_sample_meta.tsv'), sep='\t', index=False)
+
+
+
+
+
+class GeneCnaEmbeddings:
+
+    def __init__(
+        self,
+        ser_genes_in_samples,
+        subset_name,
+        min_unigram_count=10,
+        embedding_size=200,
+        ppmi_alpha=0.75,
+        svd_p=1.0,
+    ):
+
+        self.ser_genes_in_samples = ser_genes_in_samples
+        self.subset_name = subset_name
+        self.min_unigram_count = min_unigram_count
+        self.embedding_size = embedding_size
+        self.ppmi_alpha = ppmi_alpha
+        self.svd_p = svd_p
+
+
+    def create_embeddings(self):
+
+        unigram_counts, skipgram_weights = self.calculate_grams(
+            self.ser_genes_in_samples,
+            self.min_unigram_count,
+        )
+        index_to_gene = {ii: gene for ii, gene in enumerate(unigram_counts.keys())}
+        gene_to_index = {gene: ii for ii, gene in index_to_gene.items()}
+        skipgram_matrix = create_skipgram_matrix(skipgram_weights, gene_to_index)
+
+        ppmi_matrix = calculate_ppmi_matrix(
+            skipgram_matrix,
+            skipgram_weights,
+            gene_to_index,
+            self.ppmi_alpha,
+        )
+
+        svd_matrix = calculate_svd_matrix(
+            ppmi_matrix,
+            self.embedding_size,
+            self.svd_p,
+        )
+
+        index_to_sample = {
+            ii: sample_id for ii, sample_id in enumerate(self.ser_genes_in_samples.index)}
+        sample_to_index = {
+            sample_id: ii for ii, sample_id in index_to_sample.items()}
+
+        sample_vecs = self.calculate_sample_vectors(
+            self.ser_genes_in_samples,
+            svd_matrix,
+            unigram_counts,
+            gene_to_index,
+            sample_to_index,
+        )
+
+
+        self.unigram_counts = unigram_counts
+        self.skipgram_weights = skipgram_weights
+        self.skipgram_matrix = skipgram_matrix
+        self.ppmi_matrix = ppmi_matrix
+        self.svd_matrix = svd_matrix
+        self.index_to_sample = index_to_sample
+        self.sample_to_index = sample_to_index
+        self.index_to_gene = index_to_gene
+        self.gene_to_index = gene_to_index
+        self.sample_vecs = sample_vecs
+
+
+    def calculate_grams(self, ser_genes_in_samples, min_unigram_count):
+
+        all_unigram_counts = Counter()
+        for row in tqdm(ser_genes_in_samples, desc='calculating unigrams'):
+            for gene, weight in row:
+                all_unigram_counts[gene] += abs(weight)
+        unigram_counts = filter_counter(all_unigram_counts, min_val=min_unigram_count)
+
+        skipgram_weights = Counter()
+        for full_row in tqdm(ser_genes_in_samples, desc='calculating skipgrams'):
+            # filter out genes that were filtered from unigrams
+            row = [(gene, weight) for (gene, weight) in full_row if gene in unigram_counts]
+            # normalize for the fact that we take all permuations instead of a sliding window
+            # in other words we have to correct for the fact that a gene will appear in more
+            # skipgrams if its in a longer sentence (which wouldn't happen for a sliding window)
+            # this norm is the number of permuations each element will appear in
+            length_norm = max(1, (len(row) - 1) * 2)
+
+            perms = list(itertools.permutations(row, 2))
+            for (gene_a, weight_a), (gene_b, weight_b) in perms:
+                weight = math.sqrt(weight_a**2 + weight_b**2) / length_norm
+                skipgram = (gene_a, gene_b)
+                skipgram_weights[skipgram] += weight
+
+        return unigram_counts, skipgram_weights
+
+
+    def calculate_sample_vectors(
+        self,
+        ser_genes_in_samples,
+        gene_vecs,
+        unigram_counts,
+        gene_to_index,
+        sample_to_index,
+    ):
+
+        num_samples = ser_genes_in_samples.size
+        embedding_size = gene_vecs.shape[1]
+        sample_vecs = np.zeros((num_samples, embedding_size))
+        for sample_id, full_row in tqdm(ser_genes_in_samples.items(), desc='making sample vectors'):
+            row = [(gene, weight) for (gene, weight) in full_row if gene in unigram_counts]
+            vec = np.zeros(embedding_size)
+            norm = len(row) if len(row) > 0 else 1
+            for gene, weight in row:
+                gene_index = gene_to_index[gene]
+                gene_vec = gene_vecs[gene_index]
+                vec += gene_vec
+            vec = vec / norm
+            sample_index = sample_to_index[sample_id]
+            sample_vecs[sample_index,:] = vec
+        return sample_vecs
+
+
+    def write_projector_files(self, df_dcs, path, tag):
+
+        # write out gene level embeddings
+        #====================================================================
+        df_vecs = pd.DataFrame(self.ppmi_matrix.todense())
+        df_vecs.to_csv(
+            os.path.join(path, f'{tag}_gene_ppmi_vecs.tsv'),
+            sep='\t',
+            index=False,
+            header=False,
+        )
+
+        df_vecs = pd.DataFrame(self.svd_matrix)
+        df_vecs.to_csv(
+            os.path.join(path, f'{tag}_gene_svd_{self.embedding_size}_vecs.tsv'),
+            sep='\t',
+            index=False,
+            header=False,
+        )
+
+
+        # write out gene level metadata
+        #====================================================================
+
+        # record gene names -> index
+        df_meta = pd.DataFrame(
+            [self.index_to_gene[ii] for ii in range(len(self.index_to_gene))],
+            columns=["gene"],
+        )
+
+        # record gene unigram counts
+        df_ucnt = pd.DataFrame(self.unigram_counts.items(), columns=["gene", 'unigram_count'])
+        df_meta = pd.merge(
+            df_meta,
+            df_ucnt,
+            on="gene")
+
+        df_meta.to_csv(os.path.join(path, f'{tag}_gene_meta.tsv'), sep='\t', index=False)
+
+
+        # write out sample level embeddings
+        #====================================================================
+        df_vecs = pd.DataFrame(self.sample_vecs)
+        df_vecs.to_csv(
+            os.path.join(path, f'{tag}_sample_vecs.tsv'),
+            sep='\t',
+            index=False,
+            header=False,
+        )
+
+        # write out sample level metadata
+        #====================================================================
+
+        df_meta = pd.DataFrame(
+            [self.index_to_sample[ii] for ii in range(len(self.index_to_sample))],
+            columns=["SAMPLE_ID"],
+        )
+
+        # reocrd sample metadata from data clinical sample
+        df_meta = pd.merge(
+            df_meta,
+            df_dcs,
+            on='SAMPLE_ID',
+            how='left',
+        )
+
+        # record sample metadata from data mutations extended
+        ser_tmp = self.ser_genes_in_samples.apply(lambda x: [el[0] for el in x])
+        df_tmp = ser_tmp.to_frame('CNA_Hugo').reset_index()
+        df_tmp['CNA_Hugo'] = df_tmp['CNA_Hugo'].apply(set)
+
+        df_meta = pd.merge(
+            df_meta,
+            df_tmp,
+            on='SAMPLE_ID',
+        )
+
+        df_meta['CENTER'] = df_meta['SAMPLE_ID'].apply(lambda x: x.split('-')[1])
+        CENTER_CODES = ['MSK', 'DFCI']
+        for center in CENTER_CODES:
+            df_meta[f'{center}_flag'] = (df_meta['CENTER']==center).astype(int)
+
+        HUGO_CODES = ['NF1', 'NF2', 'SMARCB1', 'LZTR1']
+        for hugo in HUGO_CODES:
+            df_meta[f'{hugo}_cna'] = df_meta['CNA_Hugo'].apply(lambda x: hugo in x).astype(int)
+
+        ONCOTREE_CODES = ['NST', 'MPNST', 'NFIB', 'SCHW', 'CSCHW', 'MSCHW']
+        for oncotree in ONCOTREE_CODES:
+            df_meta[f'{oncotree}_flag'] = (df_meta['ONCOTREE_CODE']==oncotree).astype(int)
+
+        df_meta = df_meta.drop(['CNA_Hugo'], axis=1)
         df_meta.to_csv(os.path.join(path, f'{tag}_sample_meta.tsv'), sep='\t', index=False)
