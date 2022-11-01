@@ -22,6 +22,14 @@ Replace the value of the key using the above links
 
 # install hack4nf python package 
 
+Run the following command in the directory that contains the `setup.cfg` file. 
+You might have to update to the latest version of pip
+
+```bash
+pip install -U pip
+```
+
+
 ```bash
 pip install -e .
 ```
