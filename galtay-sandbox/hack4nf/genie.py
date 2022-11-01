@@ -28,8 +28,9 @@ def read_clinical_patient(fpath: str) -> pd.DataFrame:
 
 def read_clinical_sample(fpath: str) -> pd.DataFrame:
     """Read a data_clinical_sample.txt file"""
-    return pd.read_csv(fpath, sep="\t", comment="#")
-
+    df = pd.read_csv(fpath, sep="\t", comment="#")
+    df['CENTER'] = df['SAMPLE_ID'].apply(lambda x: x.split('-')[1])
+    return df
 
 def read_cna_seg(fpath: str) -> pd.DataFrame:
     """Read a genie_data_cna_hf19.seg file"""
