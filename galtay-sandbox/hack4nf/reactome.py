@@ -30,7 +30,7 @@ NF_dbId = 6802412
 import reactome2py.content
 
 
-#discover = reactome2py.content.discover(id=RAS_NF1)
-#diseases = reactome2py.content.disease()
-#nf_disease = [el for el in diseases if el['dbId']==NF_dbId][0]
-nf_ent_complx = reactome2py.content.entities_complex(id=RAS_NF1, exclude_structures=False)
+discover = reactome2py.content.discover(id=RAS_NF1)
+diseases = reactome2py.content.disease()
+nf_disease = [el for el in diseases if el['dbId']==NF_dbId][0]
+#nf_ent_complx = reactome2py.content.entities_complex(id=RAS_NF1, exclude_structures=False)
