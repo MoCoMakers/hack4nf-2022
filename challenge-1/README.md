@@ -24,6 +24,10 @@ pip install -U pip
 pip install -e .
 ```
 
+NOTE: A `requirements.txt` file is included to show one set of package versions that worked on one machine. 
+However, the pip install command above should take care of installing all the requirements for this package.
+
+
 # Setup Data Config
 
 ## config.ini 
