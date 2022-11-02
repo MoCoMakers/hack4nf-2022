@@ -129,26 +129,26 @@ def dme_to_cravat(df: pd.DataFrame) -> pd.DataFrame:
     return df_cravat
 
 
-def read_pat_sam_mut(pat_fpath: str, sam_fpath: str, mut_fpath: str) -> pd.DataFrame:
+def read_pat_sam_mut(patient_fpath: str, sample_fpath: str, mutations_fpath: str) -> pd.DataFrame:
     """Read and join the,
     * data_clinical_patient
     * data_clinical_sample
     * data_mutations_extended
     """
-    df_pat = read_clinical_patient(pat_fpath)
-    df_sam = read_clinical_sample(sam_fpath)
-    df_mut = read_mutations_extended(mut_fpath)
+    df_dcp = read_clinical_patient(patient_fpath)
+    df_dcs = read_clinical_sample(sample_fpath)
+    df_dme = read_mutations_extended(mutations_fpath)
 
-    df_mut = pd.merge(
-        df_mut,
-        df_sam,
+    df_psm = pd.merge(
+        df_dme,
+        df_dcs,
         left_on="Tumor_Sample_Barcode",
         right_on="SAMPLE_ID",
     )
-    df_mut = pd.merge(
-        df_mut,
-        df_pat,
+    df_psm = pd.merge(
+        df_psm,
+        df_dcp,
         on="PATIENT_ID",
     )
 
-    return df_mut
+    return df_psm
