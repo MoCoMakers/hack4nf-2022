@@ -10,6 +10,8 @@ from loguru import logger
 import synapseclient
 import synapseutils
 
+from nextgenlp.config import config
+
 
 GENIE_12 = "genie-12.0-public"
 GENIE_13 = "genie-13.3-consortium"
@@ -30,11 +32,11 @@ GENOMIC_INFORMATION = "genomic_information"
 # set environment variable to something like
 # /home/galtay/data/hack4nf/synapse
 # if not set it will use the default SYNAPSE CACHE
-SYNC_PATH = os.getenv("HACK4NF_SYNAPSE_SYNC_PATH")
+SYNC_PATH = config["Paths"]["SYNAPSE_PATH"]
 logger.info(f"SYNC_PATH={SYNC_PATH}")
 
 # path to secrets.json file
-SECRETS_PATH = os.getenv("HACK4NF_SYNAPSE_SECRETS_PATH")
+SECRETS_PATH = config["Paths"]["SECRETS_PATH"]
 logger.info(f"SECRETS_PATH={SECRETS_PATH}")
 
 
@@ -118,8 +120,6 @@ def get_file_name_to_path(
 
 
 def _read_secrets() -> Dict[str, str]:
-    if SECRETS_PATH is None:
-        raise ValueError("please set environment variable HACK4NF_SYNAPSE_SECRETS_PATH")
     return json.load(open(SECRETS_PATH, "r"))
 
 
