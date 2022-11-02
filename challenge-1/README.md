@@ -65,7 +65,7 @@ After you get a confirmation email - you will need to go back the the site, clic
 Run the `synapse.py` file, 
 
 ```bash
-python nextgenlp synapse.py
+python nextgenlp/synapse.py
 ```
 
 check that the path you specified in `DATA_PATH` is populated. 
