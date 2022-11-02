@@ -9,7 +9,7 @@ from scipy import sparse
 from scipy.sparse import linalg
 from tqdm import tqdm
 
-from hack4nf import genie
+from nextgenlp import genie
 
 
 def filter_counter(counter_orig, min_val=None, max_val=None):
