@@ -1,0 +1,6 @@
+[Paths]
+DATA_PATH = /path/to/data/hack4nf-2022
+SYNAPSE_PATH = ${DATA_PATH}/synapse
+EMBEDDINGS_PATH = ${DATA_PATH}/embeddings
+OPEN_CRAVAT_PATH = ${DATA_PATH}/open-cravat
+SECRETS_PATH = ${DATA_PATH}/secrets.json

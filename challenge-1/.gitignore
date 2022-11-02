@@ -129,4 +129,6 @@ dmypy.json
 .pyre/
 
 secrets.json
+config.ini
+
 *.tsv
