@@ -201,7 +201,6 @@ def calculate_svd_matrix(
 def calculate_sample_vectors(
     sentences: pd.Series,
     unigram_vecs,
-    unigram_weights,
     unigram_to_index,
     sample_to_index,
 ):
@@ -210,7 +209,6 @@ def calculate_sample_vectors(
     Input:
       * sentences: a pd.Series with lists of (unigram, weight) tuples.
       * unigram_vecs: unigram vecs to combine into sample vecs
-      * unigram_weights: just used to filter unigrams that are not in vocab
       * unigram_to_index: unigram string -> matrix index
       * sample_to_index: sample ID -> matrix index
     """
@@ -221,7 +219,7 @@ def calculate_sample_vectors(
     for sample_id, full_sentence in tqdm(
         sentences.items(), desc="making sample vectors"
     ):
-        sentence = [(unigram, weight) for (unigram, weight) in full_sentence if unigram in unigram_weights]
+        sentence = [(unigram, weight) for (unigram, weight) in full_sentence if unigram in unigram_to_index]
         sample_vec = np.zeros(embedding_size)
         norm = len(sentence) if len(sentence) > 0 else 1
         for unigram, weight in sentence:
@@ -291,7 +289,6 @@ class GenePpmiEmbeddings:
         sample_vecs = calculate_sample_vectors(
             self.sentences,
             svd_matrix,
-            unigram_weights,
             unigram_to_index,
             sample_to_index,
         )
@@ -396,12 +393,18 @@ class GenePpmiEmbeddings:
         )
 
         df_meta["CENTER"] = df_meta["SAMPLE_ID"].apply(lambda x: x.split("-")[1])
-        CENTER_CODES = ["MSK", "DFCI"]
+        CENTER_CODES = ["DFCI", "MSK", "UCSF"]
         for center in CENTER_CODES:
             df_meta[f"{center}_flag"] = (df_meta["CENTER"] == center).astype(int)
 
         HUGO_CODES = ["NF1", "NF2", "SMARCB1", "LZTR1"]
         for hugo in HUGO_CODES:
+            df_meta[f"{hugo}_mut"] = (
+                df_meta["Hugos"].apply(lambda x: hugo in x).astype(int)
+            )
+
+        EXTRA_HUGO_CODES = ["KIT"]
+        for hugo in EXTRA_HUGO_CODES:
             df_meta[f"{hugo}_mut"] = (
                 df_meta["Hugos"].apply(lambda x: hugo in x).astype(int)
             )
@@ -412,7 +415,7 @@ class GenePpmiEmbeddings:
                 int
             )
 
-        df_meta["NF_ONCO_FLAG"] = (
+        df_meta["NST_CANCER_TYPE_FLAG"] = (
             df_meta["ONCOTREE_CODE"].isin(ONCOTREE_CODES)
         ).astype(int)
 

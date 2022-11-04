@@ -26,6 +26,7 @@ DATA_GENE_MATRIX = "data_gene_matrix"
 DATA_MUTATIONS_EXTENDED = "data_mutations_extended"
 DATA_CNA = "data_CNA"
 DATA_CNA_HG19_SEG = "data_cna_hg19"
+GENE_PANELS = "gene_panels"
 GENOMIC_INFORMATION = "genomic_information"
 
 
@@ -56,6 +57,7 @@ FILE_NAME_TO_SYNID = {
         DATA_MUTATIONS_EXTENDED: "syn32689317",
         DATA_CNA: "syn32689019",
         DATA_CNA_HG19_SEG: "syn32689379",
+        GENE_PANELS: "syn32688742",
         GENOMIC_INFORMATION: "syn32690864",
     },
     GENIE_13: {
@@ -67,6 +69,7 @@ FILE_NAME_TO_SYNID = {
         DATA_MUTATIONS_EXTENDED: "syn36710142",
         DATA_CNA: "syn36710134",
         DATA_CNA_HG19_SEG: "syn36710143",
+        GENE_PANELS: "syn36709875",
         GENOMIC_INFORMATION: "syn36710146",
     },
 }
@@ -95,6 +98,7 @@ def get_file_name_to_path(
             DATA_MUTATIONS_EXTENDED: genie_path / f"{DATA_MUTATIONS_EXTENDED}.txt",
             DATA_CNA: genie_path / f"{DATA_CNA}.txt",
             DATA_CNA_HG19_SEG: genie_path / f"genie_{DATA_CNA_HG19_SEG}.seg",
+            GENE_PANELS: genie_path / GENE_PANELS,
             GENOMIC_INFORMATION: genie_path / f"{GENOMIC_INFORMATION}.txt",
         }
 
@@ -112,6 +116,7 @@ def get_file_name_to_path(
             DATA_CNA: genie_path / f"{DATA_CNA}_13.3-consortium.txt",
             DATA_CNA_HG19_SEG: genie_path
             / f"genie_private_{DATA_CNA_HG19_SEG}_13.3-consortium.seg",
+            GENE_PANELS: genie_path / GENE_PANELS,
             GENOMIC_INFORMATION: genie_path
             / f"{GENOMIC_INFORMATION}_13.3-consortium.txt",
         }
