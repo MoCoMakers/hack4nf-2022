@@ -274,7 +274,7 @@ class GenePpmiEmbeddings:
             self.ppmi_alpha,
         )
 
-        lo_dim = min(embedding_size, ppmi_matrix.shape[0])
+        lo_dim = min(self.embedding_size, ppmi_matrix.shape[0]-1)
         svd_matrix = calculate_svd_matrix(
             ppmi_matrix,
             lo_dim,
