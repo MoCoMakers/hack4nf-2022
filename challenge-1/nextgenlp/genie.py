@@ -2,6 +2,94 @@ from glob import glob
 import os
 import pandas as pd
 
+from loguru import logger
+
+from nextgenlp import genie_constants
+
+
+class GenieData:
+
+    def __init__(self, file_paths):
+        self.file_paths = file_paths
+
+    def load(self):
+        self.df_gp_tall = read_gene_panels(self.file_paths["gene_panels"], style="tall")
+        self.df_gp_wide = read_gene_panels(self.file_paths["gene_panels"], style="wide")
+        # this has one row pre mutation
+        self.df_mut_all = read_pat_sam_mut(
+            self.file_paths["data_clinical_patient"],
+            self.file_paths["data_clinical_sample"],
+            self.file_paths["data_mutations_extended"],
+        )
+        # remove rows that don't have mutations
+        self.df_dcs_all = read_clinical_sample(self.file_paths["data_clinical_sample"])
+        self.df_dcs_all = self.df_dcs_all.loc[set(self.df_mut_all["SAMPLE_ID"])]
+
+        logger.info("all variant rows: {}".format(self.df_mut_all.shape[0]))
+        logger.info("all sample rows: {}".format(self.df_dcs_all.shape[0]))
+
+    def impute(self):
+        self.df_mut_all["HGVSp_Short"] = self.df_mut_all["HGVSp_Short"].fillna("")
+        for col in ["Polyphen_Score", "SIFT_Score"]:
+            self.df_mut_all[col] = self.df_mut_all[col].fillna(
+                self.df_mut_all[col].mean()
+            )
+        self.df_mut_all["score"] = (
+            self.df_mut_all["Polyphen_Score"] + self.df_mut_all["SIFT_Score"]
+        ) / 2
+        self.df_mut_all["var_token"] = (
+            self.df_mut_all["Hugo_Symbol"] + "<>" + self.df_mut_all["HGVSp_Short"]
+        )
+
+    def subset(self, subset, y_col=None, y_min_count=None):
+
+        self.subset = subset
+        self.panels = genie_constants.SEQ_ASSAY_ID_GROUPS[subset]
+
+        if subset == "ALL":
+            self.df_dcs = self.df_dcs_all.copy()
+            self.subset_sample_ids = set(self.df_dcs.index)
+            self.subset_genes = set(self.df_gp_wide.columns)
+        else:
+            (
+                self.subset_sample_ids,
+                self.subset_genes,
+            ) = get_genes_and_samples_from_seq_assay_ids(
+                self.df_gp_wide, self.df_dcs_all, self.panels
+            )
+            self.df_dcs = self.df_dcs_all.loc[self.subset_sample_ids].copy()
+
+        self.df_mut = self.df_mut_all[
+            self.df_mut_all["SAMPLE_ID"].isin(self.df_dcs.index)
+        ].copy()
+        self.df_mut = self.df_mut[self.df_mut["Hugo_Symbol"].isin(self.subset_genes)]
+        self.df_dcs = self.df_dcs.loc[self.df_mut["SAMPLE_ID"].unique()]
+
+        logger.info(
+            "subset {} has {} genes {} variant rows and {} sample rows".format(
+                subset,
+                len(self.subset_genes),
+                self.df_mut.shape[0],
+                self.df_dcs.shape[0],
+            )
+        )
+
+        if y_col is not None:
+            y_counts = self.df_dcs[y_col].value_counts()
+            y_keep = y_counts[y_counts >= y_min_count].index
+            self.df_dcs = self.df_dcs[self.df_dcs[y_col].isin(y_keep)]
+            self.df_mut = self.df_mut[self.df_mut["SAMPLE_ID"].isin(self.df_dcs.index)]
+
+            logger.info(
+                "after filtering {} with min count {}, subset has {} variant rows and {} sample rows".format(
+                    y_col, y_min_count, self.df_mut.shape[0], self.df_dcs.shape[0]
+                )
+            )
+
+        self.df_dcs["mut_sent"] = get_mut_gene_sentences(self.df_mut, with_weights=False)
+        self.df_dcs["var_sent"] = self.df_mut.groupby("SAMPLE_ID")["var_token"].apply(list)
+        self.df_dcs["score_sent"] = self.df_mut.groupby("SAMPLE_ID")["score"].apply(list)
+
 
 def read_gene_panel(gp_path: str) -> pd.DataFrame:
     """Read one data_gene_panel_<SEQ_ASSAY_ID>.txt file"""
@@ -11,8 +99,8 @@ def read_gene_panel(gp_path: str) -> pd.DataFrame:
     num_genes = int(lines[1].strip().split("Number of Genes - ")[-1])
     genes = lines[2].strip().split("\t")[1:]
     assert num_genes == len(genes)
-    df = pd.DataFrame(genes, columns=['Hugo_Symbol'])
-    df['SEQ_ASSAY_ID'] = gene_panel
+    df = pd.DataFrame(genes, columns=["Hugo_Symbol"])
+    df["SEQ_ASSAY_ID"] = gene_panel
     return df
 
 
@@ -37,26 +125,27 @@ def read_gene_panels(gp_path: str, style="wide") -> pd.DataFrame:
 
 def read_data_gene_matrix(fpath: str) -> pd.DataFrame:
     """Read data_gene_matrix.txt file"""
-    df = pd.read_csv(fpath, sep='\t')
-    df = df.set_index('SAMPLE_ID', verify_integrity=True)
+    df = pd.read_csv(fpath, sep="\t")
+    df = df.set_index("SAMPLE_ID", verify_integrity=True)
     return df
 
 
 def read_genomic_information(fpath: str) -> pd.DataFrame:
     """Read genomic_information.txt file"""
-    df = pd.read_csv(fpath, sep='\t')
+    df = pd.read_csv(fpath, sep="\t")
     return df
+
 
 def read_assay_information(fpath: str) -> pd.DataFrame:
     """Read assay_information.txt file"""
-    df = pd.read_csv(fpath, sep='\t')
-    df = df.set_index('SEQ_ASSAY_ID', verify_integrity=True)
+    df = pd.read_csv(fpath, sep="\t")
+    df = df.set_index("SEQ_ASSAY_ID", verify_integrity=True)
     return df
 
 
 def read_data_fusions(fpath: str) -> pd.DataFrame:
     """Read data_fusions.txt file"""
-    df = pd.read_csv(fpath, sep='\t')
+    df = pd.read_csv(fpath, sep="\t")
     return df
 
 
@@ -70,7 +159,7 @@ def read_clinical_patient(fpath: str) -> pd.DataFrame:
 def read_clinical_sample(fpath: str) -> pd.DataFrame:
     """Read data_clinical_sample.txt file"""
     df = pd.read_csv(fpath, sep="\t", comment="#")
-    df['CENTER'] = df['SAMPLE_ID'].apply(lambda x: x.split('-')[1])
+    df["CENTER"] = df["SAMPLE_ID"].apply(lambda x: x.split("-")[1])
     df = df.set_index("SAMPLE_ID", verify_integrity=True)
     return df
 
@@ -174,7 +263,9 @@ def dme_to_cravat(df: pd.DataFrame) -> pd.DataFrame:
     return df_cravat
 
 
-def read_pat_sam_mut(patient_fpath: str, sample_fpath: str, mutations_fpath: str) -> pd.DataFrame:
+def read_pat_sam_mut(
+    patient_fpath: str, sample_fpath: str, mutations_fpath: str
+) -> pd.DataFrame:
     """Read and join the,
     * data_clinical_patient
     * data_clinical_sample
@@ -202,25 +293,25 @@ def read_pat_sam_mut(patient_fpath: str, sample_fpath: str, mutations_fpath: str
     return df_psm
 
 
-def get_psm_sentences(df_psm: pd.DataFrame) -> pd.Series:
-    psm_sentences = df_psm.groupby('SAMPLE_ID').apply(
-        lambda x: list(zip(x["Hugo_Symbol"], [1.0] * len(x)))
-    )
-    return psm_sentences
+def get_mut_gene_sentences(df_mut: pd.DataFrame, with_weights=True) -> pd.Series:
+    sentences = df_mut.groupby("SAMPLE_ID")["Hugo_Symbol"].apply(list)
+    if with_weights:
+        sentences.apply(lambda x: [(el, 1.0) for el in x])
+    return sentences
 
 
 def get_cna_sentences(df_cna: pd.DataFrame, drop_nan=True, drop_zero=True) -> pd.Series:
     df_cna_melted = get_melted_cna(df_cna, drop_nan=drop_nan, drop_zero=drop_zero)
-    cna_sentences = df_cna_melted.groupby('SAMPLE_ID').apply(
+    cna_sentences = df_cna_melted.groupby("SAMPLE_ID").apply(
         lambda x: list(zip(x["hugo"], x["dcna"]))
     )
     return cna_sentences
 
 
 def filter_sentences_by_gene(sentences, keep_genes):
-    return sentences.apply(lambda x: [(gene, weight) for gene, weight in x if gene in keep_genes])
-
-
+    return sentences.apply(
+        lambda x: [(gene, weight) for gene, weight in x if gene in keep_genes]
+    )
 
 
 def get_genes_and_samples_from_seq_assay_ids(df_gp_wide, df_dcs, seq_assay_ids):
@@ -230,7 +321,9 @@ def get_genes_and_samples_from_seq_assay_ids(df_gp_wide, df_dcs, seq_assay_ids):
         seq_assay_id_genes = set(
             [gene for (gene, flag) in df_gp_wide.loc[seq_assay_id].items() if flag == 1]
         )
-        seq_assay_id_sample_ids = set(df_dcs[df_dcs["SEQ_ASSAY_ID"] == seq_assay_id].index)
+        seq_assay_id_sample_ids = set(
+            df_dcs[df_dcs["SEQ_ASSAY_ID"] == seq_assay_id].index
+        )
         genes = genes & seq_assay_id_genes
         sample_ids.update(seq_assay_id_sample_ids)
     return sample_ids, genes

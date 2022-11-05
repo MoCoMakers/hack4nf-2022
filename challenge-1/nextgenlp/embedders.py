@@ -4,6 +4,7 @@ import math
 import os
 from typing import Callable, Dict, List, Optional, Tuple
 
+from loguru import logger
 import numpy as np
 import pandas as pd
 from scipy import sparse
@@ -14,7 +15,9 @@ from nextgenlp import genie
 
 
 def filter_counter(
-    counter_orig: Counter, min_weight: Optional[int] = None, max_weight: Optional[int] = None
+    counter_orig: Counter,
+    min_weight: Optional[int] = None,
+    max_weight: Optional[int] = None,
 ) -> Counter:
     """Filter a counter removing values below `min_weight` and values above `max_weight`"""
     counter = Counter(counter_orig)
@@ -76,7 +79,11 @@ def calculate_grams(
     skipgram_weights = Counter()
     for full_sentence in tqdm(sentences, desc="calculating skipgrams"):
         # filter out unigrams
-        sentence = [(unigram, weight) for (unigram, weight) in full_sentence if unigram in unigram_weights]
+        sentence = [
+            (unigram, weight)
+            for (unigram, weight) in full_sentence
+            if unigram in unigram_weights
+        ]
         # normalize for the fact that we take all permuations instead of a sliding window
         # in other words we have to correct for the fact that a unigram will appear in more
         # skipgrams if its in a longer sentence (which wouldn't happen for a sliding window)
@@ -86,7 +93,9 @@ def calculate_grams(
         perms = list(itertools.permutations(sentence, 2))
         for (unigram_a, weight_a), (unigram_b, weight_b) in perms:
             skipgram = (unigram_a, unigram_b)
-            skipgram_weights[skipgram] += skipgram_weighter(weight_a, weight_b) / length_norm
+            skipgram_weights[skipgram] += (
+                skipgram_weighter(weight_a, weight_b) / length_norm
+            )
 
     return unigram_weights, skipgram_weights
 
@@ -219,7 +228,11 @@ def calculate_sample_vectors(
     for sample_id, full_sentence in tqdm(
         sentences.items(), desc="making sample vectors"
     ):
-        sentence = [(unigram, weight) for (unigram, weight) in full_sentence if unigram in unigram_to_index]
+        sentence = [
+            (unigram, weight)
+            for (unigram, weight) in full_sentence
+            if unigram in unigram_to_index
+        ]
         sample_vec = np.zeros(embedding_size)
         norm = len(sentence) if len(sentence) > 0 else 1
         for unigram, weight in sentence:
@@ -232,8 +245,8 @@ def calculate_sample_vectors(
     return sample_vecs
 
 
-
 class GenePpmiEmbeddings:
+
     def __init__(
         self,
         sentences,
@@ -255,6 +268,8 @@ class GenePpmiEmbeddings:
         self.ppmi_alpha = ppmi_alpha
         self.svd_p = svd_p
 
+
+
     def create_embeddings(self):
 
         unigram_weights, skipgram_weights = calculate_grams(
@@ -263,7 +278,11 @@ class GenePpmiEmbeddings:
             self.unigram_weighter,
             self.skipgram_weighter,
         )
-        index_to_unigram = {ii: unigram for ii, unigram in enumerate(unigram_weights.keys())}
+        logger.info("found {} unigrams".format(len(unigram_weights)))
+
+        index_to_unigram = {
+            ii: unigram for ii, unigram in enumerate(unigram_weights.keys())
+        }
         unigram_to_index = {unigram: ii for ii, unigram in index_to_unigram.items()}
         skipgram_matrix = create_skipgram_matrix(skipgram_weights, unigram_to_index)
 
@@ -274,7 +293,7 @@ class GenePpmiEmbeddings:
             self.ppmi_alpha,
         )
 
-        lo_dim = min(self.embedding_size, ppmi_matrix.shape[0]-1)
+        lo_dim = min(self.embedding_size, ppmi_matrix.shape[0] - 1)
         svd_matrix = calculate_svd_matrix(
             ppmi_matrix,
             lo_dim,
@@ -282,8 +301,7 @@ class GenePpmiEmbeddings:
         )
 
         index_to_sample = {
-            ii: sample_id
-            for ii, sample_id in enumerate(self.sentences.index)
+            ii: sample_id for ii, sample_id in enumerate(self.sentences.index)
         }
         sample_to_index = {sample_id: ii for ii, sample_id in index_to_sample.items()}
 
@@ -305,7 +323,6 @@ class GenePpmiEmbeddings:
         self.unigram_to_index = unigram_to_index
         self.sample_vecs = sample_vecs
 
-
     def write_gene_projector_files(self, path, tag, unigram_name, df_meta_extra):
 
         files_written = []
@@ -317,7 +334,9 @@ class GenePpmiEmbeddings:
         df_vecs = pd.DataFrame(self.ppmi_matrix.todense())
         df_vecs.to_csv(fpath, sep="\t", index=False, header=False)
 
-        fpath = os.path.join(path, f"{tag}_{unigram_name}_svd_{self.embedding_size}_vecs.tsv")
+        fpath = os.path.join(
+            path, f"{tag}_{unigram_name}_svd_{self.embedding_size}_vecs.tsv"
+        )
         files_written.append(fpath)
         df_vecs = pd.DataFrame(self.svd_matrix)
         df_vecs.to_csv(fpath, sep="\t", index=False, header=False)
@@ -338,14 +357,13 @@ class GenePpmiEmbeddings:
         df_meta = pd.merge(df_meta, df_ucnt, on=unigram_name)
 
         # add in extra metadata
-        df_meta = pd.merge(df_meta, df_meta_extra, on=unigram_name, how='left')
+        df_meta = pd.merge(df_meta, df_meta_extra, on=unigram_name, how="left")
 
         fpath = os.path.join(path, f"{tag}_{unigram_name}_meta.tsv")
         files_written.append(fpath)
         df_meta.to_csv(fpath, sep="\t", index=False)
 
         return files_written
-
 
     def write_sample_projector_files(self, path, tag, unigram_name, df_dcs):
 
@@ -381,9 +399,8 @@ class GenePpmiEmbeddings:
 
         # record sample metadata from data mutations extended
         df_tmp = (
-            self.sentences
-            .apply(lambda x: set([el[0] for el in x]))
-            .to_frame('Hugos')
+            self.sentences.apply(lambda x: set([el[0] for el in x]))
+            .to_frame("Hugos")
             .reset_index()
         )
 

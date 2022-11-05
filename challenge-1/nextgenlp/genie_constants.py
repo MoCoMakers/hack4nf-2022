@@ -61,7 +61,6 @@ SEQ_ASSAY_ID_GROUPS = {
         "MSK-IMPACT410",
         "MSK-IMPACT468",
         "MSK-IMPACT505",
-        "MSK-IMPACT-HEME-400",
         "UCSF-NIMV4-TO",
         "UCSF-NIMV4-TN",
         "UCSF-IDTV5-TO",
