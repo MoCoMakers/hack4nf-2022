@@ -1,10 +1,15 @@
 from glob import glob
 import os
-import pandas as pd
+from pathlib import Path
 
 from loguru import logger
+import pandas as pd
 
 from nextgenlp import genie_constants
+
+
+REPO_DATA_PATH = Path(__file__).resolve().parent.parent / "data"
+
 
 
 class GenieData:
@@ -35,6 +40,11 @@ class GenieData:
         self.seq_assay_ids = genie_constants.SEQ_ASSAY_ID_GROUPS[seq_assay_id_group]
         if make_sentences:
             self.make_sentences()
+
+        if df_ras is None:
+            RAS_PATH = REPO_DATA_PATH / "nci-ras-initiative/ras-pathway-gene-names.xlsx"
+            df_ras = pd.read_excel(RAS_PATH)
+            self.df_ras = df_ras
 
         if make_meta:
 

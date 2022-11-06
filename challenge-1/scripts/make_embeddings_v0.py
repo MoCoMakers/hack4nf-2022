@@ -28,19 +28,13 @@ MIN_UNIGRAM_WEIGHTS = {
 }
 
 
-
-df_ras = pd.read_excel(
-    os.path.join(SYNC_PATH, "../nci-ras-initiative/ras-pathway-gene-names.xlsx")
-)
-
-
 for genie_version in synapse.VALID_GENIE_VERSIONS:
 
     syn_file_paths = synapse.get_file_name_to_path(genie_version=genie_version)
 
     logger.info(f"genie_version={genie_version}")
     gds = {}
-    gds["ALL"] = genie.GenieData.from_file_paths(syn_file_paths, df_ras=df_ras)
+    gds["ALL"] = genie.GenieData.from_file_paths(syn_file_paths)
 
     for seq_assay_id_group in genie_constants.SEQ_ASSAY_ID_GROUPS.keys():
         logger.info(f"seq_assay_id_group={seq_assay_id_group}")
