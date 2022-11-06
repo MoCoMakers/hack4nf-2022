@@ -8,87 +8,242 @@ from nextgenlp import genie_constants
 
 
 class GenieData:
+    def __init__(
+        self,
+        df_gp_wide,
+        df_mut,
+        df_dcs,
+        seq_assay_id_group,
+        genes,
+        path_score,
+        df_ras=None,
+        make_sentences=True,
+        make_meta=True,
+    ):
 
-    def __init__(self, file_paths):
-        self.file_paths = file_paths
+        assert set(df_dcs.index) == set(df_mut["SAMPLE_ID"])
 
-    def load(self):
-        self.df_gp_tall = read_gene_panels(self.file_paths["gene_panels"], style="tall")
-        self.df_gp_wide = read_gene_panels(self.file_paths["gene_panels"], style="wide")
-        # this has one row pre mutation
-        self.df_mut_all = read_pat_sam_mut(
-            self.file_paths["data_clinical_patient"],
-            self.file_paths["data_clinical_sample"],
-            self.file_paths["data_mutations_extended"],
-        )
-        # remove rows that don't have mutations
-        self.df_dcs_all = read_clinical_sample(self.file_paths["data_clinical_sample"])
-        self.df_dcs_all = self.df_dcs_all.loc[set(self.df_mut_all["SAMPLE_ID"])]
+        self.df_gp_wide = df_gp_wide
+        self.df_mut = df_mut
+        self.df_dcs = df_dcs
+        self.seq_assay_id_group = seq_assay_id_group
+        self.genes = genes
+        self.path_score = path_score
+        self.df_ras = df_ras
 
-        logger.info("all variant rows: {}".format(self.df_mut_all.shape[0]))
-        logger.info("all sample rows: {}".format(self.df_dcs_all.shape[0]))
+        self.sample_ids = set(df_dcs.index)
+        self.seq_assay_ids = genie_constants.SEQ_ASSAY_ID_GROUPS[seq_assay_id_group]
+        if make_sentences:
+            self.make_sentences()
 
-    def impute(self):
-        self.df_mut_all["HGVSp_Short"] = self.df_mut_all["HGVSp_Short"].fillna("")
-        for col in ["Polyphen_Score", "SIFT_Score"]:
-            self.df_mut_all[col] = self.df_mut_all[col].fillna(
-                self.df_mut_all[col].mean()
+        if make_meta:
+
+            self.dfs_meta_extra = {}
+
+            # make mut meta extra
+            # =======================================================
+            all_genes = list(df_gp_wide.columns)
+            # record RAS pathway membership
+            df = pd.DataFrame(all_genes, columns=["unigram"])
+            df = pd.merge(
+                df,
+                df_ras[["Gene name"]],
+                left_on="unigram",
+                right_on="Gene name",
+                how="left",
+            ).rename(columns={"Gene name": "path_RAS_flag"})
+            bmask = df["path_RAS_flag"].isnull()
+            df.loc[bmask, "path_RAS_flag"] = 0
+            df.loc[~bmask, "path_RAS_flag"] = 1
+            self.dfs_meta_extra["mut"] = df
+
+            # make var meta extra
+            # =======================================================
+            df = df_mut[["var_token"]].drop_duplicates().set_index("var_token")
+
+            df1 = (
+                df_mut.groupby("var_token")["Variant_Classification"]
+                .apply(list)
+                .apply(lambda x: x[0])
             )
-        self.df_mut_all["score"] = (
-            self.df_mut_all["Polyphen_Score"] + self.df_mut_all["SIFT_Score"]
-        ) / 2
-        self.df_mut_all["var_token"] = (
-            self.df_mut_all["Hugo_Symbol"] + "<>" + self.df_mut_all["HGVSp_Short"]
-        )
+            df["Variant_Classification"] = df1
 
-    def subset(self, subset, y_col=None, y_min_count=None):
+            df1 = df_mut.groupby("var_token")["SIFT_Score"].mean().fillna(0)
+            df["SIFT_Score"] = df1
 
-        self.subset = subset
-        self.panels = genie_constants.SEQ_ASSAY_ID_GROUPS[subset]
+            df1 = df_mut.groupby("var_token")["Polyphen_Score"].mean().fillna(0)
+            df["Polyphen_Score"] = df1
 
-        if subset == "ALL":
-            self.df_dcs = self.df_dcs_all.copy()
-            self.subset_sample_ids = set(self.df_dcs.index)
-            self.subset_genes = set(self.df_gp_wide.columns)
-        else:
-            (
-                self.subset_sample_ids,
-                self.subset_genes,
-            ) = get_genes_and_samples_from_seq_assay_ids(
-                self.df_gp_wide, self.df_dcs_all, self.panels
-            )
-            self.df_dcs = self.df_dcs_all.loc[self.subset_sample_ids].copy()
-
-        self.df_mut = self.df_mut_all[
-            self.df_mut_all["SAMPLE_ID"].isin(self.df_dcs.index)
-        ].copy()
-        self.df_mut = self.df_mut[self.df_mut["Hugo_Symbol"].isin(self.subset_genes)]
-        self.df_dcs = self.df_dcs.loc[self.df_mut["SAMPLE_ID"].unique()]
+            df = df.reset_index().rename(columns={"var_token": "unigram"})
+            self.dfs_meta_extra["var"] = df
 
         logger.info(
-            "subset {} has {} genes {} variant rows and {} sample rows".format(
-                subset,
-                len(self.subset_genes),
-                self.df_mut.shape[0],
-                self.df_dcs.shape[0],
+            "GenieData init with {} variant rows and {} sample rows".format(
+                self.df_mut.shape[0], self.df_dcs.shape[0]
             )
         )
 
-        if y_col is not None:
-            y_counts = self.df_dcs[y_col].value_counts()
-            y_keep = y_counts[y_counts >= y_min_count].index
-            self.df_dcs = self.df_dcs[self.df_dcs[y_col].isin(y_keep)]
-            self.df_mut = self.df_mut[self.df_mut["SAMPLE_ID"].isin(self.df_dcs.index)]
+    @classmethod
+    def from_file_paths(cls, file_paths, df_ras=None):
+        df_gp_wide = read_gene_panels(file_paths["gene_panels"], style="wide")
 
-            logger.info(
-                "after filtering {} with min count {}, subset has {} variant rows and {} sample rows".format(
-                    y_col, y_min_count, self.df_mut.shape[0], self.df_dcs.shape[0]
-                )
+        # this has one row per mutation
+        df_mut_all = read_pat_sam_mut(
+            file_paths["data_clinical_patient"],
+            file_paths["data_clinical_sample"],
+            file_paths["data_mutations_extended"],
+        )
+
+        # remove rows that don't have mutations
+        df_dcs_all = read_clinical_sample(file_paths["data_clinical_sample"])
+        df_dcs_all = df_dcs_all.loc[set(df_mut_all["SAMPLE_ID"])]
+
+        # create variant token
+        df_mut_all["HGVSp_Short"] = df_mut_all["HGVSp_Short"].fillna("")
+        df_mut_all["var_token"] = (
+            df_mut_all["Hugo_Symbol"] + "<>" + df_mut_all["HGVSp_Short"]
+        )
+
+        seq_assay_id_group = "ALL"
+        genes = set(df_gp_wide.columns)
+        path_score = None
+        return cls(
+            df_gp_wide,
+            df_mut_all,
+            df_dcs_all,
+            seq_assay_id_group,
+            genes,
+            path_score,
+            df_ras=df_ras,
+        )
+
+    def subset_from_seq_assay_id_group(self, seq_assay_id_group):
+
+        if seq_assay_id_group == "ALL":
+            raise ValueError("use from_file_paths to load ALL")
+
+        seq_assay_ids = genie_constants.SEQ_ASSAY_ID_GROUPS[seq_assay_id_group]
+        (sample_ids, genes,) = get_genes_and_samples_from_seq_assay_ids(
+            self.df_gp_wide, self.df_dcs, seq_assay_ids
+        )
+        df_dcs = self.df_dcs.loc[sample_ids].copy()
+        df_mut = self.df_mut[self.df_mut["SAMPLE_ID"].isin(df_dcs.index)].copy()
+        df_mut = df_mut[df_mut["Hugo_Symbol"].isin(genes)]
+        df_dcs = df_dcs.loc[df_mut["SAMPLE_ID"].unique()]
+
+        logger.info(
+            "seq_assay_id_group {} has {} panels {} genes {} variant rows and {} sample rows".format(
+                seq_assay_id_group,
+                len(seq_assay_ids),
+                len(genes),
+                df_mut.shape[0],
+                df_dcs.shape[0],
+            )
+        )
+
+        return GenieData(
+            self.df_gp_wide,
+            df_mut,
+            df_dcs,
+            seq_assay_id_group,
+            genes,
+            self.path_score,
+            df_ras=self.df_ras,
+        )
+
+    def subset_from_path_score(self, path_score, reverse_sift=True):
+
+        if path_score == "Polyphen":
+            bmask = self.df_mut["Polyphen_Score"].isnull()
+            df_mut = self.df_mut[~bmask]
+            df_dcs = self.df_dcs.loc[df_mut["SAMPLE_ID"].unique()]
+
+        elif path_score == "SIFT":
+            bmask = self.df_mut["SIFT_Score"].isnull()
+            df_mut = self.df_mut[~bmask]
+            df_mut["SIFT_Score"] = 1.0 - df_mut["SIFT_Score"]
+            df_dcs = self.df_dcs.loc[df_mut["SAMPLE_ID"].unique()]
+
+        else:
+            raise ValueError(
+                f"path_score must be Polyphen or SIFT, but got {path_score}"
             )
 
-        self.df_dcs["mut_sent"] = get_mut_gene_sentences(self.df_mut, with_weights=False)
-        self.df_dcs["var_sent"] = self.df_mut.groupby("SAMPLE_ID")["var_token"].apply(list)
-        self.df_dcs["score_sent"] = self.df_mut.groupby("SAMPLE_ID")["score"].apply(list)
+        return GenieData(
+            self.df_gp_wide,
+            df_mut,
+            df_dcs,
+            self.seq_assay_id_group,
+            self.genes,
+            path_score,
+            df_ras=self.df_ras,
+        )
+
+    def subset_from_ycol(self, y_col, y_min_count):
+
+        y_counts = self.df_dcs[y_col].value_counts()
+        y_keep = y_counts[y_counts >= y_min_count].index
+        df_dcs = self.df_dcs[self.df_dcs[y_col].isin(y_keep)]
+        df_mut = self.df_mut[self.df_mut["SAMPLE_ID"].isin(df_dcs.index)]
+
+        logger.info(
+            "after filtering {} with min count {}, subset has {} variant rows and {} sample rows".format(
+                y_col, y_min_count, df_mut.shape[0], df_dcs.shape[0]
+            )
+        )
+
+        return GenieData(
+            self.df_gp_wide,
+            df_mut,
+            df_dcs,
+            self.seq_assay_id_group,
+            self.genes,
+            self.path_score,
+            df_ras=self.df_ras,
+        )
+
+    def make_sentences(self):
+
+        # make sentences
+        # ==============================================================
+        self.df_dcs["mut_sent"] = self.df_mut.groupby("SAMPLE_ID")["Hugo_Symbol"].apply(
+            list
+        )
+
+        self.df_dcs["var_sent"] = self.df_mut.groupby("SAMPLE_ID")["var_token"].apply(
+            list
+        )
+        self.df_dcs["mut_sent_flat"] = self.df_dcs["mut_sent"].apply(
+            lambda x: [(el, 1.0) for el in x]
+        )
+        self.df_dcs["var_sent_flat"] = self.df_dcs["var_sent"].apply(
+            lambda x: [(el, 1.0) for el in x]
+        )
+
+        if self.path_score is not None:
+            self.df_dcs["score_sent"] = self.df_mut.groupby("SAMPLE_ID")[
+                f"{self.path_score}_Score"
+            ].apply(list)
+            self.df_dcs["mut_sent_score"] = self.df_dcs.apply(
+                lambda x: list(zip(x["mut_sent"], x["score_sent"])), axis=1
+            )
+            self.df_dcs["var_sent_score"] = self.df_dcs.apply(
+                lambda x: list(zip(x["var_sent"], x["score_sent"])), axis=1
+            )
+
+        check_cols = ["var_sent", "mut_sent_flat", "var_sent_flat"]
+        if self.path_score is not None:
+            check_cols = check_cols + ["score_sent", "mut_sent_score", "var_sent_score"]
+        for col in check_cols:
+            assert (
+                self.df_dcs["mut_sent"].apply(len) == self.df_dcs[col].apply(len)
+            ).all()
+
+    def __str__(self):
+        return f"GenieData(seq_assay_id_group={self.seq_assay_id_group}, path_score={self.path_score})"
+
+    def __repr__(self):
+        return self.__str__()
 
 
 def read_gene_panel(gp_path: str) -> pd.DataFrame:
@@ -278,26 +433,12 @@ def read_pat_sam_mut(
     df_dme = read_mutations_extended(mutations_fpath)
 
     df_psm = pd.merge(
-        df_dme,
-        df_dcs,
-        left_on="Tumor_Sample_Barcode",
-        right_on="SAMPLE_ID",
+        df_dme, df_dcs, left_on="Tumor_Sample_Barcode", right_on="SAMPLE_ID",
     )
 
-    df_psm = pd.merge(
-        df_psm,
-        df_dcp,
-        on="PATIENT_ID",
-    )
+    df_psm = pd.merge(df_psm, df_dcp, on="PATIENT_ID",)
 
     return df_psm
-
-
-def get_mut_gene_sentences(df_mut: pd.DataFrame, with_weights=True) -> pd.Series:
-    sentences = df_mut.groupby("SAMPLE_ID")["Hugo_Symbol"].apply(list)
-    if with_weights:
-        sentences.apply(lambda x: [(el, 1.0) for el in x])
-    return sentences
 
 
 def get_cna_sentences(df_cna: pd.DataFrame, drop_nan=True, drop_zero=True) -> pd.Series:
@@ -306,12 +447,6 @@ def get_cna_sentences(df_cna: pd.DataFrame, drop_nan=True, drop_zero=True) -> pd
         lambda x: list(zip(x["hugo"], x["dcna"]))
     )
     return cna_sentences
-
-
-def filter_sentences_by_gene(sentences, keep_genes):
-    return sentences.apply(
-        lambda x: [(gene, weight) for gene, weight in x if gene in keep_genes]
-    )
 
 
 def get_genes_and_samples_from_seq_assay_ids(df_gp_wide, df_dcs, seq_assay_ids):

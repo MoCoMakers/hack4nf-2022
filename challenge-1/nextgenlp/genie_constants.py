@@ -17,6 +17,10 @@ NF_ONCOTREE_CODES = [
     "MSCHW",
 ]
 
+PATHOLOGY_SCORES = ["Polyphen", "SIFT"]
+
+TOKEN_TYPES = ["mut", "var"]
+
 SEQ_ASSAY_ID_GROUPS = {
     "DFCI-ONCOPANEL-3.1": [
         "DFCI-ONCOPANEL-3.1",
