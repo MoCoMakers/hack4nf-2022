@@ -11,8 +11,20 @@ from nextgenlp import genie_constants
 REPO_DATA_PATH = Path(__file__).resolve().parent.parent / "data"
 
 
-
 class GenieData:
+    """Class to represent a GENIE dataset
+
+    Input:
+      df_gp_wide (DataFrame): gene panels wide (see read_gene_panels)
+      df_mut (DataFrame): data mutations extended (one row per variant)
+      df_dcs (DataFrame): data clinical sample (row row per sample)
+      seq_assay_id_group (str): see genie_constants.py
+      genes (set): genes common to chosen gene panels
+      path_score (str): name of pathogenicity score being used
+      df_ras (DataFrame): gene membership info on RAS pathway
+      make_sentences (bool): if True, make sentences in init function
+      make_meta (bool): if True, make metadata in init function
+    """
     def __init__(
         self,
         df_gp_wide,
