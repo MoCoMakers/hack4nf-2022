@@ -1,0 +1,4 @@
+[Paths]
+DATA_PATH = /path/to/data/hack4nf-2022
+SYNAPSE_PATH = ${DATA_PATH}/synapse
+SECRETS_PATH = ${DATA_PATH}/secrets.json
