@@ -1,0 +1,997 @@
+DepMap ID,8q  Arm-level CNAs,Cell Line Name,Primary Disease,Lineage,1 Lineage
+ACH-000001,0.0,NIHOVCAR3,Ovarian Cancer,Ovary,Ovary
+ACH-000002,0.0,HL60,Leukemia,Blood,Blood
+ACH-000004,1.0,HEL,Leukemia,Blood,Blood
+ACH-000005,1.0,HEL9217,Leukemia,Blood,Blood
+ACH-000006,0.0,MONOMAC6,Leukemia,Blood,Blood
+ACH-000007,0.0,LS513,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000008,-1.0,A101D,Skin Cancer,Skin,Skin
+ACH-000009,0.0,C2BBE1,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000012,-1.0,HCC827,Lung Cancer,Lung,Lung
+ACH-000013,0.0,ONCODG1,Ovarian Cancer,Ovary,Ovary
+ACH-000014,0.0,HS294T,Skin Cancer,Skin,Skin
+ACH-000015,1.0,NCIH1581,Lung Cancer,Lung,Lung
+ACH-000016,0.0,SLR21,Kidney Cancer,Kidney,Kidney
+ACH-000017,0.0,SKBR3,Breast Cancer,Breast,Breast
+ACH-000018,0.0,T24,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000019,1.0,MCF7,Breast Cancer,Breast,Breast
+ACH-000020,0.0,MHHCALL2,Leukemia,Blood,Blood
+ACH-000021,0.0,NCIH1693,Lung Cancer,Lung,Lung
+ACH-000022,1.0,PATU8988S,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000023,0.0,PATU8988T,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000024,-1.0,OPM2,Myeloma,Plasma Cell,Plasma Cell
+ACH-000025,1.0,CH157MN,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000027,0.0,GOS3,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000028,0.0,KPL1,Breast Cancer,Breast,Breast
+ACH-000030,1.0,PC14,Lung Cancer,Lung,Lung
+ACH-000031,0.0,PANC0213,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000032,0.0,MHHCALL3,Leukemia,Blood,Blood
+ACH-000035,0.0,NCIH1650,Lung Cancer,Lung,Lung
+ACH-000036,0.0,U343,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000037,0.0,S117,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000038,0.0,EHEB,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000039,1.0,SKNMC,Bone Cancer,Bone,Bone
+ACH-000040,0.0,U118MG,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000041,1.0,RDES,Bone Cancer,Bone,Bone
+ACH-000042,0.0,PANC0203,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000043,0.0,HS895T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000044,0.0,MDAMB134VI,Breast Cancer,Breast,Breast
+ACH-000045,1.0,MV411,Leukemia,Blood,Blood
+ACH-000046,0.0,ACHN,Kidney Cancer,Kidney,Kidney
+ACH-000047,0.0,GCIY,Gastric Cancer,Gastric,Gastric
+ACH-000048,-1.0,TOV112D,Ovarian Cancer,Ovary,Ovary
+ACH-000050,0.0,NCIH929,Myeloma,Plasma Cell,Plasma Cell
+ACH-000051,0.0,TE617T,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000052,0.0,A673,Bone Cancer,Bone,Bone
+ACH-000053,0.0,KARPAS299,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000054,0.0,HT1080,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000055,1.0,D283MED,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000056,0.0,DOHH2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000058,1.0,ML1,Thyroid Cancer,Thyroid,Thyroid
+ACH-000059,1.0,SUPB15,Leukemia,Blood,Blood
+ACH-000060,1.0,PANC1005,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000061,1.0,HH,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000062,0.0,RERFLCMS,Lung Cancer,Lung,Lung
+ACH-000063,0.0,HS616T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000065,1.0,OCIAML5,Leukemia,Blood,Blood
+ACH-000066,0.0,HCC4006,Lung Cancer,Lung,Lung
+ACH-000067,0.0,HS683,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000068,0.0,REC1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000070,0.0,697,Leukemia,Blood,Blood
+ACH-000071,0.0,HS706T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000072,1.0,MEG01,Leukemia,Blood,Blood
+ACH-000073,0.0,GRANTA519,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000074,1.0,KU812,Leukemia,Blood,Blood
+ACH-000075,0.0,U87MG,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000076,1.0,NCO2,Leukemia,Blood,Blood
+ACH-000077,0.0,MJ,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000078,0.0,MHHNB11,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000079,0.0,TE125T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000080,0.0,BDCM,Leukemia,Blood,Blood
+ACH-000081,1.0,GDM1,Leukemia,Blood,Blood
+ACH-000082,1.0,G292CLONEA141B1,Bone Cancer,Bone,Bone
+ACH-000083,0.0,HS281T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000085,0.0,T3M4,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000086,1.0,ACCMESO1,Lung Cancer,Lung,Lung
+ACH-000087,1.0,SKES1,Bone Cancer,Bone,Bone
+ACH-000088,0.0,HS172T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000090,1.0,PC3,Prostate Cancer,Prostate,Prostate
+ACH-000091,1.0,OV56,Ovarian Cancer,Ovary,Ovary
+ACH-000092,-1.0,NCIH2452,Lung Cancer,Lung,Lung
+ACH-000093,0.0,PANC0504,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000094,0.0,HPAFII,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000095,1.0,D341,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000096,0.0,G401,Rhabdoid,Kidney,Kidney
+ACH-000097,1.0,ZR751,Breast Cancer,Breast,Breast
+ACH-000098,0.0,GAMG,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000099,0.0,SIMA,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000100,0.0,RH41,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000101,1.0,KE37,Leukemia,Blood,Blood
+ACH-000102,1.0,GMS10,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000103,-1.0,CAOV4,Ovarian Cancer,Ovary,Ovary
+ACH-000104,0.0,LOUCY,Leukemia,Blood,Blood
+ACH-000105,1.0,ALLSIL,Leukemia,Blood,Blood
+ACH-000106,0.0,JVM2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000107,0.0,CAPAN2,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000108,0.0,KP3,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000109,0.0,NCIH3255,Lung Cancer,Lung,Lung
+ACH-000110,1.0,NCCSTCK140,Gastric Cancer,Gastric,Gastric
+ACH-000111,1.0,HCC1187,Breast Cancer,Breast,Breast
+ACH-000112,0.0,SIGM5,Leukemia,Blood,Blood
+ACH-000113,1.0,OCIAML2,Leukemia,Blood,Blood
+ACH-000114,0.0,SU8686,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000115,1.0,VCAP,Prostate Cancer,Prostate,Prostate
+ACH-000116,0.0,OAW28,Ovarian Cancer,Ovary,Ovary
+ACH-000117,0.0,EFM192A,Breast Cancer,Breast,Breast
+ACH-000118,0.0,HUPT3,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000119,0.0,HS863T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000120,0.0,CHP212,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000121,0.0,NCIH2405,Lung Cancer,Lung,Lung
+ACH-000122,0.0,SUPT11,Leukemia,Blood,Blood
+ACH-000123,0.0,COV434,Ovarian Cancer,Ovary,Ovary
+ACH-000124,0.0,OCILY19,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000125,0.0,TO175T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000126,0.0,KG1C,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000127,0.0,SLR20,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000128,0.0,LN319,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000129,1.0,NCIH1341,Lung Cancer,Lung,Lung
+ACH-000130,0.0,NALM19,Leukemia,Blood,Blood
+ACH-000131,0.0,HS229T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000132,0.0,JHOS2,Ovarian Cancer,Ovary,Ovary
+ACH-000133,0.0,HS729,Unknown,Soft Tissue,Soft Tissue
+ACH-000134,0.0,HS274T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000135,0.0,HS940T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000136,0.0,CHP126,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000137,1.0,8MGBA,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000138,0.0,CFPAC1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000139,0.0,PANC0327,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000140,1.0,PFEIFFER,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000141,0.0,SNU308,Gallbladder Cancer,Bile Duct,Bile Duct
+ACH-000142,0.0,CAL29,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000144,1.0,RERFGC1B,Gastric Cancer,Gastric,Gastric
+ACH-000145,0.0,SKLMS1,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000146,1.0,THP1,Leukemia,Blood,Blood
+ACH-000147,1.0,T47D,Breast Cancer,Breast,Breast
+ACH-000148,1.0,HS578T,Breast Cancer,Breast,Breast
+ACH-000149,0.0,SKNSH,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000150,-1.0,HCC2935,Lung Cancer,Lung,Lung
+ACH-000151,0.0,JM1,Leukemia,Blood,Blood
+ACH-000152,-1.0,M059K,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000153,1.0,NCIH2052,Lung Cancer,Lung,Lung
+ACH-000154,0.0,HS888T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000155,0.0,SW1990,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000156,0.0,MHHCALL4,Leukemia,Blood,Blood
+ACH-000157,0.0,A4FUK,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000158,0.0,OCILY3,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000159,-1.0,OSRC2,Kidney Cancer,Kidney,Kidney
+ACH-000161,-1.0,CORL105,Lung Cancer,Lung,Lung
+ACH-000162,0.0,GA10,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000163,0.0,SW579,Thyroid Cancer,Thyroid,Thyroid
+ACH-000164,0.0,PANC1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000165,0.0,HS751T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000166,0.0,KASUMI6,Leukemia,Blood,Blood
+ACH-000167,1.0,KE97,Myeloma,Plasma Cell,Plasma Cell
+ACH-000168,1.0,NOMO1,Leukemia,Blood,Blood
+ACH-000169,0.0,RD,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000171,0.0,VMRCRCZ,Kidney Cancer,Kidney,Kidney
+ACH-000173,1.0,JHUEM3,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000174,0.0,CAL62,Thyroid Cancer,Thyroid,Thyroid
+ACH-000175,0.0,TE159T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000176,0.0,LOUNH91,Lung Cancer,Lung,Lung
+ACH-000177,1.0,NCIH660,Prostate Cancer,Prostate,Prostate
+ACH-000178,-1.0,HS766T,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000179,1.0,NCIH1618,Lung Cancer,Lung,Lung
+ACH-000180,0.0,HS839T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000181,1.0,SCC9,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000183,1.0,L363,Myeloma,Plasma Cell,Plasma Cell
+ACH-000184,0.0,HS343T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000185,0.0,HS737T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000186,0.0,NCIH2444,Lung Cancer,Lung,Lung
+ACH-000187,0.0,CORL311,Lung Cancer,Lung,Lung
+ACH-000188,0.0,SCC25,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000189,1.0,RCC10RGB,Kidney Cancer,Kidney,Kidney
+ACH-000190,0.0,HDMYZ,Unknown,Unknown,Unknown
+ACH-000191,1.0,BHT101,Thyroid Cancer,Thyroid,Thyroid
+ACH-000192,0.0,MFE280,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000193,0.0,KARPAS620,Myeloma,Plasma Cell,Plasma Cell
+ACH-000194,0.0,HS934T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000195,0.0,SET2,Leukemia,Blood,Blood
+ACH-000196,1.0,HCC1599,Breast Cancer,Breast,Breast
+ACH-000198,1.0,EOL1,Leukemia,Blood,Blood
+ACH-000200,0.0,NMCG1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000201,0.0,A204,Rhabdoid,Soft Tissue,Soft Tissue
+ACH-000202,0.0,COLO320,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000203,0.0,NH6,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000204,0.0,LP1,Myeloma,Plasma Cell,Plasma Cell
+ACH-000205,1.0,PK59,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000207,1.0,DETROIT562,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000208,0.0,U178,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000209,0.0,SNU1079,Bile Duct Cancer,Bile Duct,Bile Duct
+ACH-000210,1.0,CADOES1,Bone Cancer,Bone,Bone
+ACH-000211,0.0,DAOY,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000212,1.0,CAL120,Breast Cancer,Breast,Breast
+ACH-000213,1.0,HUPT4,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000214,0.0,HS675T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000215,0.0,LN382,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000216,1.0,JHESOAD1,Esophageal Cancer,Esophagus,Esophagus
+ACH-000217,0.0,JHH6,Liver Cancer,Liver,Liver
+ACH-000218,1.0,PL21,Leukemia,Blood,Blood
+ACH-000219,0.0,A375,Skin Cancer,Skin,Skin
+ACH-000220,0.0,MINO,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000221,0.0,SNU398,Liver Cancer,Liver,Liver
+ACH-000222,0.0,ASPC1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000223,1.0,HCC1937,Breast Cancer,Breast,Breast
+ACH-000224,0.0,HS819T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000225,0.0,ECC12,Gastric Cancer,Gastric,Gastric
+ACH-000226,0.0,SUPM2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000227,0.0,KPNYN,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000228,1.0,BICR31,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000229,0.0,HS822T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000230,0.0,HS742T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000231,0.0,KALS1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000232,-1.0,U251MG,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000233,-1.0,DEL,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000234,1.0,CAKI2,Kidney Cancer,Kidney,Kidney
+ACH-000235,0.0,PANC0403,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000236,0.0,SW1417,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000237,0.0,JHOM1,Ovarian Cancer,Ovary,Ovary
+ACH-000238,1.0,SCC4,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000239,1.0,HUG1N,Gastric Cancer,Gastric,Gastric
+ACH-000240,0.0,HS600T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000241,1.0,JK1,Leukemia,Blood,Blood
+ACH-000242,0.0,RT4,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000243,1.0,DANG,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000244,0.0,DKMG,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000245,0.0,BL41,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000247,1.0,OCUM1,Gastric Cancer,Gastric,Gastric
+ACH-000248,0.0,AU565,Breast Cancer,Breast,Breast
+ACH-000249,0.0,CL11,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000250,0.0,KMRC20,Kidney Cancer,Kidney,Kidney
+ACH-000252,0.0,LS1034,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000254,1.0,SCC15,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000255,1.0,LMSU,Gastric Cancer,Gastric,Gastric
+ACH-000256,-1.0,COV318,Ovarian Cancer,Ovary,Ovary
+ACH-000257,0.0,CORL279,Lung Cancer,Lung,Lung
+ACH-000258,0.0,DU4475,Breast Cancer,Breast,Breast
+ACH-000259,0.0,KELLY,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000260,0.0,SKNAS,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000261,1.0,RERFLCAI,Lung Cancer,Lung,Lung
+ACH-000262,-1.0,UOK101,Kidney Cancer,Kidney,Kidney
+ACH-000263,0.0,KASUMI1,Leukemia,Blood,Blood
+ACH-000264,0.0,CALU6,Lung Cancer,Lung,Lung
+ACH-000265,-1.0,KP4,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000266,1.0,SNU213,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000267,0.0,HDLM2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000268,1.0,SNU245,Bile Duct Cancer,Bile Duct,Bile Duct
+ACH-000269,0.0,AM38,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000270,1.0,HPAC,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000271,0.0,SUDHL10,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000272,0.0,SLR24,Kidney Cancer,Kidney,Kidney
+ACH-000274,0.0,HS852T,Skin Cancer,Skin,Skin
+ACH-000276,1.0,HCC38,Breast Cancer,Breast,Breast
+ACH-000277,0.0,HCC1419,Breast Cancer,Breast,Breast
+ACH-000278,0.0,COV362,Ovarian Cancer,Ovary,Ovary
+ACH-000279,1.0,EWS502,Bone Cancer,Bone,Bone
+ACH-000280,1.0,SNU840,Ovarian Cancer,Ovary,Ovary
+ACH-000281,-1.0,KP2,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000282,0.0,NCIH1755,Lung Cancer,Lung,Lung
+ACH-000283,-1.0,A1207,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000284,0.0,HS840T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000285,1.0,TOLEDO,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000287,0.0,NUDUL1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000288,1.0,BT549,Breast Cancer,Breast,Breast
+ACH-000289,0.0,SNU466,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000290,1.0,NCIH209,Lung Cancer,Lung,Lung
+ACH-000291,0.0,OV90,Ovarian Cancer,Ovary,Ovary
+ACH-000292,-1.0,NCIH841,Lung Cancer,Lung,Lung
+ACH-000293,-1.0,KLE,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000294,-1.0,NB4,Leukemia,Blood,Blood
+ACH-000295,0.0,EM2,Leukemia,Blood,Blood
+ACH-000296,0.0,OUMS23,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000297,0.0,NCIH889,Lung Cancer,Lung,Lung
+ACH-000298,1.0,NCIH2029,Lung Cancer,Lung,Lung
+ACH-000300,0.0,SLR25,Kidney Cancer,Kidney,Kidney
+ACH-000301,1.0,LAMA84,Leukemia,Blood,Blood
+ACH-000302,1.0,SNU1077,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000303,0.0,SNU5,Gastric Cancer,Gastric,Gastric
+ACH-000304,0.0,WM115,Skin Cancer,Skin,Skin
+ACH-000305,0.0,ECGI10,Esophageal Cancer,Esophagus,Esophagus
+ACH-000306,0.0,HS688AT,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000307,0.0,PK1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000308,0.0,EFO21,Ovarian Cancer,Ovary,Ovary
+ACH-000309,1.0,SKLU1,Lung Cancer,Lung,Lung
+ACH-000310,0.0,IMR32,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000311,1.0,NCIH2122,Lung Cancer,Lung,Lung
+ACH-000312,0.0,SKNBE2,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000313,0.0,KMRC3,Kidney Cancer,Kidney,Kidney
+ACH-000315,0.0,KARPAS422,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000316,0.0,SNU886,Liver Cancer,Liver,Liver
+ACH-000317,0.0,TUHR14TKB,Kidney Cancer,Kidney,Kidney
+ACH-000318,-1.0,TE10,Esophageal Cancer,Esophagus,Esophagus
+ACH-000319,1.0,MPP89,Lung Cancer,Lung,Lung
+ACH-000320,-1.0,PSN1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000321,1.0,MOLM6,Leukemia,Blood,Blood
+ACH-000322,0.0,HT144,Skin Cancer,Skin,Skin
+ACH-000323,0.0,42MGBA,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000324,1.0,JHOC5,Ovarian Cancer,Ovary,Ovary
+ACH-000325,1.0,SNU620,Gastric Cancer,Gastric,Gastric
+ACH-000326,0.0,JURLMK1,Leukemia,Blood,Blood
+ACH-000327,1.0,NCIH1395,Lung Cancer,Lung,Lung
+ACH-000329,0.0,CCFSTTG1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000330,1.0,EFM19,Breast Cancer,Breast,Breast
+ACH-000331,-1.0,ISTMES2,Lung Cancer,Lung,Lung
+ACH-000332,1.0,YAPC,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000333,0.0,JHOM2B,Ovarian Cancer,Ovary,Ovary
+ACH-000334,0.0,DB,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000335,0.0,MSTO211H,Lung Cancer,Lung,Lung
+ACH-000336,1.0,OCIAML3,Leukemia,Blood,Blood
+ACH-000338,1.0,SR786,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000340,0.0,HS870T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000341,0.0,SKNFI,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000342,-1.0,CL14,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000343,-1.0,NCIH522,Lung Cancer,Lung,Lung
+ACH-000344,1.0,SNU668,Gastric Cancer,Gastric,Gastric
+ACH-000345,0.0,KPNRTBM1,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000346,0.0,JVM3,Leukemia,Blood,Blood
+ACH-000347,-1.0,QGP1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000348,0.0,RPMI7951,Skin Cancer,Skin,Skin
+ACH-000349,0.0,HCC1500,Breast Cancer,Breast,Breast
+ACH-000350,0.0,COLO678,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000351,0.0,MKN1,Gastric Cancer,Gastric,Gastric
+ACH-000352,1.0,HCC1428,Breast Cancer,Breast,Breast
+ACH-000353,-1.0,TE15,Esophageal Cancer,Esophagus,Esophagus
+ACH-000354,1.0,CAPAN1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000355,0.0,NCIH82,Lung Cancer,Lung,Lung
+ACH-000356,-1.0,MKN45,Gastric Cancer,Gastric,Gastric
+ACH-000357,-1.0,JEKO1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000358,0.0,NCIH69,Lung Cancer,Lung,Lung
+ACH-000359,1.0,MG63,Bone Cancer,Bone,Bone
+ACH-000360,0.0,NCIH508,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000361,0.0,SKHEP1,Liver Cancer,Liver,Liver
+ACH-000362,1.0,MOLM13,Leukemia,Blood,Blood
+ACH-000363,1.0,SKMM2,Myeloma,Plasma Cell,Plasma Cell
+ACH-000364,0.0,U2OS,Bone Cancer,Bone,Bone
+ACH-000365,0.0,SUDHL4,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000366,0.0,SKNDZ,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000367,0.0,NCIH226,Lung Cancer,Lung,Lung
+ACH-000368,0.0,SNU1105,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000369,0.0,MOLM16,Leukemia,Blood,Blood
+ACH-000370,-1.0,SNU626,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000371,0.0,RL,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000372,0.0,P12ICHIKAWA,Leukemia,Blood,Blood
+ACH-000373,0.0,SKM1,Leukemia,Blood,Blood
+ACH-000374,1.0,HCC1143,Breast Cancer,Breast,Breast
+ACH-000375,0.0,G402,Kidney Cancer,Kidney,Kidney
+ACH-000376,0.0,SF295,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000377,-1.0,SNU478,Bile Duct Cancer,Bile Duct,Bile Duct
+ACH-000378,1.0,NCIH647,Lung Cancer,Lung,Lung
+ACH-000379,-1.0,NCIH1781,Lung Cancer,Lung,Lung
+ACH-000380,0.0,KMS12BM,Myeloma,Plasma Cell,Plasma Cell
+ACH-000381,-1.0,T84,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000382,0.0,CORL24,Lung Cancer,Lung,Lung
+ACH-000383,-1.0,OE33,Esophageal Cancer,Esophagus,Esophagus
+ACH-000384,0.0,SW780,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000386,1.0,KG1,Leukemia,Blood,Blood
+ACH-000387,1.0,TF1,Leukemia,Blood,Blood
+ACH-000388,1.0,NUDHL1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000389,0.0,H4,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000390,0.0,LUDLU1,Lung Cancer,Lung,Lung
+ACH-000391,1.0,MHHES1,Bone Cancer,Bone,Bone
+ACH-000392,-1.0,CALU3,Lung Cancer,Lung,Lung
+ACH-000393,-1.0,HLF,Liver Cancer,Liver,Liver
+ACH-000394,-1.0,NCIH2081,Lung Cancer,Lung,Lung
+ACH-000395,0.0,NCIH520,Lung Cancer,Lung,Lung
+ACH-000396,0.0,J82,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000397,1.0,TEN,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000398,0.0,RI1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000399,0.0,NCIH2196,Lung Cancer,Lung,Lung
+ACH-000400,0.0,SKCO1,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000401,-1.0,COLO800,Skin Cancer,Skin,Skin
+ACH-000402,0.0,BL70,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000403,0.0,NCIH747,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000404,0.0,K029AX,Skin Cancer,Skin,Skin
+ACH-000405,0.0,MEC1,Leukemia,Blood,Blood
+ACH-000406,0.0,U937,Leukemia,Blood,Blood
+ACH-000407,0.0,SNU685,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000408,0.0,TE5,Esophageal Cancer,Esophagus,Esophagus
+ACH-000409,-1.0,OVSAHO,Ovarian Cancer,Ovary,Ovary
+ACH-000411,1.0,769P,Kidney Cancer,Kidney,Kidney
+ACH-000412,0.0,SNU1197,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000413,0.0,HS739T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000414,1.0,NCIH1944,Lung Cancer,Lung,Lung
+ACH-000415,0.0,BICR6,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000416,0.0,NCIH838,Lung Cancer,Lung,Lung
+ACH-000417,1.0,PANC0813,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000418,0.0,SW1353,Bone Cancer,Bone,Bone
+ACH-000419,0.0,KMS28BM,Myeloma,Plasma Cell,Plasma Cell
+ACH-000420,1.0,SNU449,Liver Cancer,Liver,Liver
+ACH-000421,0.0,SW837,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000422,1.0,SNU475,Liver Cancer,Liver,Liver
+ACH-000423,0.0,SKMEL3,Skin Cancer,Skin,Skin
+ACH-000424,0.0,TC71,Bone Cancer,Bone,Bone
+ACH-000425,0.0,UACC62,Skin Cancer,Skin,Skin
+ACH-000426,0.0,KMS20,Myeloma,Plasma Cell,Plasma Cell
+ACH-000427,1.0,NCIN87,Gastric Cancer,Gastric,Gastric
+ACH-000429,0.0,A704,Kidney Cancer,Kidney,Kidney
+ACH-000430,1.0,TYKNU,Ovarian Cancer,Ovary,Ovary
+ACH-000431,1.0,NCIH1694,Lung Cancer,Lung,Lung
+ACH-000432,1.0,BV173,Leukemia,Blood,Blood
+ACH-000433,1.0,CAKI1,Kidney Cancer,Kidney,Kidney
+ACH-000434,0.0,NCIH1915,Lung Cancer,Lung,Lung
+ACH-000435,0.0,EFE184,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000437,-1.0,SW1088,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000438,0.0,LU65,Lung Cancer,Lung,Lung
+ACH-000439,1.0,ME1,Leukemia,Blood,Blood
+ACH-000440,0.0,CA46,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000441,1.0,SH4,Skin Cancer,Skin,Skin
+ACH-000442,0.0,RERFLCSQ1,Lung Cancer,Lung,Lung
+ACH-000443,0.0,OVKATE,Ovarian Cancer,Ovary,Ovary
+ACH-000444,1.0,LU99,Lung Cancer,Lung,Lung
+ACH-000445,0.0,KNS60,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000446,1.0,KPNSI9S,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000447,0.0,NCIH2228,Lung Cancer,Lung,Lung
+ACH-000448,1.0,NCIH1666,Lung Cancer,Lung,Lung
+ACH-000449,0.0,MESSA,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000450,0.0,MELHO,Skin Cancer,Skin,Skin
+ACH-000451,-1.0,NCIH2085,Lung Cancer,Lung,Lung
+ACH-000452,0.0,TE8,Esophageal Cancer,Esophagus,Esophagus
+ACH-000453,0.0,MOLP2,Myeloma,Plasma Cell,Plasma Cell
+ACH-000454,0.0,HCC95,Lung Cancer,Lung,Lung
+ACH-000456,0.0,BCPAP,Thyroid Cancer,Thyroid,Thyroid
+ACH-000457,1.0,CAL54,Kidney Cancer,Kidney,Kidney
+ACH-000458,1.0,CJM,Skin Cancer,Skin,Skin
+ACH-000459,0.0,TUHR10TKB,Kidney Cancer,Kidney,Kidney
+ACH-000460,-1.0,SNU8,Ovarian Cancer,Ovary,Ovary
+ACH-000461,1.0,SNU1196,Bile Duct Cancer,Bile Duct,Bile Duct
+ACH-000462,0.0,NALM1,Leukemia,Blood,Blood
+ACH-000463,-1.0,NCIH460,Lung Cancer,Lung,Lung
+ACH-000464,0.0,CAS1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000465,0.0,SKMEL1,Skin Cancer,Skin,Skin
+ACH-000466,1.0,SNU216,Gastric Cancer,Gastric,Gastric
+ACH-000467,0.0,HCC56,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000468,0.0,PK45H,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000469,0.0,YH13,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000470,1.0,SW1463,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000471,0.0,LI7,Liver Cancer,Liver,Liver
+ACH-000472,-1.0,HSC2,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000473,1.0,RT112,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000475,0.0,HUH1,Liver Cancer,Liver,Liver
+ACH-000476,0.0,JHH4,Liver Cancer,Liver,Liver
+ACH-000477,-1.0,MALME3M,Skin Cancer,Skin,Skin
+ACH-000478,-1.0,SNU387,Liver Cancer,Liver,Liver
+ACH-000479,0.0,KNS81,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000480,0.0,HUH7,Liver Cancer,Liver,Liver
+ACH-000481,0.0,NCIH2170,Lung Cancer,Lung,Lung
+ACH-000482,0.0,RERFLCKJ,Lung Cancer,Lung,Lung
+ACH-000483,0.0,SNU182,Liver Cancer,Liver,Liver
+ACH-000484,1.0,VMRCRCW,Kidney Cancer,Kidney,Kidney
+ACH-000485,0.0,GSU,Gastric Cancer,Gastric,Gastric
+ACH-000486,0.0,KU1919,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000487,0.0,F36P,Leukemia,Blood,Blood
+ACH-000488,-1.0,TE11,Esophageal Cancer,Esophagus,Esophagus
+ACH-000489,0.0,SW1116,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000491,-1.0,NCIH716,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000492,0.0,MUTZ5,Leukemia,Blood,Blood
+ACH-000493,-1.0,SNU423,Liver Cancer,Liver,Liver
+ACH-000495,0.0,TUHR4TKB,Kidney Cancer,Kidney,Kidney
+ACH-000496,0.0,NCIH1792,Lung Cancer,Lung,Lung
+ACH-000498,1.0,KO52,Leukemia,Blood,Blood
+ACH-000499,0.0,EW8,Bone Cancer,Bone,Bone
+ACH-000500,1.0,SNU46,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000501,-1.0,LS123,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000502,1.0,TCCPAN2,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000503,0.0,BICR16,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000505,-1.0,RKN,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000506,0.0,NCIH146,Lung Cancer,Lung,Lung
+ACH-000507,1.0,KE39,Gastric Cancer,Gastric,Gastric
+ACH-000508,1.0,CORL88,Lung Cancer,Lung,Lung
+ACH-000509,0.0,HUT78,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000510,1.0,NCIH1299,Lung Cancer,Lung,Lung
+ACH-000511,-1.0,CALU1,Lung Cancer,Lung,Lung
+ACH-000513,0.0,SNU1272,Kidney Cancer,Kidney,Kidney
+ACH-000514,0.0,NCIH1092,Lung Cancer,Lung,Lung
+ACH-000515,0.0,HCC33,Lung Cancer,Lung,Lung
+ACH-000516,1.0,CAL78,Bone Cancer,Bone,Bone
+ACH-000517,1.0,SNU410,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000518,1.0,CAL33,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000519,0.0,PEER,Leukemia,Blood,Blood
+ACH-000520,1.0,59M,Ovarian Cancer,Ovary,Ovary
+ACH-000521,1.0,NCIH2030,Lung Cancer,Lung,Lung
+ACH-000522,1.0,UMUC3,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000523,-1.0,NCIH1184,Lung Cancer,Lung,Lung
+ACH-000524,1.0,KURAMOCHI,Ovarian Cancer,Ovary,Ovary
+ACH-000525,-1.0,NCIH2171,Lung Cancer,Lung,Lung
+ACH-000526,0.0,HS821T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000527,1.0,OVISE,Ovarian Cancer,Ovary,Ovary
+ACH-000528,0.0,ABC1,Lung Cancer,Lung,Lung
+ACH-000529,0.0,T173,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000530,1.0,DMS114,Lung Cancer,Lung,Lung
+ACH-000532,-1.0,SNU61,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000534,1.0,WSUDLCL2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000535,0.0,BXPC3,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000536,-1.0,BT20,Breast Cancer,Breast,Breast
+ACH-000537,1.0,SNU761,Liver Cancer,Liver,Liver
+ACH-000538,0.0,HUTU80,Gastric Cancer,Gastric,Gastric
+ACH-000539,0.0,HS618T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000540,0.0,HS606T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000541,0.0,KMS34,Myeloma,Plasma Cell,Plasma Cell
+ACH-000542,1.0,HEYA8,Ovarian Cancer,Ovary,Ovary
+ACH-000543,0.0,SNU489,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000544,1.0,OE21,Esophageal Cancer,Esophagus,Esophagus
+ACH-000545,0.0,VMCUB1,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000546,0.0,HSC4,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000547,1.0,HT1197,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000548,1.0,BHY,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000549,0.0,SNU1076,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000550,1.0,IGR39,Skin Cancer,Skin,Skin
+ACH-000551,0.0,K562,Leukemia,Blood,Blood
+ACH-000552,0.0,HT29,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000553,0.0,SQ1,Lung Cancer,Lung,Lung
+ACH-000554,1.0,UACC893,Breast Cancer,Breast,Breast
+ACH-000555,1.0,A498,Kidney Cancer,Kidney,Kidney
+ACH-000557,1.0,AML193,Leukemia,Blood,Blood
+ACH-000558,0.0,A172,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000559,1.0,NCIH1836,Lung Cancer,Lung,Lung
+ACH-000560,1.0,ECC10,Gastric Cancer,Gastric,Gastric
+ACH-000561,1.0,TDOTT,Esophageal Cancer,Esophagus,Esophagus
+ACH-000562,0.0,HCC78,Lung Cancer,Lung,Lung
+ACH-000563,1.0,EBC1,Lung Cancer,Lung,Lung
+ACH-000564,1.0,KHM1B,Myeloma,Plasma Cell,Plasma Cell
+ACH-000565,1.0,RCM1,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000566,0.0,SW1710,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000567,0.0,ST486,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000568,1.0,UACC812,Breast Cancer,Breast,Breast
+ACH-000569,1.0,ISTMES1,Lung Cancer,Lung,Lung
+ACH-000570,0.0,YKG1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000571,0.0,T98G,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000572,1.0,G361,Skin Cancer,Skin,Skin
+ACH-000573,-1.0,MDAMB436,Breast Cancer,Breast,Breast
+ACH-000574,0.0,FUOV1,Ovarian Cancer,Ovary,Ovary
+ACH-000575,0.0,HCC364,Lung Cancer,Lung,Lung
+ACH-000576,0.0,KMS27,Myeloma,Plasma Cell,Plasma Cell
+ACH-000577,1.0,JHH2,Liver Cancer,Liver,Liver
+ACH-000578,0.0,HCC1171,Lung Cancer,Lung,Lung
+ACH-000579,1.0,UACC257,Skin Cancer,Skin,Skin
+ACH-000580,1.0,C32,Skin Cancer,Skin,Skin
+ACH-000581,-1.0,SNU16,Gastric Cancer,Gastric,Gastric
+ACH-000582,-1.0,COLO741,Skin Cancer,Skin,Skin
+ACH-000583,0.0,MC116,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000584,0.0,JHOS4,Ovarian Cancer,Ovary,Ovary
+ACH-000585,1.0,EPLC272H,Lung Cancer,Lung,Lung
+ACH-000586,0.0,NCIH1876,Lung Cancer,Lung,Lung
+ACH-000587,0.0,NCIH1975,Lung Cancer,Lung,Lung
+ACH-000588,0.0,KMS26,Myeloma,Plasma Cell,Plasma Cell
+ACH-000589,1.0,NCIH1437,Lung Cancer,Lung,Lung
+ACH-000590,1.0,NCIH2073,Lung Cancer,Lung,Lung
+ACH-000591,0.0,LN235,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000592,-1.0,TM31,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000593,1.0,BC3C,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000594,0.0,DMS153,Lung Cancer,Lung,Lung
+ACH-000595,0.0,LN229,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000596,1.0,LCLC97TM1,Lung Cancer,Lung,Lung
+ACH-000598,0.0,KMS21BM,Myeloma,Plasma Cell,Plasma Cell
+ACH-000599,1.0,PATU8902,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000600,0.0,SLR26,Kidney Cancer,Kidney,Kidney
+ACH-000601,-1.0,MIAPACA2,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000602,0.0,M07E,Leukemia,Blood,Blood
+ACH-000603,-1.0,BEN,Lung Cancer,Lung,Lung
+ACH-000604,0.0,KYO1,Leukemia,Blood,Blood
+ACH-000605,1.0,TE6,Esophageal Cancer,Esophagus,Esophagus
+ACH-000606,1.0,PECAPJ34CLONEC12,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000607,0.0,KYM1,Rhabdoid,Soft Tissue,Soft Tissue
+ACH-000608,-1.0,COV644,Ovarian Cancer,Ovary,Ovary
+ACH-000609,0.0,SF126,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000610,-1.0,NCIH2227,Lung Cancer,Lung,Lung
+ACH-000611,0.0,SUDHL6,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000612,0.0,HUT102,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000613,0.0,HOS,Bone Cancer,Bone,Bone
+ACH-000614,1.0,RVH421,Skin Cancer,Skin,Skin
+ACH-000615,0.0,SKMEL28,Skin Cancer,Skin,Skin
+ACH-000616,1.0,HS746T,Gastric Cancer,Gastric,Gastric
+ACH-000617,1.0,OVCAR4,Ovarian Cancer,Ovary,Ovary
+ACH-000619,1.0,PECAPJ15,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000620,1.0,JHH1,Liver Cancer,Liver,Liver
+ACH-000621,1.0,MDAMB157,Breast Cancer,Breast,Breast
+ACH-000622,-1.0,KNS42,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000623,1.0,SNU201,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000624,0.0,HCC1806,Breast Cancer,Breast,Breast
+ACH-000625,0.0,HEP3B217,Liver Cancer,Liver,Liver
+ACH-000626,0.0,U266B1,Myeloma,Plasma Cell,Plasma Cell
+ACH-000627,1.0,LCLC103H,Lung Cancer,Lung,Lung
+ACH-000628,1.0,NCIH596,Lung Cancer,Lung,Lung
+ACH-000630,1.0,YD8,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000631,0.0,KS1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000632,0.0,HS944T,Skin Cancer,Skin,Skin
+ACH-000633,-1.0,FU97,Gastric Cancer,Gastric,Gastric
+ACH-000634,0.0,LN340,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000635,1.0,SNU119,Ovarian Cancer,Ovary,Ovary
+ACH-000636,0.0,RPMI8402,Leukemia,Blood,Blood
+ACH-000637,0.0,KYSE520,Esophageal Cancer,Esophagus,Esophagus
+ACH-000638,0.0,NCIH441,Lung Cancer,Lung,Lung
+ACH-000639,0.0,NCIH211,Lung Cancer,Lung,Lung
+ACH-000640,1.0,SKMEL31,Skin Cancer,Skin,Skin
+ACH-000641,0.0,CMK,Leukemia,Blood,Blood
+ACH-000643,1.0,HDQP1,Breast Cancer,Breast,Breast
+ACH-000644,1.0,COLO829,Skin Cancer,Skin,Skin
+ACH-000645,0.0,JL1,Lung Cancer,Lung,Lung
+ACH-000646,-1.0,OVMANA,Ovarian Cancer,Ovary,Ovary
+ACH-000647,-1.0,TE1,Esophageal Cancer,Esophagus,Esophagus
+ACH-000648,-1.0,NCIH28,Lung Cancer,Lung,Lung
+ACH-000649,1.0,786O,Kidney Cancer,Kidney,Kidney
+ACH-000650,0.0,IGR37,Skin Cancer,Skin,Skin
+ACH-000651,0.0,SW620,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000652,0.0,SUIT2,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000653,1.0,JJN3,Myeloma,Plasma Cell,Plasma Cell
+ACH-000654,0.0,RAJI,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000656,0.0,SUDHL8,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000657,0.0,A2780,Ovarian Cancer,Ovary,Ovary
+ACH-000659,0.0,SCLC21H,Lung Cancer,Lung,Lung
+ACH-000660,0.0,SUDHL5,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000661,1.0,WM1799,Skin Cancer,Skin,Skin
+ACH-000662,0.0,CORL23,Lung Cancer,Lung,Lung
+ACH-000663,1.0,OVTOKO,Ovarian Cancer,Ovary,Ovary
+ACH-000664,0.0,SUDHL1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000665,-1.0,SKMES1,Lung Cancer,Lung,Lung
+ACH-000666,1.0,NCIH1355,Lung Cancer,Lung,Lung
+ACH-000667,-1.0,HCC44,Lung Cancer,Lung,Lung
+ACH-000668,1.0,HCC70,Breast Cancer,Breast,Breast
+ACH-000669,0.0,SW900,Lung Cancer,Lung,Lung
+ACH-000670,0.0,SBC5,Lung Cancer,Lung,Lung
+ACH-000671,1.0,HUH6,Liver Cancer,Liver,Liver
+ACH-000672,1.0,IALM,Lung Cancer,Lung,Lung
+ACH-000673,0.0,LN443,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000674,0.0,NUGC4,Gastric Cancer,Gastric,Gastric
+ACH-000675,0.0,NCIH1734,Lung Cancer,Lung,Lung
+ACH-000677,1.0,SW1573,Lung Cancer,Lung,Lung
+ACH-000678,1.0,MKN7,Gastric Cancer,Gastric,Gastric
+ACH-000679,1.0,OE19,Esophageal Cancer,Esophagus,Esophagus
+ACH-000680,0.0,SW948,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000681,0.0,A549,Lung Cancer,Lung,Lung
+ACH-000683,1.0,SNU503,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000684,0.0,KMRC1,Kidney Cancer,Kidney,Kidney
+ACH-000685,0.0,L33,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000686,0.0,SNU878,Liver Cancer,Liver,Liver
+ACH-000687,0.0,CI1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000688,0.0,OV7,Ovarian Cancer,Ovary,Ovary
+ACH-000689,0.0,RH18,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000690,1.0,HCC2814,Lung Cancer,Lung,Lung
+ACH-000691,1.0,HCC2157,Breast Cancer,Breast,Breast
+ACH-000692,0.0,SNU899,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000693,0.0,KYSE180,Esophageal Cancer,Esophagus,Esophagus
+ACH-000694,0.0,TE9,Esophageal Cancer,Esophagus,Esophagus
+ACH-000695,0.0,CORL47,Lung Cancer,Lung,Lung
+ACH-000696,0.0,OVCAR8,Ovarian Cancer,Ovary,Ovary
+ACH-000697,0.0,A3KAW,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000698,1.0,DMS53,Lung Cancer,Lung,Lung
+ACH-000699,0.0,HCC1395,Breast Cancer,Breast,Breast
+ACH-000701,0.0,RMUGS,Ovarian Cancer,Ovary,Ovary
+ACH-000702,0.0,L1236,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000703,1.0,DMS79,Lung Cancer,Lung,Lung
+ACH-000704,1.0,OAW42,Ovarian Cancer,Ovary,Ovary
+ACH-000705,1.0,LC1F,Lung Cancer,Lung,Lung
+ACH-000707,0.0,P3HR1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000708,0.0,SNU283,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000709,0.0,KMRC2,Kidney Cancer,Kidney,Kidney
+ACH-000710,1.0,NCIH854,Lung Cancer,Lung,Lung
+ACH-000711,0.0,JIMT1,Breast Cancer,Breast,Breast
+ACH-000713,0.0,CAOV3,Ovarian Cancer,Ovary,Ovary
+ACH-000714,0.0,KMS11,Myeloma,Plasma Cell,Plasma Cell
+ACH-000715,0.0,SNU1214,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000716,1.0,TT2609C02,Thyroid Cancer,Thyroid,Thyroid
+ACH-000717,1.0,COLO680N,Esophageal Cancer,Esophagus,Esophagus
+ACH-000718,0.0,NCIH2291,Lung Cancer,Lung,Lung
+ACH-000719,0.0,RMGI,Ovarian Cancer,Ovary,Ovary
+ACH-000720,0.0,TCCSUP,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000721,1.0,HMC18,Breast Cancer,Breast,Breast
+ACH-000722,1.0,SNUC1,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000723,1.0,YD10B,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000724,0.0,HT1376,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000725,1.0,HCC202,Breast Cancer,Breast,Breast
+ACH-000726,1.0,TE14,Esophageal Cancer,Esophagus,Esophagus
+ACH-000727,1.0,NCIH2066,Lung Cancer,Lung,Lung
+ACH-000728,0.0,KASUMI2,Leukemia,Blood,Blood
+ACH-000729,0.0,NCIH1963,Lung Cancer,Lung,Lung
+ACH-000730,1.0,SKMEL5,Skin Cancer,Skin,Skin
+ACH-000731,1.0,HCC2279,Lung Cancer,Lung,Lung
+ACH-000732,1.0,PECAPJ41CLONED2,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000733,1.0,NCIH1838,Lung Cancer,Lung,Lung
+ACH-000734,1.0,JHH5,Liver Cancer,Liver,Liver
+ACH-000735,1.0,PECAPJ49,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000736,0.0,SNU601,Gastric Cancer,Gastric,Gastric
+ACH-000737,1.0,NCIH1385,Lung Cancer,Lung,Lung
+ACH-000738,0.0,GB1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000739,0.0,HEPG2,Liver Cancer,Liver,Liver
+ACH-000740,0.0,A253,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000742,0.0,DM3,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000743,0.0,CORL95,Lung Cancer,Lung,Lung
+ACH-000744,1.0,NCIH1623,Lung Cancer,Lung,Lung
+ACH-000745,0.0,MOLP8,Myeloma,Plasma Cell,Plasma Cell
+ACH-000746,0.0,GSS,Gastric Cancer,Gastric,Gastric
+ACH-000747,0.0,NCIH1703,Lung Cancer,Lung,Lung
+ACH-000748,0.0,SJSA1,Bone Cancer,Bone,Bone
+ACH-000749,-1.0,DMS273,Lung Cancer,Lung,Lung
+ACH-000750,1.0,LOXIMVI,Skin Cancer,Skin,Skin
+ACH-000751,1.0,OCIM1,Leukemia,Blood,Blood
+ACH-000752,1.0,NCIH196,Lung Cancer,Lung,Lung
+ACH-000753,0.0,JMSU1,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000754,0.0,L428,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000755,1.0,HCC2218,Breast Cancer,Breast,Breast
+ACH-000756,1.0,GI1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000758,1.0,MKN74,Gastric Cancer,Gastric,Gastric
+ACH-000759,1.0,MDAMB175VII,Breast Cancer,Breast,Breast
+ACH-000760,0.0,LNZ308,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000761,-1.0,NUGC2,Gastric Cancer,Gastric,Gastric
+ACH-000762,1.0,YD38,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000763,0.0,MM1S,Myeloma,Plasma Cell,Plasma Cell
+ACH-000764,1.0,SH10TC,Gastric Cancer,Gastric,Gastric
+ACH-000765,1.0,WM983B,Skin Cancer,Skin,Skin
+ACH-000766,1.0,NCIH1648,Lung Cancer,Lung,Lung
+ACH-000767,1.0,NCIH526,Lung Cancer,Lung,Lung
+ACH-000768,-1.0,MDAMB231,Breast Cancer,Breast,Breast
+ACH-000769,1.0,LK2,Lung Cancer,Lung,Lung
+ACH-000770,0.0,P31FUJ,Leukemia,Blood,Blood
+ACH-000771,1.0,BICR56,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000772,1.0,TE441T,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000773,0.0,KIJK,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000774,1.0,RERFLCAD2,Lung Cancer,Lung,Lung
+ACH-000775,0.0,NCIH727,Lung Cancer,Lung,Lung
+ACH-000776,1.0,ONS76,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000777,1.0,KYSE30,Esophageal Cancer,Esophagus,Esophagus
+ACH-000778,0.0,HSC3,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000780,0.0,NCIH1105,Lung Cancer,Lung,Lung
+ACH-000781,1.0,NCIH2023,Lung Cancer,Lung,Lung
+ACH-000782,0.0,SEM,Leukemia,Blood,Blood
+ACH-000783,0.0,CAMA1,Breast Cancer,Breast,Breast
+ACH-000784,-1.0,KYSE70,Esophageal Cancer,Esophagus,Esophagus
+ACH-000785,1.0,NCIH2126,Lung Cancer,Lung,Lung
+ACH-000786,0.0,DAUDI,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000787,1.0,LXF289,Lung Cancer,Lung,Lung
+ACH-000788,1.0,A2058,Skin Cancer,Skin,Skin
+ACH-000789,-1.0,NCIH810,Lung Cancer,Lung,Lung
+ACH-000790,1.0,SHP77,Lung Cancer,Lung,Lung
+ACH-000791,1.0,RERFLCAD1,Lung Cancer,Lung,Lung
+ACH-000792,1.0,BFTC909,Kidney Cancer,Kidney,Kidney
+ACH-000793,0.0,KATOIII,Gastric Cancer,Gastric,Gastric
+ACH-000794,0.0,BICR22,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000795,0.0,MOLT13,Leukemia,Blood,Blood
+ACH-000796,0.0,MCAS,Ovarian Cancer,Ovary,Ovary
+ACH-000797,0.0,HLFA,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000798,0.0,CL40,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000799,0.0,HS695T,Skin Cancer,Skin,Skin
+ACH-000800,1.0,NCIH446,Lung Cancer,Lung,Lung
+ACH-000802,1.0,BFTC905,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000803,-1.0,COLO668,Lung Cancer,Lung,Lung
+ACH-000804,0.0,NB1,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-000805,0.0,COLO679,Skin Cancer,Skin,Skin
+ACH-000806,-1.0,L540,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000807,1.0,SNU738,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000808,1.0,HUH28,Bile Duct Cancer,Bile Duct,Bile Duct
+ACH-000809,1.0,KYSE410,Esophageal Cancer,Esophagus,Esophagus
+ACH-000810,0.0,SKMEL30,Skin Cancer,Skin,Skin
+ACH-000811,0.0,SKOV3,Ovarian Cancer,Ovary,Ovary
+ACH-000812,0.0,COLO783,Skin Cancer,Skin,Skin
+ACH-000813,0.0,T3M10,Lung Cancer,Lung,Lung
+ACH-000815,-1.0,KMH2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000816,0.0,NCIH524,Lung Cancer,Lung,Lung
+ACH-000817,-1.0,RPMI8226,Myeloma,Plasma Cell,Plasma Cell
+ACH-000818,1.0,BT483,Breast Cancer,Breast,Breast
+ACH-000819,-1.0,LN18,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000820,1.0,SW403,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000821,0.0,EJM,Myeloma,Plasma Cell,Plasma Cell
+ACH-000822,0.0,SKMEL24,Skin Cancer,Skin,Skin
+ACH-000823,0.0,KYSE140,Esophageal Cancer,Esophagus,Esophagus
+ACH-000824,-1.0,KYSE510,Esophageal Cancer,Esophagus,Esophagus
+ACH-000826,0.0,CAL12T,Lung Cancer,Lung,Lung
+ACH-000827,1.0,WM793,Skin Cancer,Skin,Skin
+ACH-000828,1.0,ZR7530,Breast Cancer,Breast,Breast
+ACH-000829,0.0,HUNS1,Myeloma,Plasma Cell,Plasma Cell
+ACH-000830,1.0,NCIH1436,Lung Cancer,Lung,Lung
+ACH-000831,1.0,HEC50B,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000832,0.0,CAL27,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000833,-1.0,RH30,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000834,1.0,UMUC1,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000835,0.0,GCT,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000836,1.0,YD15,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000837,0.0,NCIH322,Lung Cancer,Lung,Lung
+ACH-000838,0.0,AMO1,Myeloma,Plasma Cell,Plasma Cell
+ACH-000839,1.0,SCABER,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000840,0.0,HCC366,Lung Cancer,Lung,Lung
+ACH-000841,1.0,NCIH2087,Lung Cancer,Lung,Lung
+ACH-000842,-1.0,SW480,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000843,0.0,HARA,Lung Cancer,Lung,Lung
+ACH-000844,1.0,DMS454,Lung Cancer,Lung,Lung
+ACH-000845,0.0,NCIH1373,Lung Cancer,Lung,Lung
+ACH-000846,0.0,FADU,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000847,0.0,HGC27,Gastric Cancer,Gastric,Gastric
+ACH-000848,-1.0,JHH7,Liver Cancer,Liver,Liver
+ACH-000849,-1.0,MDAMB468,Breast Cancer,Breast,Breast
+ACH-000850,0.0,HS698T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-000851,1.0,MORCPR,Lung Cancer,Lung,Lung
+ACH-000852,1.0,NCIH1435,Lung Cancer,Lung,Lung
+ACH-000853,1.0,NCIH661,Lung Cancer,Lung,Lung
+ACH-000855,0.0,KYSE150,Esophageal Cancer,Esophagus,Esophagus
+ACH-000856,0.0,CAL51,Breast Cancer,Breast,Breast
+ACH-000857,0.0,CAL851,Breast Cancer,Breast,Breast
+ACH-000858,-1.0,KNS62,Lung Cancer,Lung,Lung
+ACH-000859,1.0,HCC1954,Breast Cancer,Breast,Breast
+ACH-000860,1.0,NCIH358,Lung Cancer,Lung,Lung
+ACH-000862,-1.0,KMBC2,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000863,-1.0,DBTRG05MG,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000864,1.0,COLO684,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000865,0.0,KYSE450,Esophageal Cancer,Esophagus,Esophagus
+ACH-000866,0.0,NCIH1048,Lung Cancer,Lung,Lung
+ACH-000867,-1.0,CHAGOK1,Lung Cancer,Lung,Lung
+ACH-000868,1.0,HCC1195,Lung Cancer,Lung,Lung
+ACH-000869,1.0,NCIH1568,Lung Cancer,Lung,Lung
+ACH-000870,1.0,NCIH1930,Lung Cancer,Lung,Lung
+ACH-000871,-1.0,NCIH510,Lung Cancer,Lung,Lung
+ACH-000873,1.0,KYSE270,Esophageal Cancer,Esophagus,Esophagus
+ACH-000874,1.0,RS411,Leukemia,Blood,Blood
+ACH-000875,0.0,NCIH2347,Lung Cancer,Lung,Lung
+ACH-000876,-1.0,MDAMB415,Breast Cancer,Breast,Breast
+ACH-000877,0.0,EB1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000878,0.0,HCC15,Lung Cancer,Lung,Lung
+ACH-000879,0.0,MFE296,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000880,0.0,AGS,Gastric Cancer,Gastric,Gastric
+ACH-000881,0.0,MELJUSO,Skin Cancer,Skin,Skin
+ACH-000882,0.0,IGR1,Skin Cancer,Skin,Skin
+ACH-000883,0.0,SW1783,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-000884,0.0,MDAMB435S,Skin Cancer,Skin,Skin
+ACH-000885,0.0,TOV21G,Ovarian Cancer,Ovary,Ovary
+ACH-000886,1.0,NCIH2009,Lung Cancer,Lung,Lung
+ACH-000888,1.0,NCIH1793,Lung Cancer,Lung,Lung
+ACH-000889,0.0,KMM1,Myeloma,Plasma Cell,Plasma Cell
+ACH-000890,-1.0,SW1271,Lung Cancer,Lung,Lung
+ACH-000892,1.0,NCIH1563,Lung Cancer,Lung,Lung
+ACH-000893,0.0,NCIH1651,Lung Cancer,Lung,Lung
+ACH-000894,-1.0,NCIH1869,Lung Cancer,Lung,Lung
+ACH-000895,0.0,CL34,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000896,-1.0,647V,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000897,0.0,FTC238,Thyroid Cancer,Thyroid,Thyroid
+ACH-000898,0.0,SNU719,Gastric Cancer,Gastric,Gastric
+ACH-000899,0.0,WM88,Skin Cancer,Skin,Skin
+ACH-000900,-1.0,NCIH23,Lung Cancer,Lung,Lung
+ACH-000901,1.0,HCC1359,Lung Cancer,Lung,Lung
+ACH-000902,0.0,CAL148,Breast Cancer,Breast,Breast
+ACH-000903,0.0,FTC133,Thyroid Cancer,Thyroid,Thyroid
+ACH-000904,-1.0,NCIH2106,Lung Cancer,Lung,Lung
+ACH-000905,0.0,5637,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000906,1.0,ES2,Ovarian Cancer,Ovary,Ovary
+ACH-000907,0.0,SNU349,Kidney Cancer,Kidney,Kidney
+ACH-000908,1.0,SNU520,Gastric Cancer,Gastric,Gastric
+ACH-000909,0.0,JHUEM2,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000910,0.0,MDAMB453,Breast Cancer,Breast,Breast
+ACH-000911,1.0,NUGC3,Gastric Cancer,Gastric,Gastric
+ACH-000912,0.0,NCIH2286,Lung Cancer,Lung,Lung
+ACH-000913,0.0,ESS1,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000914,0.0,HT,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000915,0.0,IPC298,Skin Cancer,Skin,Skin
+ACH-000916,0.0,NCIH1573,Lung Cancer,Lung,Lung
+ACH-000917,1.0,TE4,Esophageal Cancer,Esophagus,Esophagus
+ACH-000918,0.0,MOLT16,Leukemia,Blood,Blood
+ACH-000919,1.0,IM95,Gastric Cancer,Gastric,Gastric
+ACH-000920,0.0,CMLT1,Leukemia,Blood,Blood
+ACH-000921,1.0,NCIH157DM,Lung Cancer,Lung,Lung
+ACH-000922,1.0,RCHACV,Leukemia,Blood,Blood
+ACH-000923,0.0,BCP1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000924,-1.0,NCIH2172,Lung Cancer,Lung,Lung
+ACH-000925,1.0,DV90,Lung Cancer,Lung,Lung
+ACH-000926,0.0,HT55,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000927,1.0,BT474,Breast Cancer,Breast,Breast
+ACH-000928,0.0,JHUEM1,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000929,-1.0,NCIH2110,Lung Cancer,Lung,Lung
+ACH-000930,1.0,HCC1569,Breast Cancer,Breast,Breast
+ACH-000931,0.0,HMCB,Skin Cancer,Skin,Skin
+ACH-000932,0.0,SNU1,Gastric Cancer,Gastric,Gastric
+ACH-000933,0.0,SNU324,Pancreatic Cancer,Pancreas,Pancreas
+ACH-000934,1.0,MDAMB361,Breast Cancer,Breast,Breast
+ACH-000935,0.0,MDST8,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000936,0.0,EFO27,Ovarian Cancer,Ovary,Ovary
+ACH-000937,0.0,PF382,Leukemia,Blood,Blood
+ACH-000938,0.0,NALM6,Leukemia,Blood,Blood
+ACH-000939,0.0,SKUT1,Sarcoma,Soft Tissue,Soft Tissue
+ACH-000940,0.0,AN3CA,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000941,0.0,HEC1B,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000942,0.0,HPBALL,Leukemia,Blood,Blood
+ACH-000943,1.0,RKO,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000944,0.0,NAMALWA,Lymphoma,Lymphocyte,Lymphocyte
+ACH-000945,-1.0,NCIH650,Lung Cancer,Lung,Lung
+ACH-000946,0.0,HEC265,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000947,0.0,OVK18,Ovarian Cancer,Ovary,Ovary
+ACH-000948,1.0,2313287,Gastric Cancer,Gastric,Gastric
+ACH-000949,0.0,TGBC11TKB,Gastric Cancer,Gastric,Gastric
+ACH-000950,0.0,LOVO,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000951,-1.0,NCIH2342,Lung Cancer,Lung,Lung
+ACH-000952,1.0,MDAPCA2B,Prostate Cancer,Prostate,Prostate
+ACH-000953,0.0,SUPT1,Leukemia,Blood,Blood
+ACH-000954,0.0,HEC1A,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000955,0.0,SNU407,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000956,0.0,22RV1,Prostate Cancer,Prostate,Prostate
+ACH-000957,0.0,LS180,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000958,0.0,SW48,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000959,0.0,SNUC4,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000960,0.0,REH,Leukemia,Blood,Blood
+ACH-000961,0.0,ISHIKAWAHERAKLIO02ER,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000962,0.0,OC314,Ovarian Cancer,Ovary,Ovary
+ACH-000963,0.0,CCK81,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000965,1.0,RL952,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000966,0.0,IGROV1,Ovarian Cancer,Ovary,Ovary
+ACH-000967,0.0,SNUC2A,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000968,-1.0,COLO792,Skin Cancer,Skin,Skin
+ACH-000969,0.0,KM12,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000970,0.0,SNUC5,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000971,0.0,HCT116,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000972,0.0,HEC151,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000973,1.0,639V,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-000974,0.0,SNGM,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000976,1.0,HUCCT1,Bile Duct Cancer,Bile Duct,Bile Duct
+ACH-000977,0.0,LNCAPCLONEFGC,Prostate Cancer,Prostate,Prostate
+ACH-000978,0.0,EN,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000979,0.0,DU145,Prostate Cancer,Prostate,Prostate
+ACH-000980,1.0,NCIH1155,Lung Cancer,Lung,Lung
+ACH-000981,0.0,DND41,Leukemia,Blood,Blood
+ACH-000982,0.0,GP2D,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000983,1.0,KCL22,Leukemia,Blood,Blood
+ACH-000984,0.0,HEC6,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000985,1.0,LS411N,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000986,0.0,HT115,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000987,0.0,MEWO,Skin Cancer,Skin,Skin
+ACH-000988,0.0,MFE319,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000989,0.0,SNU175,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000990,0.0,HEC108,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000991,0.0,SNU81,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000992,1.0,BICR18,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-000993,0.0,JHUEM7,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000994,0.0,HEC59,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000996,0.0,HEC251,Endometrial/Uterine Cancer,Uterus,Uterus
+ACH-000997,0.0,HCT15,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000998,0.0,CW2,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-000999,0.0,SNU1040,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-001000,1.0,1321N1,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-001001,-1.0,143B,Bone Cancer,Bone,Bone
+ACH-001015,0.0,AZ521,Gastric Cancer,Gastric,Gastric
+ACH-001016,0.0,BECKER,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-001021,0.0,C3A,Liver Cancer,Liver,Liver
+ACH-001023,1.0,CGTHW1,Thyroid Cancer,Thyroid,Thyroid
+ACH-001024,1.0,CHL1,Skin Cancer,Skin,Skin
+ACH-001036,-1.0,CMK115,Leukemia,Blood,Blood
+ACH-001037,0.0,CMK86,Leukemia,Blood,Blood
+ACH-001039,0.0,COLO205,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-001042,1.0,COLO704,Ovarian Cancer,Ovary,Ovary
+ACH-001043,-1.0,COLO775,Myeloma,Plasma Cell,Plasma Cell
+ACH-001044,0.0,COLO818,Skin Cancer,Skin,Skin
+ACH-001045,0.0,COLO849,Skin Cancer,Skin,Skin
+ACH-001047,0.0,CORL51,Lung Cancer,Lung,Lung
+ACH-001048,0.0,COV504,Ovarian Cancer,Ovary,Ovary
+ACH-001049,0.0,CPCN,Lung Cancer,Lung,Lung
+ACH-001061,0.0,DLD1,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-001063,0.0,DOV13,Ovarian Cancer,Ovary,Ovary
+ACH-001064,-1.0,EB2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-001065,0.0,EVSAT,Breast Cancer,Breast,Breast
+ACH-001067,1.0,F5,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-001072,-1.0,GRM,Pancreatic Cancer,Pancreas,Pancreas
+ACH-001075,0.0,NCIH292,Lung Cancer,Lung,Lung
+ACH-001079,0.0,HCC1897,Lung Cancer,Lung,Lung
+ACH-001088,1.0,HLC1,Lung Cancer,Lung,Lung
+ACH-001089,0.0,HLE,Liver Cancer,Liver,Liver
+ACH-001090,1.0,HN,Head and Neck Cancer,Upper Aerodigestive,Upper Aerodigestive
+ACH-001091,0.0,HRT18,Colon/Colorectal Cancer,Colorectal,Colorectal
+ACH-001093,0.0,HS604T,Non-Cancerous,Fibroblast,Fibroblast
+ACH-001094,1.0,HTK,Myeloma,Plasma Cell,Plasma Cell
+ACH-001098,1.0,KCIMOH1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-001101,0.0,KLM1,Pancreatic Cancer,Pancreas,Pancreas
+ACH-001106,0.0,KOPN8,Leukemia,Blood,Blood
+ACH-001113,1.0,LC1SQSF,Lung Cancer,Lung,Lung
+ACH-001121,0.0,MEC2,Lymphoma,Lymphocyte,Lymphocyte
+ACH-001125,0.0,MOGGCCM,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-001126,1.0,MOGGUVW,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-001127,1.0,MOLT4,Leukemia,Blood,Blood
+ACH-001129,1.0,MONOMAC1,Leukemia,Blood,Blood
+ACH-001130,0.0,MOTN1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-001138,1.0,NCIH2141,Lung Cancer,Lung,Lung
+ACH-001145,0.0,OC316,Ovarian Cancer,Ovary,Ovary
+ACH-001146,0.0,OCILY10,Lymphoma,Lymphocyte,Lymphocyte
+ACH-001150,0.0,OUMS27,Bone Cancer,Bone,Bone
+ACH-001162,0.0,PCM6,Myeloma,Plasma Cell,Plasma Cell
+ACH-001171,0.0,PL45,Pancreatic Cancer,Pancreas,Pancreas
+ACH-001175,0.0,RCC4,Kidney Cancer,Kidney,Kidney
+ACH-001183,1.0,RT11284,Bladder Cancer,Urinary Tract,Urinary Tract
+ACH-001188,0.0,SHSY5Y,Neuroblastoma,Peripheral Nervous System,Peripheral Nervous System
+ACH-001189,-1.0,SJRH30,Sarcoma,Soft Tissue,Soft Tissue
+ACH-001190,0.0,SKMEL2,Skin Cancer,Skin,Skin
+ACH-001194,0.0,SKRC31,Kidney Cancer,Kidney,Kidney
+ACH-001198,-1.0,SNB19,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-001203,0.0,SUPHD1,Lymphoma,Lymphocyte,Lymphocyte
+ACH-001205,1.0,TC32,Bone Cancer,Bone,Bone
+ACH-001214,0.0,U138MG,Brain Cancer,Central Nervous System,Central Nervous System
+ACH-001224,0.0,UMRC2,Kidney Cancer,Kidney,Kidney
+ACH-001225,1.0,UMRC6NEO,Kidney Cancer,Kidney,Kidney
+ACH-001230,0.0,UT7,Leukemia,Blood,Blood
+ACH-001233,1.0,VMRCLCD,Lung Cancer,Lung,Lung
+ACH-001234,0.0,VMRCLCP,Lung Cancer,Lung,Lung
+ACH-001239,0.0,WM2664,Skin Cancer,Skin,Skin
+ACH-001249,1.0,YMB1,Breast Cancer,Breast,Breast
+ACH-001306,1.0,8305C,Thyroid Cancer,Thyroid,Thyroid
+ACH-001307,0.0,8505C,Thyroid Cancer,Thyroid,Thyroid
+ACH-001318,0.0,PLCPRF5,Liver Cancer,Liver,Liver
+ACH-001321,1.0,TT,Thyroid Cancer,Thyroid,Thyroid
