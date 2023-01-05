@@ -26,7 +26,7 @@ files included in the dataset above are,
 """
 from pathlib import Path
 import toml
-from typing import List, Iterable
+from typing import Dict, List, Iterable
 import numpy as np
 import pandas as pd
 
@@ -86,14 +86,14 @@ def get_hts_file_paths(
     base_path: Path,
     screen_cell_lines: List[str],
     norm_cell_lines: List[str],
-):
+) -> List[Path]:
     return [
         base_path / CELL_LINE_TO_FNAME[cell_line]
         for cell_line in screen_cell_lines + norm_cell_lines
     ]
 
 
-def read_hts_files(file_paths: Iterable[Path]) -> List[pd.DataFrame]:
+def read_hts_files(file_paths: Iterable[Path]) -> Dict[str, pd.DataFrame]:
     dfs = {
         FNAME_TO_CELL_LINE[file_path.name]: pd.read_csv(file_path)
         for file_path in file_paths
@@ -112,7 +112,7 @@ def read_hts_files(file_paths: Iterable[Path]) -> List[pd.DataFrame]:
     return dfs
 
 
-def calculate_ratios(dfs, norm_cell_lines):
+def calculate_ac50_ratios(dfs: Dict[str, pd.DataFrame], norm_cell_lines: Iterable[str]):
     for norm_cell_line in norm_cell_lines:
         df_norm = dfs[norm_cell_line]
         for cell_line in dfs.keys():
@@ -123,6 +123,62 @@ def calculate_ratios(dfs, norm_cell_lines):
             df[f'sensi_log_{norm_cell_line}'] = np.log10(df_norm['AC50'] / df['AC50'])
             dfs[cell_line] = df
     return dfs
+
+
+def get_unique_drugs(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
+    return pd.concat([
+        dfs[cl][["name", "target"]]
+        for cl in dfs.keys()
+    ]).drop_duplicates().sort_index()
+
+
+def filter_by_ratio(
+    df: pd.DataFrame,
+    screen_cell_lines: Iterable[str],
+    norm_cell_lines: Iterable[str],
+    quantity: str,
+    ac50_ratio_min: float,
+    num_cell_lines_min: int,
+):
+
+    df_reports = {}
+    VALID_QUANTITY = ["resis", "sensi"]
+    if quantity not in VALID_QUANTITY:
+        raise ValueError(f"quantity must be one of {VALID_QUANTITY}")
+
+    ac50_log_ratio_min = np.log10(ac50_ratio_min)
+
+    for norm_cell_line in norm_cell_lines:
+
+        col_check = f'{quantity}_log_{norm_cell_line}'
+        col_extra = f'{quantity}_{norm_cell_line}'
+        report_rows = []
+
+        for ncgc_sid, df1 in df.groupby('NCGC SID'):
+
+            df1_check = df1[df1['Cell line'].isin(screen_cell_lines)]
+
+            num_lines_above_thresh = (df1_check[col_check].abs() >= ac50_log_ratio_min).sum()
+            if num_lines_above_thresh >= num_cell_lines_min:
+                report_row = {
+                    "NCGC SID": ncgc_sid,
+                    "name": df1.iloc[0]['name'],
+                    "target": df1.iloc[0]['target'],
+                }
+                for cell_line in screen_cell_lines:
+                    df_tmp = df1_check[df1_check['Cell line'] == cell_line]
+                    if df_tmp.shape[0] == 1:
+                        report_row[f"log {cell_line}"] = df_tmp.iloc[0][col_check]
+                        report_row[cell_line] = df_tmp.iloc[0][col_extra]
+                    else:
+                        report_row[f"log {cell_line}"] = np.nan
+                        report_row[cell_line] = np.nan
+                report_rows.append(report_row)
+
+        df_report = pd.DataFrame(report_rows)
+        df_reports[col_check] = df_report
+
+    return df_reports
 
 
 config_file_path = "sas_config.toml"
@@ -138,9 +194,30 @@ hts_file_paths = get_hts_file_paths(
 )
 
 dfs = read_hts_files(hts_file_paths)
-dfs = calculate_ratios(dfs, config["cell_lines"]["norm"])
+df_drugs = get_unique_drugs(dfs)
+dfs = calculate_ac50_ratios(dfs, config["cell_lines"]["norm"])
+
 show_cols = SHOW_COLS + [
     col for col in dfs[config["cell_lines"]["norm"][0]].columns
     if col.startswith('sensi') or col.startswith('resis')
 ]
 df_all = pd.concat(dfs.values())
+df = df_all[df_all["R2"] > config["params"]["r2_min"]]
+
+df_reports_sensi = filter_by_ratio(
+    df,
+    config["cell_lines"]["screen"],
+    config["cell_lines"]["norm"],
+    "sensi",
+    config["params"]["ac50_ratio_min"],
+    config["params"]["num_cell_lines_min"]
+)
+
+df_reports_resis = filter_by_ratio(
+    df,
+    config["cell_lines"]["screen"],
+    config["cell_lines"]["norm"],
+    "resis",
+    config["params"]["ac50_ratio_min"],
+    config["params"]["num_cell_lines_min"]
+)
