@@ -112,6 +112,23 @@ def read_hts_files(file_paths: Iterable[Path]) -> Dict[str, pd.DataFrame]:
     return dfs
 
 
+def calculate_missingness(dfs):
+    missing_rows = []
+    for cell_line in dfs.keys():
+        df = dfs[cell_line]
+        for col in ["AC50", "LAC50", "R2", "target"]:
+            num_missing = df[col].isnull().sum()
+            frac_missing = num_missing / df.shape[0]
+            missing_row = {
+                "cell_line": cell_line,
+                "variable": col,
+                "num_missing": num_missing,
+                "frac_missing": frac_missing,
+            }
+            missing_rows.append(missing_row)
+    return pd.DataFrame(missing_rows)
+
+
 def calculate_ac50_ratios(dfs: Dict[str, pd.DataFrame], norm_cell_lines: Iterable[str]):
     for norm_cell_line in norm_cell_lines:
         df_norm = dfs[norm_cell_line]
@@ -164,6 +181,7 @@ def filter_by_ratio(
                     "NCGC SID": ncgc_sid,
                     "name": df1.iloc[0]['name'],
                     "target": df1.iloc[0]['target'],
+                    "num_lines_above_thresh": num_lines_above_thresh,
                 }
                 for cell_line in screen_cell_lines:
                     df_tmp = df1_check[df1_check['Cell line'] == cell_line]
@@ -176,48 +194,71 @@ def filter_by_ratio(
                 report_rows.append(report_row)
 
         df_report = pd.DataFrame(report_rows)
-        df_reports[col_check] = df_report
+        df_reports[f'{quantity}_{norm_cell_line}'] = df_report
 
     return df_reports
 
 
-config_file_path = "sas_config.toml"
-with open(config_file_path, "r") as fp:
-    config = toml.load(fp)
+def main(config):
 
-base_path = Path(config["paths"]["base"])
+    base_path = Path(config["paths"]["base"])
+    hts_file_paths = get_hts_file_paths(
+        base_path,
+        config["cell_lines"]["screen"],
+        config["cell_lines"]["norm"],
+    )
+    dfs = read_hts_files(hts_file_paths)
+    df_missing = calculate_missingness(dfs)
 
-hts_file_paths = get_hts_file_paths(
-    base_path,
-    config["cell_lines"]["screen"],
-    config["cell_lines"]["norm"],
-)
+    df_drugs = get_unique_drugs(dfs)
 
-dfs = read_hts_files(hts_file_paths)
-df_drugs = get_unique_drugs(dfs)
-dfs = calculate_ac50_ratios(dfs, config["cell_lines"]["norm"])
+    dfs = calculate_ac50_ratios(dfs, config["cell_lines"]["norm"])
 
-show_cols = SHOW_COLS + [
-    col for col in dfs[config["cell_lines"]["norm"][0]].columns
-    if col.startswith('sensi') or col.startswith('resis')
-]
-df_all = pd.concat(dfs.values())
-df = df_all[df_all["R2"] > config["params"]["r2_min"]]
+    show_cols = SHOW_COLS + [
+        col for col in dfs[config["cell_lines"]["norm"][0]].columns
+        if col.startswith('sensi') or col.startswith('resis')
+    ]
+    df_all = pd.concat(dfs.values())
+    df = df_all[df_all["R2"] > config["params"]["r2_min"]]
 
-df_reports_sensi = filter_by_ratio(
-    df,
-    config["cell_lines"]["screen"],
-    config["cell_lines"]["norm"],
-    "sensi",
-    config["params"]["ac50_ratio_min"],
-    config["params"]["num_cell_lines_min"]
-)
+    df_reports_sensi = filter_by_ratio(
+        df,
+        config["cell_lines"]["screen"],
+        config["cell_lines"]["norm"],
+        "sensi",
+        config["params"]["ac50_ratio_min"],
+        config["params"]["num_cell_lines_min"]
+    )
 
-df_reports_resis = filter_by_ratio(
-    df,
-    config["cell_lines"]["screen"],
-    config["cell_lines"]["norm"],
-    "resis",
-    config["params"]["ac50_ratio_min"],
-    config["params"]["num_cell_lines_min"]
-)
+    df_reports_resis = filter_by_ratio(
+        df,
+        config["cell_lines"]["screen"],
+        config["cell_lines"]["norm"],
+        "resis",
+        config["params"]["ac50_ratio_min"],
+        config["params"]["num_cell_lines_min"]
+    )
+
+    df_reports = {**df_reports_resis, **df_reports_sensi}
+
+    df_report = pd.DataFrame()
+    for key, df in df_reports.items():
+        quantity, norm_cell_line = key.split("_")
+        df["quantity"] = quantity
+        df["norm_cell_line"] = norm_cell_line
+        df_report = pd.concat([df_report, df])
+
+    return df_drugs, df_missing, df_all, df_report
+
+
+if __name__ == "__main__":
+
+    config_file_path = "sas_config.toml"
+    with open(config_file_path, "r") as fp:
+        config = toml.load(fp)
+
+    df_drugs, df_missing, df_all, df_report = main(config)
+    df_drugs.to_csv("sas_drugs_all.csv")
+    df_missing.to_csv("sas_missing.csv")
+    df_all.to_csv("sas_all.csv")
+    df_report.to_csv("sas_report.csv")
