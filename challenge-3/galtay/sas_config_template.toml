@@ -25,5 +25,12 @@ norm = [
 
 [params]
 
+# minimum R2 to keep curve
+r2_min = 0.8
+
+# resistance = screen / norm
+# sensitivity = norm / screen
 ac50_ratio_min = 1.5
-num_lines_min = 3
+
+# at least this many screen lines >= ratio
+num_cell_lines_min = 3
