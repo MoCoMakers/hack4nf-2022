@@ -56,6 +56,20 @@ You should now see a directory called `syn5522627` in your
 
 # Calculate AC50 ratios
 
+Copy the sas config template, 
+
+```
+cp sas_config_template.toml sas_config.toml
+```
+
+Edit the `sas_config.toml` file to include the path to the downloaded dataset.
+For example, 
+
+```
+[paths]                                                                                                     
+base = "/home/galtay/data/hack4nf-2022/synapse/syn5522627" 
+```
+
 Run the following command to generate output files, 
 
 ```
