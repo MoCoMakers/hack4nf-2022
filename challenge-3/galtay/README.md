@@ -33,7 +33,7 @@ This location will be used to store synapse datasets and derived data.
 ## secrets.json
 
 In order to securely download data from synapse you will need a personal access token. 
-Generate one by follwing the instructions at the links below, 
+Generate one by following the instructions at the links below, 
 
 * https://help.synapse.org/docs/Client-Configuration.1985446156.html
 * https://www.synapse.org/#!PersonalAccessTokens
