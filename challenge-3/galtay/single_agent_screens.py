@@ -71,16 +71,6 @@ KEEP_COLS = [
     "DATA10", "C0", "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9",
     "C10", "name", "target", "smi"]
 
-SHOW_COLS = [
-    "NCGC protocol",
-    "Cell line",
-    "LAC50",
-    "AC50",
-    "R2",
-    "name",
-    "target",
-]
-
 
 def get_hts_file_paths(
     base_path: Path,
@@ -213,11 +203,6 @@ def main(config):
     df_drugs = get_unique_drugs(dfs)
 
     dfs = calculate_ac50_ratios(dfs, config["cell_lines"]["norm"])
-
-    show_cols = SHOW_COLS + [
-        col for col in dfs[config["cell_lines"]["norm"][0]].columns
-        if col.startswith('sensi') or col.startswith('resis')
-    ]
     df_all = pd.concat(dfs.values())
     df = df_all[df_all["R2"] > config["params"]["r2_min"]]
 
