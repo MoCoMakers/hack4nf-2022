@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 Copy `config.ini.template` to `config.ini` and edit the line that starts with `DATA_PATH`. 
 This should point to an empty directory.
-`nextgenlp` will use this location to store synapse datasets and derived data.
+This location will be used to store synapse datasets and derived data.
  
 
 ## secrets.json
