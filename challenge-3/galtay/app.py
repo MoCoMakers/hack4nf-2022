@@ -191,7 +191,7 @@ if norm_cell_line is not None:
     col4.metric(label="AC50", value="{:.2f}".format(norm_row["AC50"]*1e6))
 
 
-st.header("Ratio")
+st.header("Ratio (Screen/Norm)")
 col1, col2 = st.columns(2)
 col1.metric(
     label="AC50 ratio",
