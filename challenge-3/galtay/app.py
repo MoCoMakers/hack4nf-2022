@@ -190,17 +190,17 @@ if norm_cell_line is not None:
     col3.metric(label="R2", value="{:.2f}".format(norm_row["R2"]))
     col4.metric(label="AC50", value="{:.2f}".format(norm_row["AC50"]*1e6))
 
-
-st.header("Ratio (Screen/Norm)")
-col1, col2 = st.columns(2)
-col1.metric(
-    label="AC50 ratio",
-    value="{:.2f}".format(screen_row["AC50"] / norm_row["AC50"]),
-)
-col2.metric(
-    label="Log AC50 ratio",
-    value="{:.2f}".format(np.log10(screen_row["AC50"] / norm_row["AC50"])),
-)
+if norm_cell_line is not None:
+    st.header("Ratio (Screen/Norm)")
+    col1, col2 = st.columns(2)
+    col1.metric(
+        label="AC50 ratio",
+        value="{:.2f}".format(screen_row["AC50"] / norm_row["AC50"]),
+    )
+    col2.metric(
+        label="Log AC50 ratio",
+        value="{:.2f}".format(np.log10(screen_row["AC50"] / norm_row["AC50"])),
+    )
 
 
 
