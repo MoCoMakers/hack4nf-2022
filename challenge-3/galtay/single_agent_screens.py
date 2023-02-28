@@ -1,27 +1,40 @@
 """
 Tools for analyzing "Drug Screenging of pNF Cell Lines"
+Single Agent Screens
 https://www.synapse.org/#!Synapse:syn5522627
 
 files included in the dataset above are,
 
- *  aucRecalculatedFromNCATSscreens_nplr.txt
- *  ipNF95_11bC_after_correction.png
- *  ipNF95_11bC_before_correction.png
- * 'matrix portal raw data'
- * 'NTAP ipNF02.3 2l MIPE qHTS.csv'
- * 'NTAP ipNF02.8 MIPE qHTS.csv'
- * 'NTAP ipNF05.5 MC MIPE qHTS.csv'
- * 'NTAP ipNF05.5 SC MIPE qHTS.csv'
- * 'NTAP ipNF06.2A MIPE qHTS.csv'
- *  NTAP_ipNF95.11bC_MIPE_qHTS.csv
- * 'NTAP ipNF95.11b C_T MIPE qHTS.csv'
- * 'NTAP ipNF95.6 MIPE qHTS.csv'
- * 'NTAP ipnNF95.11C MIPE qHTS.csv'
- *  qhts-protocol-dump-headers.txt
- *  s-ntap-HFF-1.csv
- *  s-ntap-MTC-1.csv
- *  SYNAPSE_METADATA_MANIFEST.tsv
-
+.
+├── aucRecalculatedFromNCATSscreens_nplr.txt
+├── ipNF95_11bC_after_correction.png
+├── ipNF95_11bC_before_correction.png
+├── matrix portal raw data
+│   ├── s-ntap-1PNO-1
+│   ├── s-ntap-HFF-1
+│   ├── s-ntap-ipn02.8-1
+│   ├── s-ntap-IPNF05_5_P30-1
+│   ├── s-ntap-IPNF05_5_P31-1
+│   ├── s-ntap-IPNF06_2A_P27-1
+│   ├── s-ntap-IPNF95_11b_P53-1
+│   ├── s-ntap-IPNF95-1bc-1
+│   ├── s-ntap-IPNF95_6_P53-1
+│   ├── s-ntap-ipnNF95_11C_P31-1
+│   ├── SYNAPSE_METADATA_MANIFEST.tsv
+│   └── synapse_storage_manifest.csv
+├── NTAP ipNF02.3 2l MIPE qHTS.csv
+├── NTAP ipNF02.8 MIPE qHTS.csv
+├── NTAP ipNF05.5 MC MIPE qHTS.csv
+├── NTAP ipNF05.5 SC MIPE qHTS.csv
+├── NTAP ipNF06.2A MIPE qHTS.csv
+├── NTAP_ipNF95.11bC_MIPE_qHTS.csv
+├── NTAP ipNF95.11b C_T MIPE qHTS.csv
+├── NTAP ipNF95.6 MIPE qHTS.csv
+├── NTAP ipnNF95.11C MIPE qHTS.csv
+├── qhts-protocol-dump-headers.txt
+├── s-ntap-HFF-1.csv
+├── s-ntap-MTC-1.csv
+└── SYNAPSE_METADATA_MANIFEST.tsv
 
 """
 from pathlib import Path
