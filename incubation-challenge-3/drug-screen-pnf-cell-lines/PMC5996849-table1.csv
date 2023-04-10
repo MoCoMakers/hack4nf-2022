@@ -1,0 +1,28 @@
+sample_name,sample_origin,sample_genotype,media
+whole blood,whole blood,++,
+ipNF95.6,pNF95.6,--,Immortalized
+ipNF95.11bC,pNF95.11b,--,Immortalized
+ipNF05.5,pNF05.5,--,Immortalized
+ipNF05.5 (mixed clones),pNF05.5,--,Immortalized
+ipn02.3,pn02.3,++,Immortalized
+ipnNF95.11c,pnNF95.11c,+-,Immortalized
+pNF05.5,pNF05.5,--,Primary
+pNF95.11bC,pNF95.11b,--,Primary
+pNF95.6,pNF95.6,--,Primary
+pn02.3,pn02.3,++,Primary
+pnNF95.1,pnNF95.11c,+-,Primary
+ipn02.8,,++,Immortalized
+ipNF06.2 A,,--,Immortalized
+ipNF95.6,pNF95.6,--,Primary
+ipNF95.11bC,pNF95.11b,--,Primary
+ipNF05.5,pNF05.5,--,Primary
+ipNF05.5 (mixed clones),pNF05.5,--,Primary
+ipn02.3,pn02.3,++,Primary
+ipnNF95.11c,pnNF95.11c,+-,Primary
+pn97.4,pn97.4,++,Primary
+ipn97.4,pn97.4,++,Immortalized
+pnNF95.12B,pnNF95.12B,+-,Primary
+HFF,HFF,++,Immortalized
+pNF04.4,pNF04.4,--,Primary
+ipNF04.4,pNF04.4,--,Immortalized
+sipnNF95.12B,pnNF95.12B,+-,Immortalized
