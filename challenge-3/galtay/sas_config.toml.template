@@ -1,0 +1,36 @@
+# config file for syn5522627
+
+[paths]
+
+base = "/path/to/syn5522627/data"
+
+
+[cell_lines]
+
+screen = [
+  "ipNF02.3 2l",
+  "ipNF02.8",
+  "ipNF05.5 Mixed Clones",
+  "ipNF05.5 Single Clone",
+  "ipNF06.2A",
+  "ipNF95.11b C/T",
+  "ipNF95.6",
+] 
+
+norm = [
+  "HFF-1",
+  "ipnNF95.11C",
+] 
+
+
+[params]
+
+# minimum R2 to keep curve
+r2_min = 0.8
+
+# resistance = screen / norm
+# sensitivity = norm / screen
+ac50_ratio_min = 1.5
+
+# at least this many screen lines >= ratio
+num_cell_lines_min = 3
