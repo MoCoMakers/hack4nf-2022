@@ -153,49 +153,76 @@ def run_drugbank_on_supplemental_drugs(drugs_file, drugbank_df):
     return matches, drugbank_df
 
 
-def include_alternative_drugs(matches):
+def find_matching_drugs(search_targets, drugbank_df):
+    match_set = []
+    search_targets = search_targets.split('|')
+    print(search_targets)
+    print("Showing row")
+    values = None
+    for test_target in search_targets:
+        if test_target == "inhibitor" or test_target == "":
+            continue
+
+        values = drugbank_df.loc[
+            drugbank_df['targets'].str.contains(test_target) &
+            drugbank_df["groups"].str.contains("approved")
+            ].to_dict()
+
+        drugbank_name_list = list(values['drugbank_name'].values())
+        groups_list = list(values['groups'].values())
+
+        """
+        TODO: Add organism and known-status
+        """
+        x = 0
+        for value in drugbank_name_list:
+            drugbank_name = value
+            group = groups_list[x]
+
+            result = {
+                'drugbank_name': drugbank_name,
+                'approval_status': group,
+                'matching_target': test_target,
+                'organism': None,
+                'known-status': None
+            }
+            match_set.append(result)
+            x = x + 1
+
+    output = []
+    for element in match_set:
+        output.append(element['drugbank_name']+" (("+element['approval_status']+")) [["+element['matching_target']+"]]")
+    return output
+
+
+def include_alternative_drugs(matches, drugbank_df):
     logger.info("Inserting `alternative_approved_drugs` column into the matches dataframe...")
-    matches["alternative_approved_drugs"] = matches.apply(lambda row: "|".join(matches.loc[(row['targets'] == matches['targets']) & \
-                                          (row['drugbank_name'] != matches['drugbank_name']) & \
-                                           (matches["groups"].str.contains("approved")), 'drugbank_name'].to_list()),
-                                           axis=1
-                                        )
+    matches["alternative_approved_drugs"] = matches.apply(
+        lambda row, drugbank_df: "&&".join(
+            find_matching_drugs(row['targets'], drugbank_df)),
+        axis=1,
+        drugbank_df=drugbank_df
+    )
+
+    """
+    matches["alternative_approved_drugs"] = matches.apply(
+        lambda row, drugbank_df: "|".join(drugbank_df.loc[
+                                              (drugbank_df['targets'] == row['targets']) & \
+                                              (drugbank_df['drugbank_name'] != row[
+                                                  'drugbank_name']) & \
+                                              ("approved" in drugbank_df["groups"])
+                                              , 'drugbank_name'].to_list()
+                                          ),
+        axis=1,
+        drugbank_df=drugbank_df
+    )
+    """
     logger.info("Column insertion done")
     logger.info("Properties of column `alternative_approved_drugs`:")
     matches_backupfile = 'NF-drugbank-matches-with-alternatives.xlsx'
     logger.info("Creating backup Excel sheet - {file}...".format(file=matches_backupfile))
     matches.to_excel(matches_backupfile)
     logger.info("Backup done. {file} created".format(file=matches_backupfile))
-
-
-def get_drugname_by_target(target, drugbank_df):
-    for dbid in drugbank_df['drugbank_id'].to_list():
-        found_df = drugbank_df.loc[drugbank_df['drugbank_id'] == dbid]
-        found_targets = found_df['targets']
-        print(str(found_df['drugbank_name']) + ": "+str(found_targets.to_list()))
-def extend_matches(matches, drugbank_df):
-    for match in matches['drugbank_name'].tolist():
-        print(match)
-        #match_df = drugbank_df.loc[drugbank_df['drugbank_name'] == match]
-        initial_targets = matches.loc[matches['drugbank_name'] == match]
-        print(initial_targets)
-        match_df = drugbank_df.loc[drugbank_df['targets'].isin(initial_targets)]
-        names_df = match_df['drugbank_name']
-        names_dict = names_df.to_dict()
-        print(names_dict)
-    #
-    #     mask = drugbank_df['targets'].isin(matches['targets'])
-    #     drugbank_df['aliases_set'].apply(lambda x: matches['targets'].isin())
-    #     drugbank_df.loc[mask, 'collider_id'] = 1234
-    #     matches = drugbank_df.loc[drugbank_df['collider_id'] == 1234]
-    #
-    #     colliding_matches = drugbank_df.loc[]
-    #     matches['colliders'] = drugbank_df['targets'].apply(lambda x: set(
-    #         x.split('|')
-    #     ))
-    #
-    # colliding_matches.to_excel('colliding-matches.xlsx')
-
 
 if __name__ == "__main__":
     if not os.path.exists('drugbank_df.pkl'):
@@ -211,8 +238,5 @@ if __name__ == "__main__":
         matches.to_pickle("matches_df.pkl")
     else:
         matches = pd.read_pickle('matches_df.pkl')
-    #extend_matches(matches, drugbank_df)
-    target='Auranofin'
-    get_drugname_by_target(target, drugbank_df)
-    include_alternative_drugs(matches)
+    include_alternative_drugs(matches, drugbank_df)
     print("Done")
