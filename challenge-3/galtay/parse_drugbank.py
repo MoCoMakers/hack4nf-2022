@@ -153,6 +153,21 @@ def run_drugbank_on_supplemental_drugs(drugs_file, drugbank_df):
     return matches, drugbank_df
 
 
+def include_alternative_drugs(matches):
+    logger.info("Inserting `alternative_approved_drugs` column into the matches dataframe...")
+    matches["alternative_approved_drugs"] = matches.apply(lambda row: "|".join(matches.loc[(row['targets'] == matches['targets']) & \
+                                          (row['drugbank_name'] != matches['drugbank_name']) & \
+                                           (matches["groups"].str.contains("approved")), 'drugbank_name'].to_list()),
+                                           axis=1
+                                        )
+    logger.info("Column insertion done")
+    logger.info("Properties of column `alternative_approved_drugs`:")
+    matches_backupfile = 'NF-drugbank-matches-with-alternatives.xlsx'
+    logger.info("Creating backup Excel sheet - {file}...".format(file=matches_backupfile))
+    matches.to_excel(matches_backupfile)
+    logger.info("Backup done. {file} created".format(file=matches_backupfile))
+
+
 def get_drugname_by_target(target, drugbank_df):
     for dbid in drugbank_df['drugbank_id'].to_list():
         found_df = drugbank_df.loc[drugbank_df['drugbank_id'] == dbid]
@@ -199,4 +214,5 @@ if __name__ == "__main__":
     #extend_matches(matches, drugbank_df)
     target='Auranofin'
     get_drugname_by_target(target, drugbank_df)
+    include_alternative_drugs(matches)
     print("Done")
