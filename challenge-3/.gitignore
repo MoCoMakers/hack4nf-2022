@@ -132,3 +132,12 @@ secrets.json
 config.ini
 
 *.tsv
+
+.idea/*
+DB06194.xml
+NF-subset-drugbank-matches.xlsx
+NF-subset-drugbank.csv
+*.xlsx
+*.pkl
+supplemental_drugs.csv
+full_database.xml

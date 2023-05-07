@@ -1,4 +1,4 @@
-# Introduction
+I# Introduction
 
 This code can be used to analyze [high-throughput screening](https://en.wikipedia.org/wiki/High-throughput_screening)
 data from https://www.synapse.org/#!Synapse:syn5522627.
@@ -36,7 +36,7 @@ In order to securely download data from synapse you will need a personal access 
 Generate one by following the instructions at the links below, 
 
 * https://help.synapse.org/docs/Client-Configuration.1985446156.html
-* https://www.synapse.org/#!PersonalAccessTokens
+* [https://www.synapse.org/#!PersonalAccessTokens:](https://www.synapse.org/#!PersonalAccessTokens:)
 
 Next, copy `secrets.json.template` to the `SECRETS_PATH` specified in the `config.ini` file. 
 By default `SECRETS_PATH` = `DATA_PATH/secrets.json` but you can change 
