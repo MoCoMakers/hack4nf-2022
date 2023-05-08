@@ -138,7 +138,7 @@ def hts_compare(
         print("nrows after filtering R2: {}".format(df_hts.shape[0]))
 
     if eff_thresh is not None:
-        df_hts = df_hts[df_hts["EFF"] > eff_thresh]
+        df_hts = df_hts[df_hts["EFF"] >= eff_thresh]
         print("nrows after filtering EFF: {}".format(df_hts.shape[0]))
 
     # only keep compounds that were not filtered from either cell line
