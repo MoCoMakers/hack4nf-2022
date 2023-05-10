@@ -5,39 +5,38 @@ import plotly.graph_objects as go
 import seaborn as sns
 from plotly.subplots import make_subplots
 
-
 R2_THRESH = 0.80
 R_COLS = [f"DATA{i}" for i in range(0, 11)]
 C_COLS = [f"CONC{i}" for i in range(0, 11)]
 SHOW_COLS = [
-    "Cell line",
-    "NCGC SID",
-    "name",
-    "target",
-    "MoA",
-    "R2",
-    "AC50",
-    "HILL",
-    "INF",
-    "ZERO",
-    "MAXR",
-] + [
-    "EFF",
-    "EFF/AC50",
-    "log(EFF/AC50)",
-]
+                "Cell line",
+                "NCGC SID",
+                "name",
+                "target",
+                "MoA",
+                "R2",
+                "AC50",
+                "HILL",
+                "INF",
+                "ZERO",
+                "MAXR",
+            ] + [
+                "EFF",
+                "EFF/AC50",
+                "log(EFF/AC50)",
+            ]
 FIT_COLS = [
-    "R2",
-    "AC50",
-    "HILL",
-    "INF",
-    "ZERO",
-    "MAXR",
-] + [
-    "EFF",
-    "EFF/AC50",
-    "log(EFF/AC50)",
-]
+               "R2",
+               "AC50",
+               "HILL",
+               "INF",
+               "ZERO",
+               "MAXR",
+           ] + [
+               "EFF",
+               "EFF/AC50",
+               "log(EFF/AC50)",
+           ]
 BREWER_9_SET1 = [
     "#f781bf",
     "#a65628",
@@ -77,12 +76,11 @@ CELL_LINES = [
 CL_TO_COLOR = {cl: COLORS[ii] for ii, cl in enumerate(CELL_LINES)}
 
 
-
 def hts_read(
-    file_path,
-    source_dir="top",
-    filter_cell_lines=True,
-    filter_curve_cols=False,
+        file_path,
+        source_dir="top",
+        filter_cell_lines=True,
+        filter_curve_cols=False,
 ):
     if source_dir not in ["top", "matrix_portal_raw_data"]:
         raise ValueError()
@@ -100,6 +98,7 @@ def hts_add_vars(df_hts):
     # df_hts["EFF"] = df_hts["ZERO"] - df_hts["MAXR"]
     df_hts["EFF"] = df_hts["ZERO"] - df_hts["INF"]
     df_hts["EFF/AC50"] = df_hts["EFF"] / df_hts["AC50"]
+    print(df_hts["EFF/AC50"])
     df_hts["log(EFF/AC50)"] = np.log10(df_hts["EFF/AC50"])
     return df_hts
 
@@ -121,11 +120,11 @@ def ll4(c, h, inf, zero, ac50):
 
 
 def hts_compare(
-    df_hts_in,
-    ref_cell_line,
-    tumor_cell_line,
-    r2_thresh=None,
-    eff_thresh=None,
+        df_hts_in,
+        ref_cell_line,
+        tumor_cell_line,
+        r2_thresh=None,
+        eff_thresh=None,
 ):
     print("compariing ref={} and tumor={}".format(ref_cell_line, tumor_cell_line))
 
@@ -165,7 +164,6 @@ def hts_compare(
         df[f"ref_{col}"] = df_ref[col]
         df[f"tumor_{col}"] = df_tumor[col]
 
-
     df["AC50_r/t"] = df_ref["AC50"] / df_tumor["AC50"]
     df["log(AC50_r/t)"] = np.log10(df["AC50_r/t"])
 
@@ -183,12 +181,12 @@ def hts_compare(
 
 
 def get_measured_trace(
-    row,
-    marker_symbol="circle",
-    marker_size=7,
-    label=None,
-    showlegend=False,
-    color=None,
+        row,
+        marker_symbol="circle",
+        marker_size=7,
+        label=None,
+        showlegend=False,
+        color=None,
 ):
     cs = row[C_COLS].astype(float).values
     rs = row[R_COLS].astype(float).values
@@ -206,7 +204,7 @@ def get_measured_trace(
 
 
 def get_fit_trace(
-    row, label=None, showlegend=False, color=None, line_width=2, line_dash="dot"
+        row, label=None, showlegend=False, color=None, line_width=2, line_dash="dot"
 ):
     cs = row[C_COLS].astype(float).values
     fit_rs = ll4(
@@ -230,14 +228,14 @@ def get_fit_trace(
 
 
 def get_vert_trace(
-    row,
-    key,
-    label=None,
-    showlegend=False,
-    color=None,
-    ymax=140,
-    line_width=1,
-    line_dash="dot",
+        row,
+        key,
+        label=None,
+        showlegend=False,
+        color=None,
+        ymax=140,
+        line_width=1,
+        line_dash="dot",
 ):
     tr = go.Scatter(
         x=[row[key]] * 2,
@@ -253,14 +251,14 @@ def get_vert_trace(
 
 
 def get_horiz_trace(
-    row,
-    key,
-    label=None,
-    showlegend=False,
-    color=None,
-    xmax=None,
-    line_width=1,
-    line_dash="dot",
+        row,
+        key,
+        label=None,
+        showlegend=False,
+        color=None,
+        xmax=None,
+        line_width=1,
+        line_dash="dot",
 ):
     tr = go.Scatter(
         x=[0, xmax],
@@ -276,24 +274,24 @@ def get_horiz_trace(
 
 
 def fig_add_compound(
-    fig,
-    row,
-    color="white",
-    params_color=None,
-    measured_color=None,
-    fit_color=None,
-    annotations_color=None,
-    symbol="circle",
-    add_measured=True,
-    add_fit=True,
-    add_params=True,
-    add_annotations=True,
-    showlegend=False,
-    legend_name=None,
-    xmin=-3.5,
-    xmax=2.2,
-    ymin=0,
-    ymax=140,
+        fig,
+        row,
+        color="white",
+        params_color=None,
+        measured_color=None,
+        fit_color=None,
+        annotations_color=None,
+        symbol="circle",
+        add_measured=True,
+        add_fit=True,
+        add_params=True,
+        add_annotations=True,
+        showlegend=False,
+        legend_name=None,
+        xmin=-3.5,
+        xmax=2.2,
+        ymin=0,
+        ymax=140,
 ):
     params_color = params_color or color
     measured_color = measured_color or color
@@ -302,8 +300,8 @@ def fig_add_compound(
 
     if add_params:
         tr_ac50 = get_vert_trace(row, "AC50", color=params_color, ymax=ymax)
-        tr_inf = get_horiz_trace(row, "INF", color=params_color, xmax=10**xmax)
-        tr_zero = get_horiz_trace(row, "ZERO", color=params_color, xmax=10**xmax)
+        tr_inf = get_horiz_trace(row, "INF", color=params_color, xmax=10 ** xmax)
+        tr_zero = get_horiz_trace(row, "ZERO", color=params_color, xmax=10 ** xmax)
         for tr in [tr_ac50, tr_zero, tr_inf]:
             fig.add_trace(tr)
 
@@ -375,18 +373,18 @@ def get_single_cellline_single_compound_title(row):
 
 
 def fig_update_layout(
-    fig,
-    margin,
-    title="",
-    axes_color="black",
-    xmin=-3.5,
-    xmax=2.2,
-    ymin=0,
-    ymax=140,
-    width=600,
-    height=650,
-    global_font_size=12,
-    title_font_size=None,
+        fig,
+        margin,
+        title="",
+        axes_color="black",
+        xmin=-3.5,
+        xmax=2.2,
+        ymin=0,
+        ymax=140,
+        width=600,
+        height=650,
+        global_font_size=12,
+        title_font_size=None,
 ):
     fig.update_layout(
         title=dict(
@@ -426,3 +424,37 @@ def fig_update_layout(
     )
 
     return fig
+
+
+if __name__ == "__main__":
+    file_path = "../data_prep/syn5522627-clean.csv"
+    df_hts = hts_read(file_path)
+    df_hts = hts_add_vars(df_hts)
+
+    print(df_hts.columns)
+
+    print(df_hts["Cell line"].value_counts())
+
+    cell_lines = sorted(list(df_hts["Cell line"].unique()))
+    print(cell_lines)
+
+    ref_line = cell_lines[-1]  # ipnNF95.11C
+    tumor_line = cell_lines[3]  # ipNF05.5 Mixed Clones
+    tumor_line = cell_lines[5]  # ipNF06.2A
+    df_ratios = hts_compare(df_hts, ref_line, tumor_line)
+
+    print("Looking at ratios Data Frame:")
+    print(df_ratios.columns)
+    # print(df_ratios.head())
+    # df_drug = df_ratios[df_ratios['name'] == 'DCC-2036']
+    df_drug = df_ratios[df_ratios['name'] == "Temocapril hydrochloride"]
+
+    print(df_drug.columns)
+
+    ref_AC50 = df_drug['ref_AC50'].values[0]
+    tumor_AC50 = df_drug['tumor_AC50'].values[0]
+    logEFFAC50rt = df_drug['log(EFF/AC50_r/t)'].values[0]
+    print('ref_AC50: ' + str(ref_AC50))
+    print('tumor_AC50: ' + str(tumor_AC50))
+    print('log(EFF/AC50_r/t): ' + str(logEFFAC50rt))
+    print(df_drug.to_string())

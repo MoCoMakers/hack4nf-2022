@@ -141,3 +141,4 @@ NF-subset-drugbank.csv
 *.pkl
 supplemental_drugs.csv
 full_database.xml
+*.jsonl

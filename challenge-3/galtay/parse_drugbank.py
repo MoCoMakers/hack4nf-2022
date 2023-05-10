@@ -30,10 +30,11 @@ import single_agent_screens as sas
 
 config_file_path = "sas_config.toml"
 xml_file = "full_database.xml"
+drugbank_as_jsonl_file = "drugbank-2022-01-03.jsonl"
 supplemental_drugs_file = "supplemental_drugs.csv"
 
 
-def load_drugbank_values(xml_file):
+def load_drugbank_values(xml_file, drugbank_as_jsonl_file=None):
     tree = ET.parse(xml_file)
     root = tree.getroot()
 
@@ -41,6 +42,12 @@ def load_drugbank_values(xml_file):
     inchikey_template = "{ns}calculated-properties/{ns}property[{ns}kind='InChIKey']/{ns}value"
     inchi_template = "{ns}calculated-properties/{ns}property[{ns}kind='InChI']/{ns}value"
 
+    jsonl_data = None
+    if drugbank_as_jsonl_file:
+        with open(drugbank_as_jsonl_file) as f:
+            jsonl_data = [json.loads(line) for line in f]
+
+    row_index = 0
     rows = list()
     for i, drug in enumerate(root):
         row = collections.OrderedDict()
@@ -71,13 +78,65 @@ def load_drugbank_values(xml_file):
         row['interactions'] = sorted(interactions)
 
         # Add Targets
-        # Add Targets
-        targets = {
-            elem.text for elem in
-            drug.findall("{ns}targets/{ns}target/{ns}name".format(ns=ns)) +
-            drug.findall("{ns}targets/{ns}target/{ns}actions/{ns}action".format(ns=ns))
-        }
-        row['targets'] = sorted(targets)
+        if jsonl_data:
+            json_drug = jsonl_data[row_index]
+            json_drugbank_id = json_drug['drugbank-id'][0]['#text']
+            if json_drugbank_id != row['drugbank_id']:
+                print(json_drug['drugbank-id'])
+                print(row['drugbank_id'])
+                raise Exception('Invalid JSON to XML row alignment at row_index:' + str(row_index))
+
+            json_targets = json_drug['targets']
+            target_dict = {}
+            targets_list = []
+
+            if len(json_targets.keys()) == 1:
+                targets_list = [json_targets]
+            else:
+                targets_list = json_targets
+
+            for target in targets_list:
+                target = target['target']
+                target_name = target['name']
+                target_id = target['id']
+                actions = target['actions']
+                organism = target['organism']
+                known_action = target['known-action']
+                references = target['references']
+                reference_list = []
+
+                if len(references.keys()) == 4 and 'articles' in references.keys():
+                    references_as_list = [references]
+                else:
+                    references_as_list = references
+                for reference in references_as_list:
+                    print(references_as_list)
+                    articles = reference['articles']
+
+                    if len(articles.keys())==1:
+                        articles_as_list = [articles]
+                    else:
+                        articles_as_list = articles
+                    for article in articles_as_list:
+                        if 'pubmed-id' in article.keys():
+                            reference_list.append(article['pubmed-id'])
+
+                target_dict = {'target_name': target_name,
+                               'target_id': target_id,
+                               'actions': actions,
+                               'organism': organism,
+                               'known_action': known_action,
+                               'reference_list': reference_list
+                               }
+
+            row['targets'] = json.dumps(target_dict)
+        else:
+            targets = {
+                elem.text for elem in
+                drug.findall("{ns}targets/{ns}target/{ns}name".format(ns=ns)) +
+                drug.findall("{ns}targets/{ns}target/{ns}actions/{ns}action".format(ns=ns))
+            }
+            row['targets'] = sorted(targets)
 
         # Add drug aliases
         aliases = {
@@ -91,6 +150,7 @@ def load_drugbank_values(xml_file):
         row['aliases'] = sorted(aliases)
 
         rows.append(row)
+        row_index = row_index + 1
     return rows
 
 
@@ -156,8 +216,6 @@ def run_drugbank_on_supplemental_drugs(drugs_file, drugbank_df):
 def find_matching_drugs(search_targets, drugbank_df):
     match_set = []
     search_targets = search_targets.split('|')
-    print(search_targets)
-    print("Showing row")
     values = None
     for test_target in search_targets:
         if test_target == "inhibitor" or test_target == "":
@@ -191,7 +249,8 @@ def find_matching_drugs(search_targets, drugbank_df):
 
     output = []
     for element in match_set:
-        output.append(element['drugbank_name']+" (("+element['approval_status']+")) [["+element['matching_target']+"]]")
+        output.append(
+            element['drugbank_name'] + " ((" + element['approval_status'] + ")) [[" + element['matching_target'] + "]]")
     return output
 
 
@@ -204,19 +263,6 @@ def include_alternative_drugs(matches, drugbank_df):
         drugbank_df=drugbank_df
     )
 
-    """
-    matches["alternative_approved_drugs"] = matches.apply(
-        lambda row, drugbank_df: "|".join(drugbank_df.loc[
-                                              (drugbank_df['targets'] == row['targets']) & \
-                                              (drugbank_df['drugbank_name'] != row[
-                                                  'drugbank_name']) & \
-                                              ("approved" in drugbank_df["groups"])
-                                              , 'drugbank_name'].to_list()
-                                          ),
-        axis=1,
-        drugbank_df=drugbank_df
-    )
-    """
     logger.info("Column insertion done")
     logger.info("Properties of column `alternative_approved_drugs`:")
     matches_backupfile = 'NF-drugbank-matches-with-alternatives.xlsx'
@@ -224,9 +270,11 @@ def include_alternative_drugs(matches, drugbank_df):
     matches.to_excel(matches_backupfile)
     logger.info("Backup done. {file} created".format(file=matches_backupfile))
 
+
 if __name__ == "__main__":
+    logger.info("Starting local run")
     if not os.path.exists('drugbank_df.pkl'):
-        rows = load_drugbank_values(xml_file)
+        rows = load_drugbank_values(xml_file, drugbank_as_jsonl_file)
         drugbank_df = rows_to_df(rows)
         drugbank_df.to_pickle("drugbank_df.pkl")
     else:
